@@ -1,26 +1,32 @@
+import { usePage } from "@inertiajs/inertia-react";
 import React from "react";
-import styled from "styled-components";
-
-const Container = styled.div`
-  height: 100%;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-`;
+import { IPageProps } from "../lib/types";
+import useTitle from "../lib/use-title";
 
 const Index: React.FC = () => {
+  const { props: { authenticated, user } } = usePage<IPageProps>();
+  useTitle(user.name);
+
   return (
-    <Container>
-      <div>
-        <div>
-          <a href="/login">Login</a>
-        </div>
-        <div>
-          <a href="/register">Register</a>
-        </div>
+    <div className="container-flex-center">
+      <div className="box" style={{ maxWidth: "700px" }}>
+        {!authenticated
+          ? <>
+            <div>
+              <a href="/auth/login">Login</a>
+            </div>
+            <div>
+              <a href="/auth/register">Register</a>
+            </div>
+          </>
+          : <div>
+            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <div style={{ marginTop: "30px" }}>
+              <a className="button--primary" href="/auth/logout">Logout</a>
+            </div>
+          </div>}
       </div>
-    </Container>
+    </div>
   );
 };
 
