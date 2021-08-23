@@ -211,6 +211,14 @@ textarea {
   border-radius: 2px;
 }
 
+input[disabled],
+button[disabled],
+textarea[disabled] {
+  background: var(--color-wash);
+  color: var(--color-light);
+  cursor: not-allowed;
+}
+
 input[type="email"]:focus,
 input[type="password"]:focus,
 input[type="text"]:focus,

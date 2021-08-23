@@ -1,5 +1,5 @@
 import React from "react";
-import { useForm } from "@inertiajs/inertia-react";
+import { Link, useForm } from "@inertiajs/inertia-react";
 import useTitle from "../../lib/use-title";
 import TextInput from "../../components/TextInput";
 
@@ -32,6 +32,7 @@ const Register: React.FC = () => {
             label="Name"
             placeholder="John Doe"
             type="text"
+            value={data.name}
             disabled={processing}
             error={errors.name}
             onChange={handleChange}
@@ -42,6 +43,7 @@ const Register: React.FC = () => {
             label="Email"
             placeholder="john@example.com"
             type="email"
+            value={data.email}
             disabled={processing}
             error={errors.email}
             onChange={handleChange}
@@ -52,13 +54,14 @@ const Register: React.FC = () => {
             label="Password"
             placeholder="sup3rs3cr3tp4ssw0rd"
             type="password"
+            value={data.password}
             disabled={processing}
             error={errors.password}
             onChange={handleChange}
           />
 
           <div className="input-group">
-            <div className="note">Already have an account? <a href="/auth/login">Login</a></div>
+            <div className="note">Already have an account? <Link href="/auth/login">Login</Link></div>
           </div>
 
           <div className="input-group">

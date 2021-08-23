@@ -1,11 +1,11 @@
-import { usePage } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import React from "react";
 import { IPageProps } from "../lib/types";
 import useTitle from "../lib/use-title";
 
 const Index: React.FC = () => {
   const { props: { authenticated, user } } = usePage<IPageProps>();
-  useTitle(user.name);
+  authenticated ? useTitle(user.name) : useTitle('Home');
 
   return (
     <div className="container-flex-center">
@@ -13,16 +13,16 @@ const Index: React.FC = () => {
         {!authenticated
           ? <>
             <div>
-              <a href="/auth/login">Login</a>
+              <Link href="/auth/login">Login</Link>
             </div>
             <div>
-              <a href="/auth/register">Register</a>
+              <Link href="/auth/register">Register</Link>
             </div>
           </>
           : <div>
             <pre>{JSON.stringify(user, null, 2)}</pre>
             <div style={{ marginTop: "30px" }}>
-              <a className="button--primary" href="/auth/logout">Logout</a>
+              <Link className="button--primary" href="/auth/logout">Logout</Link>
             </div>
           </div>}
       </div>

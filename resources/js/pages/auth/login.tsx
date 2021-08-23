@@ -1,4 +1,4 @@
-import { useForm } from "@inertiajs/inertia-react";
+import { Link, useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import TextInput from "../../components/TextInput";
 import useTitle from "../../lib/use-title";
@@ -57,7 +57,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
             </div>}
 
           <div className="input-group">
-            <div className="note">Don't have an account? <a href="/auth/register">Register</a></div>
+            <div className="note">Don't have an account? <Link href="/auth/register">Register</Link></div>
           </div>
 
           <div className="input-group">
