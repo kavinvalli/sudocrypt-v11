@@ -22,30 +22,45 @@ Route::get('/', function () {
   return Inertia::render('index');
 })->name('home');
 
-// ----- Authentication ----- 
-Route::get('/auth/register', [AuthController::class, 'registerShow'])
+// ----- Authentication -----
+Route::prefix('/auth')
   ->middleware(['guest'])
-  ->name('register');
-Route::get('/auth/login', [AuthController::class, 'loginShow'])
-  ->middleware(['guest'])
-  ->name('login');
-Route::post('/auth/register', [AuthController::class, 'register'])
-  ->middleware(['guest']);
-Route::post('/auth/login', [AuthController::class, 'login'])
-  ->middleware(['guest']);
+  ->name('auth.')
+  ->group(function () {
+    Route::get('/register', [AuthController::class, 'registerShow'])
+      ->name('register');
+    Route::get('/login', [AuthController::class, 'loginShow'])
+      ->name('login');
+    Route::post('/register', [AuthController::class, 'register'])
+      ->name('handleRegister');
+    Route::post('/login', [AuthController::class, 'login'])
+      ->name('handleLogin');
+
+    // ----- Social Authentication -----
+    Route::prefix('/social')
+      ->name('social.')
+      ->group(function () {
+        Route::prefix('/github')
+          ->name('github.')
+          ->group(function () {
+            Route::get('/', [SocialAuthController::class, 'githubRedirect'])
+              ->name('redirect');
+            Route::get('/callback', [SocialAuthController::class, 'githubCallback'])
+              ->name('callback');
+          });
+        Route::prefix('/google')
+          ->name('google.')
+          ->group(function () {
+            Route::get('/', [SocialAuthController::class, 'googleRedirect'])
+              ->name('redirect');
+            Route::get('/callback', [SocialAuthController::class, 'googleCallback'])
+              ->name('callback');
+          });
+      });
+  });
 Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
-  ->name('logout');
-
-// ----- Social Authentication -----
-Route::get('/auth/social/github', [SocialAuthController::class, 'githubRedirect'])
-  ->middleware(['guest']);
-Route::get('/auth/social/github/callback', [SocialAuthController::class, 'githubCallback'])
-  ->middleware(['guest']);
-Route::get('/auth/social/google', [SocialAuthController::class, 'googleRedirect'])
-  ->middleware(['guest']);
-Route::get('/auth/social/google/callback', [SocialAuthController::class, 'googleCallback'])
-  ->middleware(['guest']);
+  ->name('auth.logout');
 
 if (App::environment('local')) {
   Route::get('/authn', function () {
