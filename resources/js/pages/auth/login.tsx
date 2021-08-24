@@ -1,5 +1,6 @@
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React from "react";
+import { SignInWithGithub, SignInWithGoogle } from "../../components/SocialButton";
 import TextInput from "../../components/TextInput";
 import useTitle from "../../lib/use-title";
 
@@ -20,8 +21,8 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
     (e: React.ChangeEvent<HTMLInputElement>) => setData(e.target.name as any, e.target.value);
 
   return (
-    <div className="container-flex-center">
-      <div className="box">
+    <div className="container-flex-center full-page">
+      <div className="box responsive">
         <h1>Login</h1>
         <form
           onSubmit={(e: React.SyntheticEvent) => {
@@ -60,12 +61,28 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
             <div className="note">Don't have an account? <Link href="/auth/register">Register</Link></div>
           </div>
 
-          <div className="input-group">
+          <div className="input-group container-flex-center">
             <button type="submit" className="button--primary" disabled={processing}>
               Login
             </button>
           </div>
         </form>
+
+        <div
+          className="input-group"
+          style={{
+            textAlign: "center",
+            fontWeight: "bold",
+            color: "var(--color-light)",
+            fontSize: "0.9rem"
+          }}>
+          OR
+        </div>
+
+        <div className="social">
+          <SignInWithGithub />
+          <SignInWithGoogle />
+        </div>
       </div>
     </div>
   );

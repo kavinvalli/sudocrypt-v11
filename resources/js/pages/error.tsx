@@ -1,11 +1,16 @@
 import React from "react";
 
-const Error: React.FC<{ status: number }> = ({ status }) => {
+interface IErrorProps {
+  status: number;
+  message?: string;
+}
+
+const Error: React.FC<IErrorProps> = ({ status, message }: IErrorProps) => {
   return (
     <div className="container-flex-center">
       <div className="box">
         <h1>{status}</h1>
-        <p>An error occured</p>
+        {message ? <p>{message}</p> : <p>An error occured</p>}
       </div>
     </div>
   );

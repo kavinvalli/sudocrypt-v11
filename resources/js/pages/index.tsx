@@ -20,7 +20,12 @@ const Index: React.FC = () => {
             </div>
           </>
           : <div>
-            <pre>{JSON.stringify(user, null, 2)}</pre>
+            <pre style={{
+              whiteSpace: 'pre-wrap',
+              wordWrap: 'break-word',
+            }}>
+              {JSON.stringify(user, null, 2)}
+            </pre>
             <div style={{ marginTop: "30px" }}>
               <Link className="button--primary" href="/auth/logout">Logout</Link>
             </div>

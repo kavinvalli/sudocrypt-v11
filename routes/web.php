@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -35,6 +36,16 @@ Route::post('/auth/login', [AuthController::class, 'login'])
 Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
   ->name('logout');
+
+// ----- Social Authentication -----
+Route::get('/auth/social/github', [SocialAuthController::class, 'githubRedirect'])
+  ->middleware(['guest']);
+Route::get('/auth/social/github/callback', [SocialAuthController::class, 'githubCallback'])
+  ->middleware(['guest']);
+Route::get('/auth/social/google', [SocialAuthController::class, 'googleRedirect'])
+  ->middleware(['guest']);
+Route::get('/auth/social/google/callback', [SocialAuthController::class, 'googleCallback'])
+  ->middleware(['guest']);
 
 if (App::environment('local')) {
   Route::get('/authn', function () {
