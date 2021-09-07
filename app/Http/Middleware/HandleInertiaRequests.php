@@ -58,7 +58,8 @@ class HandleInertiaRequests extends Middleware
           'admin',
           'disqualified',
           'level',
-          'circle'
+          'circle',
+          'points'
         )
         : null,
       'auth.user.created' => fn () => Auth::check()
