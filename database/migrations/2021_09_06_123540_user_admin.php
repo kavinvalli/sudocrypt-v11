@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserSocial extends Migration
+class UserAdmin extends Migration
 {
   /**
    * Run the migrations.
@@ -13,8 +13,8 @@ class UserSocial extends Migration
    */
   public function up()
   {
-    Schema::table('users', function (Blueprint $table) {
-      $table->string('institution');
+    Schema::table('users', function (Blueprint $user) {
+      $user->boolean('admin')->default(false);
     });
   }
 
@@ -26,7 +26,7 @@ class UserSocial extends Migration
   public function down()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->dropColumn('institution');
+      $table->dropColumn('admin');
     });
   }
 }

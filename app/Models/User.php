@@ -23,10 +23,14 @@ class User extends Authenticatable
     'name',
     'email',
     'password',
-    'provider',
-    'social_id',
-    'social_username',
-    'social_avatar'
+    'institution',
+    'username',
+    'discord_id',
+    'discord_email',
+    'discord_username',
+    'discord_discriminator',
+    'admin',
+    'disqualified'
   ];
 
   /**

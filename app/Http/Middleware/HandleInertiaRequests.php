@@ -38,6 +38,32 @@ class HandleInertiaRequests extends Middleware
   public function share(Request $request)
   {
     return array_merge(parent::share($request), [
+      'dates' => [
+        'start' => env('START_TIME'),
+        'end' => env('END_TIME')
+      ],
+      'started' => \Carbon\Carbon::parse(env('START_TIME'))
+        ->lt(\Carbon\Carbon::now('Asia/Kolkata')),
+      'ended' => \Carbon\Carbon::parse(env('END_TIME'))
+        ->lt(\Carbon\Carbon::now('Asia/Kolkata')),
+      'auth.authenticated' => fn () => Auth::check(),
+      'auth.user' => fn () => Auth::check()
+        ? $request->user()->only(
+          'username',
+          'email',
+          'name',
+          'institution',
+          'discord_username',
+          'discord_discriminator',
+          'admin',
+          'disqualified',
+          'level',
+          'circle'
+        )
+        : null,
+      'auth.user.created' => fn () => Auth::check()
+        ? $request->user()->only('created_at')['created_at']->diffForHumans()
+        : null,
       'user' => Auth::user(),
       'authenticated' => Auth::check()
     ]);

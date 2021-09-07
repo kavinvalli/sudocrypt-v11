@@ -85,4 +85,41 @@ class SocialAuthController extends Controller
     Auth::login($user, true);
     return Redirect::to('/');
   }
+
+  public function discordRedirect()
+  {
+    return Socialite::driver('discord')
+      ->redirect();
+  }
+
+  public function discordCallback()
+  {
+    $socialiteUser = Socialite::driver('discord')->user();
+
+    try {
+      $user = User::firstOrCreate([
+        'provider' => 'discord',
+        'social_id' => $socialiteUser->id
+      ], [
+        'email' => $socialiteUser->email,
+        'name' => $socialiteUser->name,
+        'provider' => 'google',
+        'social_id' => $socialiteUser->id,
+        'social_username' => $socialiteUser->nickname,
+        'social_avatar' => $socialiteUser->avatar
+      ]);
+    } catch (\Illuminate\Database\QueryException $e) {
+      // Duplicate Entry
+      if ($e->errorInfo[1] == 1062) {
+        return Inertia::render('auth/login', [
+          'error' => 'You already have an account with that email, please sign in with the appropriate provider'
+        ]);
+      }
+
+      throw $e;
+    }
+
+    Auth::login($user, true);
+    return Redirect::to('/');
+  }
 }

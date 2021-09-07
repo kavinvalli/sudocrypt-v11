@@ -40,6 +40,12 @@ return [
     'client_id' => env('GOOGLE_CLIENT_ID'),
     'client_secret' => env('GOOGLE_CLIENT_SECRET'),
     'redirect' => '/auth/social/google/callback',
+  ],
+
+  'discord' => [
+    'client_id' => env(''),
+    'client_secret' => env('GOOGLE_CLIENT_SECRET'),
+    'redirect' => '/auth/social/google/callback',
   ]
 
 ];

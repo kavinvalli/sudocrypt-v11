@@ -108,4 +108,13 @@ return [
 
     'password_timeout' => 10800,
 
+    /*
+    |--------------------------------------------------------------------------
+    | Discord OAuth Keys
+    |--------------------------------------------------------------------------
+    */
+
+    'discord_oauth_client_id' => env('DISCORD_CLIENT_ID'),
+    'discord_oauth_client_secret' => env('DISCORD_CLIENT_SECRET')
+
 ];

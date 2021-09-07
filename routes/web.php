@@ -3,6 +3,8 @@
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\DiscordController;
+use App\Http\Controllers\IndexController;
 use App\Http\Controllers\SocialAuthController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
@@ -18,9 +20,11 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', function () {
-  return Inertia::render('index');
-})->name('home');
+/* Route::get('/', function () { */
+/*   return Inertia::render('index'); */
+/* })->name('home'); */
+
+Route::get('/', [IndexController::class, 'show']);
 
 // ----- Authentication -----
 Route::prefix('/auth')
@@ -56,11 +60,25 @@ Route::prefix('/auth')
             Route::get('/callback', [SocialAuthController::class, 'googleCallback'])
               ->name('callback');
           });
+        Route::prefix('/discord')
+          ->name('discord.')
+          ->group(function () {
+            Route::get('/', [SocialAuthController::class, 'discordRedirect'])
+              ->name('redirect');
+            Route::get('/callback', [SocialAuthController::class, 'discordCallback'])
+              ->name('callback');
+          });
       });
   });
+
 Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
   ->name('auth.logout');
+
+Route::get('/connectdiscord', [DiscordController::class, 'redirect'])
+  ->middleware(['auth']);
+Route::get('/connectdiscord/callback', [DiscordController::class, 'callback'])
+  ->middleware(['auth']);
 
 if (App::environment('local')) {
   Route::get('/authn', function () {

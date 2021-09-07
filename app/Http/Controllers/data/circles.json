@@ -1,0 +1,62 @@
+[
+  {
+    "id": 0,
+    "name": "Earth",
+    "onlyOneLevel": true
+  },
+  {
+    "id": 1,
+    "name": "Limbo",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 2,
+    "name": "Desire",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 3,
+    "name": "Gluttony",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 4,
+    "name": "Greed",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 5,
+    "name": "Anger",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 6,
+    "name": "Heresy",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 7,
+    "name": "Violence",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 8,
+    "name": "Fraud",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 9,
+    "name": "Treachery",
+    "onlyOneLevel": false
+  },
+  {
+    "id": 10,
+    "name": "Purgatory",
+    "onlyOneLevel": true
+  },
+  {
+    "id": 11,
+    "name": "Paradise",
+    "onlyOneLevel": true
+  }
+]

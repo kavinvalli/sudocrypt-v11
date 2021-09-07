@@ -1,5 +1,5 @@
 /* From react-use <https://github.com/streamich/react-use/blob/master/src/useTitle.ts> */
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef } from "react";
 
 export interface UseTitleOptions {
   restoreOnUnmount?: boolean;
@@ -9,8 +9,11 @@ const DEFAULT_USE_TITLE_OPTIONS: UseTitleOptions = {
   restoreOnUnmount: false,
 };
 
-function useTitle(title: string, options: UseTitleOptions = DEFAULT_USE_TITLE_OPTIONS) {
-  title = `${title} | LIRET`;
+function useTitle(
+  title: string,
+  options: UseTitleOptions = DEFAULT_USE_TITLE_OPTIONS
+) {
+  title = `${title} | Sudocrypt v11.0`;
 
   const prevTitleRef = useRef(document.title);
   document.title = title;
@@ -25,4 +28,6 @@ function useTitle(title: string, options: UseTitleOptions = DEFAULT_USE_TITLE_OP
   }, []);
 }
 
-export default typeof document !== 'undefined' ? useTitle : (_title: string) => { };
+export default typeof document !== "undefined"
+  ? useTitle
+  : (_title: string) => {};
