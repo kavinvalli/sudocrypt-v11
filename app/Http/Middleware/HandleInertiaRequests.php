@@ -2,6 +2,8 @@
 
 namespace App\Http\Middleware;
 
+use App\Models\Circle;
+use App\Models\Level;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Inertia\Middleware;
@@ -49,6 +51,7 @@ class HandleInertiaRequests extends Middleware
       'auth.authenticated' => fn () => Auth::check(),
       'auth.user' => fn () => Auth::check()
         ? $request->user()->only(
+          'id',
           'username',
           'email',
           'name',
@@ -57,15 +60,15 @@ class HandleInertiaRequests extends Middleware
           'discord_discriminator',
           'admin',
           'disqualified',
-          'level',
-          'circle',
-          'points'
+          'points',
+          'level'
         )
         : null,
-      'auth.user.created' => fn () => Auth::check()
-        ? $request->user()->only('created_at')['created_at']->diffForHumans()
-        : null,
-      'user' => Auth::user(),
+      /* 'auth.user.created' => fn () => Auth::check() */
+      /*   ? $request->user()->only('created_at')['created_at']->diffForHumans() */
+      /*   : null, */
+      /* 'user' => Auth::user(), */
+      'circle' => Auth::check() ? Circle::find(Auth::user()->circle) : null,
       'authenticated' => Auth::check()
     ]);
   }

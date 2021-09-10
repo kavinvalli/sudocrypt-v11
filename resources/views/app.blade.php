@@ -11,7 +11,7 @@
   <title>Sudocrypt v11.0</title>
 </head>
 
-<body>
+<body class="font-mono">
   @inertia
 </body>
 

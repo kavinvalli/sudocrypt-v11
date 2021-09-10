@@ -1,7 +1,9 @@
+import "./bootstrap";
 import { InertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import React from "react";
 import { render } from "react-dom";
+import {ToastProvider} from "react-toast-notifications";
 import Layout from "./components/Layout";
 
 const app = document.getElementById("app");
@@ -23,12 +25,14 @@ InertiaProgress.init({
 
 render(
   <Layout>
-    <InertiaApp
-      initialPage={JSON.parse(app.dataset.page)}
-      resolveComponent={(name) =>
-        import(`./pages/${name}.tsx`).then((module) => module.default)
-      }
-    />
+    <ToastProvider>
+      <InertiaApp
+        initialPage={JSON.parse(app.dataset.page)}
+        resolveComponent={(name) =>
+          import(`./pages/${name}.tsx`).then((module) => module.default)
+        }
+      />
+    </ToastProvider>
   </Layout>,
   app
 );

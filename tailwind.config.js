@@ -1,3 +1,5 @@
+const defaultTheme = require("tailwindcss/defaultTheme");
+
 module.exports = {
   purge: [
     "./resources/**/*.blade.php",
@@ -12,8 +14,11 @@ module.exports = {
     extend: {
       colors: {
         dark: "#181818",
-        sudo: "#1D9DE5",
+        sudo: "#FD1F4A",
       },
+      fontFamily: {
+        mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
+      }
     },
   },
   variants: {

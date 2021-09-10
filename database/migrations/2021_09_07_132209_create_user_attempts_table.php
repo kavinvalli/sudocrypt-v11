@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\Circle;
 use App\Models\Level;
 use App\Models\User;
 use Illuminate\Database\Migrations\Migration;
@@ -19,6 +20,7 @@ class CreateUserAttemptsTable extends Migration
       $table->id();
       $table->timestamps();
       $table->foreignIdFor(Level::class);
+      $table->foreignIdFor(Circle::class);
       $table->foreignIdFor(User::class);
       $table->string('attempt');
     });

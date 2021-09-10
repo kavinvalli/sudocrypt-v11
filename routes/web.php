@@ -1,11 +1,17 @@
 <?php
 
+use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
+use App\Http\Controllers\CircleController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\IndexController;
-use App\Http\Controllers\SocialAuthController;
+use App\Http\Controllers\LeaderboardController;
+use App\Http\Controllers\LevelController;
+use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ShortlinkController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
 
@@ -24,7 +30,14 @@ use Illuminate\Support\Facades\Auth;
 /*   return Inertia::render('index'); */
 /* })->name('home'); */
 
-Route::get('/', [IndexController::class, 'show']);
+Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
+Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
+Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['auth', 'dq']);
+
+Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
+
+Route::post('/play', [IndexController::class, 'play'])->middleware(['auth', 'dq']);
+Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->middleware(['auth', 'dq']);
 
 // ----- Authentication -----
 Route::prefix('/auth')
@@ -39,36 +52,6 @@ Route::prefix('/auth')
       ->name('handleRegister');
     Route::post('/login', [AuthController::class, 'login'])
       ->name('handleLogin');
-
-    // ----- Social Authentication -----
-    Route::prefix('/social')
-      ->name('social.')
-      ->group(function () {
-        Route::prefix('/github')
-          ->name('github.')
-          ->group(function () {
-            Route::get('/', [SocialAuthController::class, 'githubRedirect'])
-              ->name('redirect');
-            Route::get('/callback', [SocialAuthController::class, 'githubCallback'])
-              ->name('callback');
-          });
-        Route::prefix('/google')
-          ->name('google.')
-          ->group(function () {
-            Route::get('/', [SocialAuthController::class, 'googleRedirect'])
-              ->name('redirect');
-            Route::get('/callback', [SocialAuthController::class, 'googleCallback'])
-              ->name('callback');
-          });
-        Route::prefix('/discord')
-          ->name('discord.')
-          ->group(function () {
-            Route::get('/', [SocialAuthController::class, 'discordRedirect'])
-              ->name('redirect');
-            Route::get('/callback', [SocialAuthController::class, 'discordCallback'])
-              ->name('callback');
-          });
-      });
   });
 
 Route::get('/auth/logout', [AuthController::class, 'destroy'])
@@ -79,6 +62,41 @@ Route::get('/connectdiscord', [DiscordController::class, 'redirect'])
   ->middleware(['auth']);
 Route::get('/connectdiscord/callback', [DiscordController::class, 'callback'])
   ->middleware(['auth']);
+
+Route::get('/admin', [AdminController::class, 'show'])->middleware(['auth', 'admin']);
+
+Route::resource('/admin/shortlinks', ShortlinkController::class)
+  ->only(['index', 'store', 'destroy'])
+  ->middleware(['web', 'auth', 'admin']);
+
+Route::get('/admin/users', [UserController::class, 'index'])
+  ->middleware(['auth', 'admin'])
+  ->name('users.index');
+
+
+Route::get('/admin/users/{user}', [UserController::class, 'showAdmin'])
+  ->middleware(['auth', 'admin'])
+  ->name('users.show');
+
+Route::post('/admin/users/{user}/dq', [UserController::class, 'disqualify'])
+  ->middleware(['auth', 'admin'])
+  ->name('users.disqualify');
+
+/* Route::get('/admin/circles', [CircleController::class, 'show']) */
+/*   ->middleware(['auth, admin']); */
+
+Route::get('/admin/circles', [CircleController::class, 'show'])
+  ->middleware(['auth', 'admin']);
+
+Route::resource('/admin/levels', LevelController::class)
+  ->only(['index', 'store', 'destroy', 'edit', 'update'])
+  ->middleware(['web', 'auth', 'admin']);
+
+Route::resource('/admin/notifications', NotificationController::class)
+  ->only(['index', 'store', 'show', 'destroy', 'edit', 'update'])
+  ->middleware(['web', 'auth', 'admin']);
+
+Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])->where('shortlink', '.*');
 
 if (App::environment('local')) {
   Route::get('/authn', function () {

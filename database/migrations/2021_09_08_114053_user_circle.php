@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserLevel extends Migration
+class UserCircle extends Migration
 {
   /**
    * Run the migrations.
@@ -14,7 +14,7 @@ class UserLevel extends Migration
   public function up()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->integer('level')->default(1)->nullable();
+      $table->integer('circle')->default(1);
     });
   }
 
@@ -26,7 +26,7 @@ class UserLevel extends Migration
   public function down()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->dropColumn('level');
+      $table->dropColumn('circle');
     });
   }
 }

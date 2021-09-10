@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Level;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -50,6 +51,8 @@ class AuthController extends Controller
 
     $u = new User($r);
     $u->hashPassword();
+
+    $u->level = 1;
     $u->save();
 
     Auth::login($u, true);

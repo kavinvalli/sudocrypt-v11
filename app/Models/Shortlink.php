@@ -5,15 +5,9 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
-class Level extends Model
+class Shortlink extends Model
 {
   use HasFactory;
 
-  protected $fillable = [
-    'question',
-    'answer',
-    'points',
-    'source_hint',
-    'circle_id',
-  ];
+  protected $fillable = ['shortlink', 'url'];
 }

@@ -7,15 +7,25 @@ export interface IUser {
   email: string;
   name: string;
   email_verified_at?: string;
-  level?: number;
-  circle?: number;
+  level: number;
+  admin: boolean;
+  points: number;
 }
 
 export interface IPageProps extends Page<PageProps> {
   props: {
+    circle: {
+      name: string;
+      id: number;
+      onlyOneLevel: boolean;
+    };
+    dates: {
+      start: string;
+      end: string;
+    };
     errors: any;
-    started: string;
-    ended: string;
+    started: boolean;
+    ended: boolean;
     authenticated: boolean;
     auth: {
       user: IUser;
