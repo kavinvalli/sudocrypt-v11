@@ -121,7 +121,7 @@ const IndexAuthenticated: React.FC<IIndexProps> = ({
             key={id}
             className="notification p-6 border border-sudo flex justify-between items-center"
           >
-            <p>{content}</p>
+            <p dangerouslySetInnerHTML={{ __html: content }}></p>
             <p>{created_at}</p>
           </div>
         ))}
