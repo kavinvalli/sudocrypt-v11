@@ -1,4 +1,4 @@
-import { Link, useForm, usePage } from "@inertiajs/inertia-react";
+import { useForm, usePage } from "@inertiajs/inertia-react";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import CircleList from "../components/CircleList";
@@ -9,7 +9,13 @@ import TextInput from "../components/TextInput";
 import { IPageProps } from "../lib/types";
 import useTitle from "../lib/use-title";
 import { useToasts } from "react-toast-notifications";
-import Echo from "laravel-echo";
+import echo from "../lib/echo";
+
+type INotification = {
+  id: number;
+  content: string;
+  created_at: string;
+};
 
 interface IIndexProps {
   discord_authenticated: boolean;
@@ -25,11 +31,7 @@ interface IIndexProps {
     question: string;
     source_hint?: string;
   }[];
-  notifications: {
-    id: number;
-    content: string;
-    created_at: string;
-  }[];
+  notifications: INotification[];
   error?: string;
 }
 
@@ -69,17 +71,21 @@ const IndexAuthenticated: React.FC<IIndexProps> = ({
 }: IIndexProps) => {
   useTitle("Home");
   const { addToast } = useToasts();
-  const [notifications, setNotifications] = useState(_notifications);
+  const [notifications, setNotifications] =
+    useState<INotification[]>(_notifications);
 
   useEffect(() => {
     if (error) {
       addToast(error, { appearance: "error" });
     }
-    // Echo.channel('notifications')
-    //   .lis
-    window.Echo.channel("notifications").listen("NotificationCreated", (e) => {
-      setNotifications(e.notifications);
-    });
+    echo
+      .channel("notifications")
+      .listen(
+        "NotificationCreated",
+        (e: { notifications: INotification[] }) => {
+          setNotifications(e.notifications);
+        }
+      );
   }, []);
 
   const {
@@ -161,7 +167,11 @@ const IndexAuthenticated: React.FC<IIndexProps> = ({
                         post("/play");
                       }}
                     >
-                      <p>{currentLevel[0].question}</p>
+                      <p
+                        dangerouslySetInnerHTML={{
+                          __html: currentLevel[0].question,
+                        }}
+                      ></p>
                       <TextInput
                         name="attempt"
                         label="Answer"

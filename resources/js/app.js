@@ -3,10 +3,12 @@ import { InertiaApp } from "@inertiajs/inertia-react";
 import { InertiaProgress } from "@inertiajs/progress";
 import React from "react";
 import { render } from "react-dom";
-import {ToastProvider} from "react-toast-notifications";
+import { ToastProvider } from "react-toast-notifications";
 import Layout from "./components/Layout";
 
 const app = document.getElementById("app");
+
+window.Pusher = require("pusher-js");
 
 InertiaProgress.init({
   // The delay after which the progress bar will
