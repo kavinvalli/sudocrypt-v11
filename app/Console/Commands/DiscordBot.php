@@ -6,6 +6,7 @@ use App\Events\NotificationCreated;
 use App\Models\Notification;
 use App\Models\User;
 use Discord\Discord;
+use Discord\Parts\Channel\Message;
 use Discord\Parts\Embed\Embed;
 use Illuminate\Console\Command;
 
@@ -61,7 +62,7 @@ class DiscordBot extends Command
     $embed->setTitle($user->username);
     $embed->addFieldValues('Name', $user->name, false);
     $embed->addFieldValues('Email', $user->email, false);
-    $embed->addFieldValues('Discord', $user->discord_id . $user->discord_discriminator, false);
+    $embed->addFieldValues('Discord', $user->discord_username . "#" . $user->discord_discriminator, false);
     $embed->addFieldValues('Institution', $user->institution, false);
     $embed->addFieldValues('Circle', $user->circle, false);
     $embed->addFieldValues('Level', $user->level, false);
@@ -78,7 +79,7 @@ class DiscordBot extends Command
 
     echo $username . " " . $discriminator;
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_id', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_username', 'discord_discriminator')
       ->where('discord_username', $username)
       ->where('discord_discriminator', $discriminator)
       ->get()[0];
@@ -93,9 +94,6 @@ class DiscordBot extends Command
 
   private function userLookup($message, $discord)
   {
-    /* $data = $this->decodeUsername($message->content); */
-    /* $username = $data[0]; */
-    /* $discriminator = $data[1]; */
     $splitUp = explode(" ", $message->content);
     array_shift($splitUp);
     $username = $splitUp[0];
@@ -112,6 +110,33 @@ class DiscordBot extends Command
     $this->sendUserEmbed($message, $user, $discord);
   }
 
+  private function dq($message)
+  {
+    $roles = $message->author->roles->filter(function ($role) {
+      return $role->name === "admin";
+    });
+    if (count($roles) > 0) {
+      $splitUp = explode(" ", $message->content);
+      array_shift($splitUp);
+      $username = $splitUp[0];
+
+      $user = User::where('username', $username)
+        ->first();
+
+      if (!$user) {
+        $message->channel->sendMessage("User with username `" . $username . "` not found");
+        return;
+      }
+
+      $user->disqualified = true;
+      $user->save();
+
+      $message->channel->sendMessage("User with username `" . $username . "` has been disqualified");
+    } else {
+      $message->channel->sendMessage("You do not have the \"admin\" role");
+    }
+  }
+
   /**
    * Execute the console command.
    *
@@ -126,10 +151,7 @@ class DiscordBot extends Command
     $discord->on('ready', function ($discord) {
       echo "Bot is ready!", PHP_EOL;
 
-      // Listen for messages.
       $discord->on('message', function ($message, $discord) {
-        /* echo "{$message->author->username}: {$message->content}: {$message->channel_id}", PHP_EOL; */
-        /* echo var_dump($message->attachments); */
 
         if ($message->channel_id === env("DISCORD_HINTS_CHANNEL_ID")) {
           $this->createNotification($message->content, count($message->attachments) > 0 ? $message->attachments[0]->url : "");
@@ -142,11 +164,13 @@ class DiscordBot extends Command
         if (str_starts_with($message->content, "!ulookup")) {
           $this->userLookup($message, $discord);
         }
+
+        if (str_starts_with($message->content, "!dq")) {
+          $this->dq($message);
+        }
       });
     });
 
     $discord->run();
-
-    /* return 0; */
   }
 }
