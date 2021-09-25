@@ -1,11 +1,13 @@
 import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
 
-interface iIndexProps {
+interface iChooseLevelProps {
   level: { id: number };
 }
 
-const ChooseLevel: React.FC<iIndexProps> = ({ level }: iIndexProps) => {
+const ChooseLevel: React.FC<iChooseLevelProps> = ({
+  level,
+}: iChooseLevelProps) => {
   const { post, processing, errors } = useForm({
     level_id: level.id.toString(),
   });

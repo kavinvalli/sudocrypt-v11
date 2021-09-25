@@ -1,16 +1,15 @@
-import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import ChooseLevel from "./ChooseLevel";
 
-interface iIndexProps {
+interface iLevelListProps {
   availableLevels: { id: number }[];
   doneLevels: number[];
 }
 
-const LevelList: React.FC<iIndexProps> = ({
+const LevelList: React.FC<iLevelListProps> = ({
   availableLevels,
   doneLevels,
-}: iIndexProps) => {
+}: iLevelListProps) => {
   return (
     <div>
       {availableLevels.map((level, index) =>

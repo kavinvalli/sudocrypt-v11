@@ -1,17 +1,17 @@
 import { Link } from "@inertiajs/inertia-react";
 import React, { useState, useEffect } from "react";
 
-interface IIndexProps {
+interface INavbarProps {
   authenticated: boolean;
   name?: string;
   admin?: boolean;
 }
 
-const Navbar: React.FC<IIndexProps> = ({
+const Navbar: React.FC<INavbarProps> = ({
   authenticated,
   name,
   admin,
-}: IIndexProps) => {
+}: INavbarProps) => {
   const [avatar, setAvatar] = useState("");
   useEffect(() => {
     if (!authenticated) return;

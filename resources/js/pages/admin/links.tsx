@@ -28,35 +28,6 @@ interface IFormProps {
   buttonLabel: string;
 }
 
-// const SingleButtonForm: React.FC<IFormProps> = ({
-//   url,
-//   post,
-//   processing,
-//   buttonLabel,
-// }: IFormProps) => {
-//   return (
-//     <form
-//       onSubmit={(e: any) => {
-//         e.preventDefault();
-//         post(url);
-//       }}
-//     >
-//       <button
-//         type="submit"
-//         disabled={processing}
-//         style={{
-//           fontWeight: "bold",
-//           fontSize: "0.9rem",
-//           padding: "10px 15px",
-//           textTransform: "uppercase",
-//         }}
-//       >
-//         {buttonLabel}
-//       </button>
-//     </form>
-//   );
-// };
-
 export interface ILink {
   id: number;
   shortlink: string;
