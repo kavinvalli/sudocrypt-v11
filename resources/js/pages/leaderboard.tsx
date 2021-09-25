@@ -72,12 +72,15 @@ interface IDQUser {
   points: number;
 }
 
-interface IProps {
+interface ILeaderboardProps {
   users: ILeaderboardUser[];
   dq: IDQUser[];
 }
 
-const Leaderboard: React.FC<IProps> = ({ users, dq }: IProps) => {
+const Leaderboard: React.FC<ILeaderboardProps> = ({
+  users,
+  dq,
+}: ILeaderboardProps) => {
   const [displayUsers, setDisplayUsers] = useState<ILeaderboardUser[]>(users);
   const [displayDQUsers, setDisplayDQUsers] = useState<IDQUser[]>(dq);
   const searchRef = useRef<HTMLInputElement>(null);

@@ -1,5 +1,5 @@
 import { Link, useForm } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 import Navbar from "../../components/Navbar";
 
@@ -28,35 +28,6 @@ interface IFormProps {
   processing: boolean;
   buttonLabel: string;
 }
-
-// const SingleButtonForm: React.FC<IFormProps> = ({
-//   url,
-//   post,
-//   processing,
-//   buttonLabel,
-// }: IFormProps) => {
-//   return (
-//     <form
-//       onSubmit={(e: any) => {
-//         e.preventDefault();
-//         post(url);
-//       }}
-//     >
-//       <button
-//         type="submit"
-//         disabled={processing}
-//         style={{
-//           fontWeight: "bold",
-//           fontSize: "0.9rem",
-//           padding: "10px 15px",
-//           textTransform: "uppercase",
-//         }}
-//       >
-//         {buttonLabel}
-//       </button>
-//     </form>
-//   );
-// };
 
 export interface ILevel {
   id: number;

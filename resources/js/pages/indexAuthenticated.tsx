@@ -17,7 +17,7 @@ type INotification = {
   created_at: string;
 };
 
-interface IIndexProps {
+interface IIndexAuthenticatedProps {
   discord_authenticated: boolean;
   circles: {
     id: number;
@@ -60,7 +60,7 @@ const NumberCard = styled.div`
   }
 `;
 
-const IndexAuthenticated: React.FC<IIndexProps> = ({
+const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
   discord_authenticated,
   circles,
   available_levels,
@@ -68,7 +68,7 @@ const IndexAuthenticated: React.FC<IIndexProps> = ({
   currentLevel,
   error,
   notifications: _notifications,
-}: IIndexProps) => {
+}: IIndexAuthenticatedProps) => {
   useTitle("Home");
   const { addToast } = useToasts();
   const [notifications, setNotifications] =

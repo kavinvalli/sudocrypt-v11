@@ -27,7 +27,7 @@ const Table = styled.table`
   }
 `;
 
-interface IIndexProps {
+interface IUserProps {
   user_profile: {
     id: number;
     name: string;
@@ -80,10 +80,10 @@ const SingleButtonForm: React.FC<IFormProps> = ({
   );
 };
 
-const User: React.FC<IIndexProps> = ({
+const User: React.FC<IUserProps> = ({
   user_profile: _user,
   user_attempts: attempts,
-}: IIndexProps) => {
+}: IUserProps) => {
   const {
     auth: { user },
   } = usePage<IPageProps>().props;
