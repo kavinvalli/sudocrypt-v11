@@ -17,20 +17,21 @@ class IndexController extends Controller
 {
   public function show()
   {
-    if (Auth::check()) {
-      $user = User::find(auth()->id());
-      return Inertia::render('indexAuthenticated', [
-        'discord_authenticated' => $user->discord_id ? true : false,
-        'circles' => Circle::all(),
-        'available_levels' => Level::select('id')->where('circle_id', $user->circle)->get(),
-        'done_levels' => UserAttempt::select('level_id as id')->where('circle_id', $user->circle)->where('user_id', $user->id)->get()->modelKeys(),
-        'currentLevel' => Level::select('id', 'question', 'source_hint')->where('id', $user->level)->limit(1)->get(),
-        'notifications' => NotificationController::format_notifications(),
-        'error' => null,
-      ]);
-    }
-
     return Inertia::render('index');
+  }
+
+  public function showPlay()
+  {
+    $user = User::find(auth()->id());
+    return Inertia::render('play', [
+      'discord_authenticated' => $user->discord_id ? true : false,
+      'circles' => Circle::all(),
+      'available_levels' => Level::select('id')->where('circle_id', $user->circle)->get(),
+      'done_levels' => UserAttempt::select('level_id as id')->where('circle_id', $user->circle)->where('user_id', $user->id)->get()->modelKeys(),
+      'currentLevel' => Level::select('id', 'question', 'source_hint')->where('id', $user->level)->limit(1)->get(),
+      'notifications' => NotificationController::format_notifications(),
+      'error' => null,
+    ]);
   }
 
   public function play(Request $request)

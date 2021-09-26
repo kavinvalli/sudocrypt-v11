@@ -36,6 +36,7 @@ Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware([
 
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
 
+Route::get('/play', [IndexController::class, 'showPlay'])->middleware(['auth', 'dq']);
 Route::post('/play', [IndexController::class, 'play'])->middleware(['auth', 'dq']);
 Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->middleware(['auth', 'dq']);
 
