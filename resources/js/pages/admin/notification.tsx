@@ -2,35 +2,6 @@ import { useForm } from "@inertiajs/inertia-react";
 import React from "react";
 import Navbar from "../../components/Navbar";
 
-// const SingleButtonForm: React.FC<IFormProps> = ({
-//   url,
-//   post,
-//   processing,
-//   buttonLabel,
-// }: IFormProps) => {
-//   return (
-//     <form
-//       onSubmit={(e: any) => {
-//         e.preventDefault();
-//         post(url);
-//       }}
-//     >
-//       <button
-//         type="submit"
-//         disabled={processing}
-//         style={{
-//           fontWeight: "bold",
-//           fontSize: "0.9rem",
-//           padding: "10px 15px",
-//           textTransform: "uppercase",
-//         }}
-//       >
-//         {buttonLabel}
-//       </button>
-//     </form>
-//   );
-// };
-
 export interface INotification {
   id: number;
   content: string;

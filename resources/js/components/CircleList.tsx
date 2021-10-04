@@ -1,14 +1,14 @@
 import React from "react";
 
-interface iIndexProps {
+interface iCircleListProps {
   circles: { id: number; name: string }[];
   currentCircle: { id: number };
 }
 
-const CircleList: React.FC<iIndexProps> = ({
+const CircleList: React.FC<iCircleListProps> = ({
   circles,
   currentCircle,
-}: iIndexProps) => {
+}: iCircleListProps) => {
   return (
     <div className="hidden sm:block circles">
       {/*
