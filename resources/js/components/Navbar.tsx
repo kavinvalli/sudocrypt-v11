@@ -4,7 +4,7 @@ import React, { useState, useEffect } from "react";
 interface IIndexProps {
   authenticated: boolean;
   name?: string;
-  admin?: boolean;
+  admin: boolean;
 }
 
 const Navbar: React.FC<IIndexProps> = ({
@@ -12,34 +12,40 @@ const Navbar: React.FC<IIndexProps> = ({
   name,
   admin,
 }: IIndexProps) => {
-  const [avatar, setAvatar] = useState("");
-  useEffect(() => {
-    if (!authenticated) return;
-    fetch(
-      `https://ui-avatars.com/api/?name=${name}&background=FD1F4A&color=fff`
-    )
-      .then((res) => res.blob())
-      .then((imageBlob) => {
-        const imageObjectURL = URL.createObjectURL(imageBlob);
-        setAvatar(imageObjectURL);
-      });
-  }, []);
+  // const [avatar, setAvatar] = useState("");
+  // useEffect(() => {
+  //   if (!authenticated) return;
+  //   fetch(
+  //     `https://ui-avatars.com/api/?name=${name}&background=FD1F4A&color=fff`
+  //   )
+  //     .then((res) => res.blob())
+  //     .then((imageBlob) => {
+  //       const imageObjectURL = URL.createObjectURL(imageBlob);
+  //       setAvatar(imageObjectURL);
+  //     });
+  // }, []);
   return (
-    <nav className="flex justify-between items-center p-6">
-      <Link href="/">
-        <img src="/img/logo-blue.png" width="50" height="50" alt="" />
-      </Link>
-      {authenticated ? (
+    <nav className="absolute bottom-5 right-10 p-6 transform -rotate-90 translate-x-full origin-left font-bold text-sudo text-2xl uppercase">
+      {authenticated && (
         <div className="flex items-center justify-center">
+          <Link href="/" className="mx-5">
+            Home
+          </Link>
           {admin && (
-            <Link href="/admin" className="mx-3">
+            <Link href="/admin" className="mx-5">
               Admin
             </Link>
           )}
-          <Link href="/leaderboard" className="mx-3">
+          <Link href="/leaderboard" className="mx-5">
             Leaderboard
           </Link>
-          {name && (
+          <Link href="/about" className="mx-5">
+            About
+          </Link>
+          <Link href="/auth/logout" className="mx-5">
+            Logout
+          </Link>
+          {/* name && (
             <Link href="/me" className="mx-3">
               <img
                 src={avatar}
@@ -48,11 +54,15 @@ const Navbar: React.FC<IIndexProps> = ({
                 height="50"
               />
             </Link>
-          )}
+          ) */}
         </div>
-      ) : null}
+      )}
     </nav>
   );
+};
+
+Navbar.defaultProps = {
+  admin: false,
 };
 
 export default Navbar;

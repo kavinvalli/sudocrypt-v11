@@ -1,7 +1,7 @@
 import React from "react";
 
 interface IProps extends React.InputHTMLAttributes<HTMLInputElement> {
-  label: string;
+  label?: string;
   error?: string;
   className?: string;
 }
@@ -14,10 +14,14 @@ const TextInput: React.FC<IProps> = ({
   ...props
 }: IProps) => {
   return (
-    <div className="my-3">
-      <label htmlFor={name}>{label}</label>
+    <div className="my-3 w-full">
+      {label && <label htmlFor={name}>{label}</label>}
       <input
-        className={"text-black block w-full rounded" + " " + className}
+        className={
+          "bg-dark text-gray-200 block w-full border-0 py-6 px-4" +
+          " " +
+          className
+        }
         type={props.type}
         placeholder={props.placeholder}
         name={name}

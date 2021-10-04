@@ -8,7 +8,7 @@ export interface IUser {
   name: string;
   email_verified_at?: string;
   level: number;
-  admin: boolean;
+  admin: boolean | number;
   points: number;
 }
 

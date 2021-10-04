@@ -92,7 +92,7 @@ class IndexController extends Controller
     $user = User::find(auth()->id());
     $user->level = $request->level_id;
     $user->save();
-    return Redirect::to('/');
+    return Redirect::to('/play');
   }
 
   public function dq()

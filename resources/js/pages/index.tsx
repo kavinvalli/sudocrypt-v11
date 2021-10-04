@@ -3,7 +3,7 @@ import React from "react";
 import { IPageProps } from "../lib/types";
 
 const Index: React.FC = () => {
-  const { authenticated } = usePage<IPageProps>().props;
+  const { authenticated, started, ended } = usePage<IPageProps>().props;
 
   return (
     <div className="container-flex-center">
@@ -21,7 +21,15 @@ const Index: React.FC = () => {
         ) : (
           <>
             <p>Authenticated</p>
-            <Link href="/play">Play</Link>
+            {started ? (
+              ended ? (
+                <p>Ended</p>
+              ) : (
+                <Link href="/play">Play</Link>
+              )
+            ) : (
+              <p>Not Started</p>
+            )}
           </>
         )}
       </div>

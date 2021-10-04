@@ -23,7 +23,7 @@ const Register: React.FC = () => {
 
   return (
     <div className="flex justify-center items-center h-screen full-page">
-      <div className="w-screen h-screen sm:w-auto sm:h-auto flex w-100 flex-col justify-center items-center bg-gray-700 p-8 rounded">
+      <div className="w-screen h-screen sm:w-auto sm:h-auto flex w-100 flex-col justify-center items-center bg-gray-800 p-8 rounded-3xl shadow-2xl">
         <h1 className="text-3xl font-bold mb-6">Register</h1>
         <form
           onSubmit={(e: React.SyntheticEvent) => {
@@ -42,6 +42,7 @@ const Register: React.FC = () => {
               name="name"
               label="Name"
               placeholder="John Doe"
+              className="mr-2"
               type="text"
               value={data.name}
               disabled={processing}
@@ -53,6 +54,7 @@ const Register: React.FC = () => {
               name="username"
               label="Username"
               placeholder="johndoe"
+              className="ml-2"
               type="text"
               value={data.username}
               disabled={processing}
@@ -114,7 +116,7 @@ const Register: React.FC = () => {
           </div>
 
           <div className="flex justify-center mt-4">
-            <button type="submit" className="button" disabled={processing}>
+            <button type="submit" className="button p-6" disabled={processing}>
               Register
             </button>
           </div>

@@ -13,12 +13,12 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        dark: "#181818",
-        sudo: "#FD1F4A",
+        dark: "#161A1D",
+        sudo: "#D1483B",
       },
       fontFamily: {
-        mono: ["JetBrains Mono", ...defaultTheme.fontFamily.mono],
-      }
+        sans: ["SF Pro", ...defaultTheme.fontFamily.sans],
+      },
     },
   },
   variants: {

@@ -1,7 +1,34 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-@import url("https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@100;200;300;400;500;600;700;800&display=swap");
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("fonts/SF-Pro.ttf") format("truetype");
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("fonts/SF-Pro.ttf") format("truetype");
+  font-weight: 600;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("fonts/SF-Pro.ttf") format("truetype");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "SF Pro";
+  src: url("fonts/SF-Pro.ttf") format("truetype");
+  font-weight: 900;
+  font-style: normal;
+}
 
 #nprogress .bar {
   box-shadow: none;
@@ -23,7 +50,7 @@ html,
 
 @layer components {
   .button {
-    @apply cursor-pointer bg-sudo block rounded-lg p-4 text-center
+    @apply cursor-pointer bg-sudo block text-center
            uppercase leading-none font-bold border-2 border-sudo
            hover:border-white text-sm text-white transition
            focus:outline-none focus:border-dark focus:shadow-none;
