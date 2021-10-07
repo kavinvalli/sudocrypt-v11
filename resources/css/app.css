@@ -48,17 +48,18 @@ html,
   padding: 0;
 }
 
-@layer components {
-  .button {
-    @apply cursor-pointer bg-sudo block text-center
-           uppercase leading-none font-bold border-2 border-sudo
-           hover:border-white text-sm text-white transition
-           focus:outline-none focus:border-dark focus:shadow-none;
-  }
-  .button-outline {
-    @apply cursor-pointer block rounded-lg p-4 text-center
-           uppercase leading-none font-bold border-2 border-sudo
-           hover:bg-sudo text-sm text-white transition
-           focus:outline-none focus:border-dark focus:shadow-none;
-  }
+.button {
+    @apply cursor-pointer bg-sudo block text-center p-3 px-4
+           text-sm uppercase font-bold rounded-lg;
+}
+
+.button-outline {
+  @apply cursor-pointer block rounded-lg p-4 text-center
+         uppercase leading-none font-bold border-2 border-sudo
+         hover:bg-sudo text-sm text-white transition
+         focus:outline-none focus:border-dark focus:shadow-none;
+}
+
+.debug {
+  @apply border-2 border-white;
 }
