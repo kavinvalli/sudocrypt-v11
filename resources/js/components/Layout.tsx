@@ -11,7 +11,7 @@ const Layout: React.FC<IProps> = ({ children, footer }: IProps) => {
       className="bg-dark w-full min-h-screen text-white flex flex-col"
       style={{
         background:
-          "repeating-radial-gradient(circle farthest-corner at 0% 100%, #e5543b, #e5543b 1px, #161a1d 1px, #161a1d 100px)",
+          "repeating-radial-gradient(circle farthest-corner at 0% 100%, #7b2b23, #7b2b23 1px, #161a1d 1px, #161a1d 100px)",
         backgroundPositionX: "150%",
       }}
     >

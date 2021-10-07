@@ -50,7 +50,8 @@ html,
 
 .button {
     @apply cursor-pointer bg-sudo block text-center p-3 px-4
-           text-sm uppercase font-bold rounded-lg;
+    text-sm uppercase font-bold rounded-lg focus:outline-none
+    focus:ring-4 focus:ring-sudo-dark;
 }
 
 .button-outline {

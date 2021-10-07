@@ -67,7 +67,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
             <div className="my-5">
               <div className="text-sm text-center">
               Don&apos;t have an account?{" "}
-                <Link className="font-bold text-sudo" href="/auth/register">
+                <Link className="font-bold text-sudo focus:text-sudo-light" href="/auth/login">
                 Register
                 </Link>
               </div>
@@ -80,25 +80,6 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
               </button>
             </div>
           </form>
-
-          {
-          //         <div
-          //           className="input-group"
-          //           style={{
-          //             textAlign: "center",
-          //             fontWeight: "bold",
-          //             color: "var(--color-light)",
-          //             fontSize: "0.9rem",
-          //           }}
-          //         >
-          //           OR
-          //         </div>
-          //         <div className="social">
-          //           <SignInWithGithub />
-          //           <SignInWithGoogle />
-          //           <SignInWithDiscord />
-          //         </div>
-          }
         </div>
       </div>
     </Layout>

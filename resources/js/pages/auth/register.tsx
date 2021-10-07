@@ -1,7 +1,7 @@
 import { Link, usePage } from "@inertiajs/inertia-react";
 import {Inertia} from "@inertiajs/inertia";
 import React, { useState } from "react";
-import Recaptcha from "react-recaptcha";
+import Recaptcha from "react-google-recaptcha";
 import TextInput from "../../components/TextInput";
 import Layout from "../../components/Layout";
 import useTitle from "../../lib/use-title";
@@ -19,7 +19,6 @@ const Register: React.FC = () => {
     recaptcha: ""
   });
 
-
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
   ) => setData(values => {
@@ -29,7 +28,7 @@ const Register: React.FC = () => {
   return (
     <Layout footer={true}>
       <div className="flex justify-center items-center h-full w-full px-4 py-8">
-        <div className="w-full max-w-md h-auto flex w-100 flex-col justify-center items-center sm:bg-gray-800 p-0 sm:p-8 rounded-lg sm:shadow-2xl">
+        <div className="w-full max-w-md h-auto flex w-100 flex-col justify-center items-center sm:bg-gray-800 p-0 sm:p-8 rounded-lg sm:shadow-xl">
           <h1 className="w-full text-gray-400 text-3xl font-bold mb-6">Register</h1>
           <form
             className="w-full"
@@ -109,11 +108,14 @@ const Register: React.FC = () => {
             <div className="flex flex-col justify-center items-center">
               <Recaptcha
                 sitekey="6Ld3iU0cAAAAAH_pvjPNK_fUs695Tn4Dnq33Q4zI"
-                render="explicit"
                 theme="dark"
-                verifyCallback={(token: string | null) => 
-                  setData(values => { return {...values, recaptcha: token || "" }; })
-                }
+                size="normal"
+                onChange={(token: string | null) => {
+                  setData(values => { return {...values, recaptcha: token || "" }; });
+                }}
+                onExpired={() => {
+                  setData(values => { return {...values, recaptcha: "" }; });
+                }}
               />
               {errors.recaptcha && <p className="text-red-500 text-sm">{errors.recaptcha}</p>}
             </div>
@@ -121,7 +123,7 @@ const Register: React.FC = () => {
             <div className="my-5">
               <div className="text-sm text-center">
               Already have an account?{" "}
-                <Link className="font-bold text-sudo" href="/auth/login">
+                <Link className="font-bold text-sudo focus:text-sudo-light" href="/auth/login">
                 Login
                 </Link>
               </div>

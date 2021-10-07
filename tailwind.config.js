@@ -18,6 +18,7 @@ module.exports = {
         "dark-lighter": "#20262b",
         sudo: "#D1483B",
         "sudo-dark": "#83271f",
+        "sudo-light": "#fb6355"
       },
       fontFamily: {
         sans: ["SF Pro", ...defaultTheme.fontFamily.sans],
