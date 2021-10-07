@@ -26,15 +26,13 @@ InertiaProgress.init({
 });
 
 render(
-  <Layout>
-    <ToastProvider>
-      <InertiaApp
-        initialPage={JSON.parse(app.dataset.page)}
-        resolveComponent={(name) =>
-          import(`./pages/${name}.tsx`).then((module) => module.default)
-        }
-      />
-    </ToastProvider>
-  </Layout>,
+  <ToastProvider>
+    <InertiaApp
+      initialPage={JSON.parse(app.dataset.page)}
+      resolveComponent={(name) =>
+        import(`./pages/${name}.tsx`).then((module) => module.default)
+      }
+    />
+  </ToastProvider>,
   app
 );
