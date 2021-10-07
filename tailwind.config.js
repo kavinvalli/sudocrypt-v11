@@ -1,6 +1,7 @@
 const defaultTheme = require("tailwindcss/defaultTheme");
 
 module.exports = {
+  mode:"jit",
   purge: [
     "./resources/**/*.blade.php",
     "./resources/**/*.js",
@@ -14,15 +15,14 @@ module.exports = {
     extend: {
       colors: {
         dark: "#161A1D",
+        "dark-lighter": "#20262b",
         sudo: "#D1483B",
+        "sudo-dark": "#83271f",
       },
       fontFamily: {
         sans: ["SF Pro", ...defaultTheme.fontFamily.sans],
       },
     },
-  },
-  variants: {
-    extend: {},
   },
   plugins: [require("@tailwindcss/forms")],
 };
