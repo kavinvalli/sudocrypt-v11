@@ -1,17 +1,23 @@
-import { Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import React from "react";
+import { IPageProps } from "../lib/types";
 
 interface INavbarProps {
-  authenticated: boolean;
+  authenticated?: boolean;
   name?: string;
-  admin: boolean;
+  admin?: boolean;
 }
 
 const Navbar: React.FC<INavbarProps> = ({
-  authenticated,
+  // authenticated,
   // name,
-  admin,
+  // admin,
 }: INavbarProps) => {
+  const {
+    authenticated,
+    auth: { user: { admin } },
+  } = usePage<IPageProps>().props;
+
   // const [avatar, setAvatar] = useState("");
   // useEffect(() => {
   //   if (!authenticated) return;
@@ -24,6 +30,7 @@ const Navbar: React.FC<INavbarProps> = ({
   //       setAvatar(imageObjectURL);
   //     });
   // }, []);
+  
   return (
     <nav className="absolute bottom-5 right-10 p-6 transform -rotate-90 translate-x-full origin-left font-bold text-sudo text-2xl uppercase">
       {authenticated && (

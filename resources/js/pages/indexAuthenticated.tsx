@@ -112,7 +112,7 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
       <Navbar
         authenticated={authenticated}
         name={user.name}
-        admin={user.admin}
+        admin={!!user.admin}
       />
       {/* {!discord_authenticated && <a href="/connectdiscord">Discord</a>} */}
       <div className="notifications">
