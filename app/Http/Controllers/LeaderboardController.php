@@ -19,11 +19,12 @@ class LeaderboardController extends Controller
       ->map(function ($user, $key) {
         return [
           'rank' => $key + 1,
-          'team' => $user->team,
+          'institution' => $user->institution,
           'username' => $user->username,
           'points' => $user->points
         ];
       });
+
     return Inertia::render('leaderboard', [
       'users' => $users,
       'dq' => User::select('username', 'points')

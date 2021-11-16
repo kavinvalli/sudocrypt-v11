@@ -64,6 +64,7 @@ const SearchInput = styled.input`
 interface ILeaderboardUser {
   rank: number;
   username: string;
+  institution: string;
   points: number;
 }
 
@@ -107,12 +108,12 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
     rank === 1
       ? "first"
       : rank === 2
-      ? "second"
-      : rank === 3
-      ? "third"
-      : rank <= 15
-      ? "top15"
-      : "";
+        ? "second"
+        : rank === 3
+          ? "third"
+          : rank <= 15
+            ? "top15"
+            : "";
 
   return (
     <>
