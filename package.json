@@ -12,6 +12,7 @@
   "devDependencies": {
     "@babel/preset-react": "^7.14.5",
     "@types/react": "^17.0.18",
+    "@types/react-google-recaptcha": "^2.1.2",
     "@types/styled-components": "^5.1.12",
     "@typescript-eslint/eslint-plugin": "^4.29.2",
     "@typescript-eslint/parser": "^4.29.2",
