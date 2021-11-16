@@ -2,7 +2,6 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CircleController;
 use App\Http\Controllers\DiscordController;
@@ -26,10 +25,9 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-/* Route::get('/', function () { */
-/*   return Inertia::render('index'); */
-/* })->name('home'); */
+// TODO: Route grouping
 
+// dq without auth?
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
 Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
 Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['auth', 'dq']);
@@ -74,7 +72,6 @@ Route::get('/admin/users', [UserController::class, 'index'])
   ->middleware(['auth', 'admin'])
   ->name('users.index');
 
-
 Route::get('/admin/users/{user}', [UserController::class, 'showAdmin'])
   ->middleware(['auth', 'admin'])
   ->name('users.show');
@@ -82,9 +79,6 @@ Route::get('/admin/users/{user}', [UserController::class, 'showAdmin'])
 Route::post('/admin/users/{user}/dq', [UserController::class, 'disqualify'])
   ->middleware(['auth', 'admin'])
   ->name('users.disqualify');
-
-/* Route::get('/admin/circles', [CircleController::class, 'show']) */
-/*   ->middleware(['auth, admin']); */
 
 Route::get('/admin/circles', [CircleController::class, 'show'])
   ->middleware(['auth', 'admin']);
@@ -97,7 +91,8 @@ Route::resource('/admin/notifications', NotificationController::class)
   ->only(['index', 'store', 'show', 'destroy', 'edit', 'update'])
   ->middleware(['web', 'auth', 'admin']);
 
-Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])->where('shortlink', '.*');
+Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])
+  ->where('shortlink', '.*');
 
 if (App::environment('local')) {
   Route::get('/authn', function () {

@@ -98,6 +98,12 @@ class ShortlinkController extends Controller
     return Redirect::route('shortlinks.index');
   }
 
+  /**
+   * Redirect to specificed $shortlink
+   *
+   * @param  \App\Models\Shortlink  $shortlink
+   * @return \Illuminate\Http\Response
+   */
   public function redirect(Shortlink $shortlink)
   {
     return Redirect::to($shortlink->url);

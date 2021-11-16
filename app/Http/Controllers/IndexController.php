@@ -29,6 +29,7 @@ class IndexController extends Controller
       'available_levels' => Level::select('id')->where('circle_id', $user->circle)->get(),
       'done_levels' => UserAttempt::select('level_id as id')->where('circle_id', $user->circle)->where('user_id', $user->id)->get()->modelKeys(),
       'currentLevel' => Level::select('id', 'question', 'source_hint')->where('id', $user->level)->limit(1)->get(),
+      // TODO: refactor to a service or model
       'notifications' => NotificationController::format_notifications(),
       'error' => null,
     ]);
@@ -46,6 +47,7 @@ class IndexController extends Controller
 
     $user = User::find(auth()->id());
 
+    // TODO: move to LevelCheck
     $u = new UserAttempt;
     $u->attempt = $request->attempt;
     $u->user_id = $request->user_id;
@@ -53,6 +55,7 @@ class IndexController extends Controller
     $u->circle_id = $user->circle;
     $u->save();
 
+    // TODO: reduce calls to Level::find
     if ($request->attempt === Level::find($user->level)->answer) {
       $user->points = $user->points + Level::find($user->level)->points;
       $user->last_solved = now();
