@@ -17,7 +17,8 @@ class DatabaseSeeder extends Seeder
       CircleSeeder::class,
       LevelSeeder::class,
       UserSeeder::class,
-      ShortlinkSeeder::class
+      ShortlinkSeeder::class,
+      NotificationSeeder::class
     ]);
   }
 }
