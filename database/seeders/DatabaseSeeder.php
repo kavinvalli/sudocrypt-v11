@@ -14,10 +14,10 @@ class DatabaseSeeder extends Seeder
   public function run()
   {
     $this->call([
-      UserSeeder::class,
       CircleSeeder::class,
       LevelSeeder::class,
+      UserSeeder::class,
+      ShortlinkSeeder::class
     ]);
-    // \App\Models\User::factory(10)->create();
   }
 }
