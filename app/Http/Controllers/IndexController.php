@@ -72,13 +72,14 @@ class IndexController extends Controller
           $user->level = null;
         } else {
           $user->circle = $newCircleId;
-          $nextCircle = Circle::find($newCircleId);
-          if ($nextCircle->onlyOneLevel) {
-            $level = Level::firstWhere('circle_id', $newCircleId);
-            $user->level = $level->id;
-          } else {
-            $user->level = null;
-          }
+          /* $nextCircle = Circle::find($newCircleId); */
+          /* if ($nextCircle->onlyOneLevel) { */
+          /*   $level = Level::firstWhere('circle_id', $newCircleId); */
+          /*   $user->level = $level->id; */
+          /* } else { */
+          /*   $user->level = null; */
+          /* } */
+          $user->level = null;
         }
       } else {
         $user->level = null;

@@ -17,7 +17,6 @@ class CreateCirclesTable extends Migration
       $table->id();
       $table->timestamps();
       $table->string('name');
-      $table->boolean('onlyOneLevel')->default(false);
     });
   }
 
