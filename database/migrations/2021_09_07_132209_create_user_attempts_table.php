@@ -24,6 +24,7 @@ class CreateUserAttemptsTable extends Migration
       $table->foreignIdFor(User::class);
       $table->string('attempt');
       $table->string('ip');
+      $table->boolean('correct')->default(false);
     });
   }
 
