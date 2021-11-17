@@ -16,4 +16,9 @@ class Level extends Model
     'source_hint',
     'circle_id',
   ];
+
+  public function circle()
+  {
+    return $this->hasOne(Circle::class);
+  }
 }
