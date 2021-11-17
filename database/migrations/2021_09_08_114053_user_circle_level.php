@@ -1,10 +1,12 @@
 <?php
 
+use App\Models\Circle;
+use App\Models\Level;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class UserAdmin extends Migration
+class UserCircleLevel extends Migration
 {
   /**
    * Run the migrations.
@@ -13,8 +15,9 @@ class UserAdmin extends Migration
    */
   public function up()
   {
-    Schema::table('users', function (Blueprint $user) {
-      $user->boolean('admin')->default(false);
+    Schema::table('users', function (Blueprint $table) {
+      $table->foreignIdFor(Circle::class)->default(1);
+      $table->foreignIdFor(Level::class)->default(1);
     });
   }
 
@@ -26,7 +29,8 @@ class UserAdmin extends Migration
   public function down()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->dropColumn('admin');
+      $table->dropColumn('circle_id');
+      $table->dropColumn('level_id');
     });
   }
 }

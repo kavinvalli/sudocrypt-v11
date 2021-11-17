@@ -23,6 +23,7 @@ class CreateUserAttemptsTable extends Migration
       $table->foreignIdFor(Circle::class);
       $table->foreignIdFor(User::class);
       $table->string('attempt');
+      $table->string('ip');
     });
   }
 
