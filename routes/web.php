@@ -27,16 +27,19 @@ use Illuminate\Support\Facades\Auth;
 
 // TODO: Route grouping
 
-// dq without auth?
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
 Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
-Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['auth', 'dq']);
-
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
+Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
 
-Route::get('/play', [IndexController::class, 'showPlay'])->middleware(['auth', 'dq']);
-Route::post('/play', [IndexController::class, 'play'])->middleware(['auth', 'dq']);
-Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->middleware(['auth', 'dq']);
+Route::prefix('/play')
+  ->middleware(['auth', 'dq'])
+  ->name('play.')
+  ->group(function () {
+    Route::get('/', [IndexController::class, 'showPlay'])->name('show');
+    Route::post('/', [IndexController::class, 'play'])->name('play');
+    Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->name('choose-level');
+  });
 
 // ----- Authentication -----
 Route::prefix('/auth')
@@ -57,39 +60,41 @@ Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
   ->name('auth.logout');
 
-Route::get('/connectdiscord', [DiscordController::class, 'redirect'])
-  ->middleware(['auth']);
-Route::get('/connectdiscord/callback', [DiscordController::class, 'callback'])
-  ->middleware(['auth']);
+Route::prefix('/connectdiscord')
+  ->middleware(['auth'])
+  ->name('discord.')
+  ->group(function () {
+    Route::get('/', [DiscordController::class, 'redirect'])->name('connect');
+    Route::get('/callback', [DiscordController::class, 'callback'])->name('callback');
+  });
 
-Route::get('/admin', [AdminController::class, 'show'])->middleware(['auth', 'admin']);
-
-Route::resource('/admin/shortlinks', ShortlinkController::class)
-  ->only(['index', 'store', 'destroy'])
-  ->middleware(['web', 'auth', 'admin']);
-
-Route::get('/admin/users', [UserController::class, 'index'])
+Route::prefix('/admin')
   ->middleware(['auth', 'admin'])
-  ->name('users.index');
+  ->name('admin.')
+  ->group(function () {
+    Route::get('/', [AdminController::class, 'show'])->name('index');
 
-Route::get('/admin/users/{user}', [UserController::class, 'showAdmin'])
-  ->middleware(['auth', 'admin'])
-  ->name('users.show');
+    Route::resource('/shortlinks', ShortlinkController::class)
+      ->only(['index', 'store', 'destroy']);
 
-Route::post('/admin/users/{user}/dq', [UserController::class, 'disqualify'])
-  ->middleware(['auth', 'admin'])
-  ->name('users.disqualify');
+    Route::get('/users', [UserController::class, 'index'])
+      ->name('users.index');
 
-Route::get('/admin/circles', [CircleController::class, 'show'])
-  ->middleware(['auth', 'admin']);
+    Route::get('/users/{user}', [UserController::class, 'showAdmin'])
+      ->name('users.show');
 
-Route::resource('/admin/levels', LevelController::class)
-  ->only(['index', 'store', 'destroy', 'edit', 'update'])
-  ->middleware(['web', 'auth', 'admin']);
+    Route::post('/users/{user}/dq', [UserController::class, 'disqualify'])
+      ->name('users.disqualify');
 
-Route::resource('/admin/notifications', NotificationController::class)
-  ->only(['index', 'store', 'show', 'destroy', 'edit', 'update'])
-  ->middleware(['web', 'auth', 'admin']);
+    Route::get('/circles', [CircleController::class, 'show'])
+      ->name('circles.index');
+
+    Route::resource('/levels', LevelController::class)
+      ->only(['index', 'store', 'destroy', 'edit', 'update']);
+
+    Route::resource('/notifications', NotificationController::class)
+      ->only(['index', 'store', 'show', 'destroy', 'edit', 'update']);
+  });
 
 Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])
   ->where('shortlink', '.*');
