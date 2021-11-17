@@ -70,3 +70,13 @@ html,
 .debug {
   @apply border-2 border-white;
 }
+
+.home-container {
+  width: calc(100vw - 80px);
+}
+
+@media screen and (max-width: 640px) {
+  .home-container {
+    width: 100%;
+  }
+}
