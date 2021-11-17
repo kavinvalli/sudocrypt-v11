@@ -6,6 +6,7 @@ use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CircleController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PlayController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\NotificationController;
@@ -25,8 +26,6 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-// TODO: Route grouping
-
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
 Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
@@ -36,9 +35,9 @@ Route::prefix('/play')
   ->middleware(['auth', 'dq'])
   ->name('play.')
   ->group(function () {
-    Route::get('/', [IndexController::class, 'showPlay'])->name('show');
-    Route::post('/', [IndexController::class, 'play'])->name('play');
-    Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->name('choose-level');
+    Route::get('/', [PlayController::class, 'show'])->name('show');
+    Route::post('/', [PlayController::class, 'play'])->name('play');
+    Route::post('/choose-level', [PlayController::class, 'chooseLevel'])->name('chooseLevel');
   });
 
 // ----- Authentication -----
