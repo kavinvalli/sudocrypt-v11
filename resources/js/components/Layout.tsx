@@ -1,11 +1,13 @@
+import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 
 interface IProps {
   children?: JSX.Element;
   footer?: boolean;
+  navbar?: { href: string; label: string }[];
 }
 
-const Layout: React.FC<IProps> = ({ children, footer }: IProps) => {
+const Layout: React.FC<IProps> = ({ children, footer, navbar }: IProps) => {
   return (
     <div
       className="bg-dark w-full min-h-screen text-white flex flex-col"
@@ -15,9 +17,34 @@ const Layout: React.FC<IProps> = ({ children, footer }: IProps) => {
         backgroundPositionX: "150%",
       }}
     >
-      <div className="flex-1 flex items-center">
-        {children}
-      </div>
+      {navbar?.length !== 0 && (
+        <>
+          <div className="flex sm:hidden p-4 justify-center">
+            {navbar?.map(({ href, label }, i) => (
+              <Link
+                href={href}
+                key={i}
+                className="uppercase text-sudo text-sm font-bold mx-3"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+
+          <div className="sm:flex hidden absolute bottom-5 right-10 translate-x-full origin-left transform -rotate-90">
+            {navbar?.map(({ href, label }, i) => (
+              <Link
+                href={href}
+                key={i}
+                className="uppercase text-sudo text-xl font-extrabold mx-3 opacity-70 hover:opacity-100 transition"
+              >
+                {label}
+              </Link>
+            ))}
+          </div>
+        </>
+      )}
+      <div className="flex-1 flex items-center">{children}</div>
       {footer && (
         <div className="flex flex-col justify-center items-center py-5">
           <div className="w-full flex justify-center items-center mb-3 gap-x-2">
