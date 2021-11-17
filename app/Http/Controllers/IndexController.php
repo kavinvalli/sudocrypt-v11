@@ -9,7 +9,11 @@ class IndexController extends Controller
 {
   public function show()
   {
-    return Inertia::render('index');
+    if (auth()->check()) {
+      return Inertia::render('indexAuthenticated');
+    } else {
+      return Inertia::render('index');
+    }
   }
 
   public function dq()

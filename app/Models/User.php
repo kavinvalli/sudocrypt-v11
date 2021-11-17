@@ -64,12 +64,12 @@ class User extends Authenticatable
 
   public function circle()
   {
-    return $this->hasOne(Circle::class);
+    return $this->belongsTo(Circle::class);
   }
 
   public function level()
   {
-    return $this->hasOne(Level::class);
+    return $this->belongsTo(Level::class);
   }
 
   public function attempts()

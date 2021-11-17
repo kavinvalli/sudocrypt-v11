@@ -68,7 +68,7 @@ class HandleInertiaRequests extends Middleware
       /*   ? $request->user()->only('created_at')['created_at']->diffForHumans() */
       /*   : null, */
       /* 'user' => Auth::user(), */
-      'circle' => Auth::check() ? Circle::find(Auth::user()->circle) : null,
+      'circle' => Auth::check() ? Auth::user()->circle : null,
       'authenticated' => Auth::check()
     ]);
   }
