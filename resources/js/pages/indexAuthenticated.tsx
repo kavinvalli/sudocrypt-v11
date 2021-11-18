@@ -51,16 +51,13 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
 
   return (
     <Layout
+      logo={true}
       navbar={[
         { href: "/auth/logout", label: "Logout" },
         { href: "/leaderboard", label: "Leaderboard" },
       ]}
     >
       <>
-        <img
-          src="/img/logo-blue.png"
-          className="h-12 w-12 hidden sm:block rounded-lg absolute top-5 right-5"
-        />
         <div className="home-container sm:min-h-screen flex flex-col sm:grid grid-rows-2 grid-cols-2 gap-y-5 sm:gap-10 p-5 sm:p-10">
           <IndexCard
             className="row-span-2"

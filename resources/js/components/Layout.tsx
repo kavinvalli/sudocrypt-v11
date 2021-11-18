@@ -5,9 +5,15 @@ interface IProps {
   children?: JSX.Element;
   footer?: boolean;
   navbar?: { href: string; label: string }[];
+  logo?: boolean;
 }
 
-const Layout: React.FC<IProps> = ({ children, footer, navbar }: IProps) => {
+const Layout: React.FC<IProps> = ({
+  children,
+  footer,
+  navbar,
+  logo,
+}: IProps) => {
   return (
     <div
       className="bg-dark w-full min-h-screen text-white flex flex-col"
@@ -17,6 +23,12 @@ const Layout: React.FC<IProps> = ({ children, footer, navbar }: IProps) => {
         backgroundPositionX: "150%",
       }}
     >
+      {logo && (
+        <img
+          src="/img/logo-blue.png"
+          className="h-12 w-12 hidden sm:block rounded-lg absolute top-5 right-5"
+        />
+      )}
       {navbar?.length !== 0 && (
         <>
           <div className="flex sm:hidden p-4 justify-center">
