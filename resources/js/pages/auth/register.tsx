@@ -1,5 +1,5 @@
 import { Link, usePage } from "@inertiajs/inertia-react";
-import {Inertia} from "@inertiajs/inertia";
+import { Inertia } from "@inertiajs/inertia";
 import React, { useState } from "react";
 import Recaptcha from "react-google-recaptcha";
 import TextInput from "../../components/TextInput";
@@ -9,27 +9,38 @@ import { IPageProps } from "../../lib/types";
 
 const Register: React.FC = () => {
   useTitle("Register");
-  const {errors} = usePage<IPageProps>().props;
+  const { errors } = usePage<IPageProps>().props;
   const [data, setData] = useState({
     name: "",
     username: "",
     email: "",
     institution: "",
     password: "",
-    recaptcha: ""
+    recaptcha: "",
   });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
     e: React.ChangeEvent<HTMLInputElement>
-  ) => setData(values => {
-    return {...values, [e.target.name as string]: e.target.value as string};
-  });
+  ) =>
+    setData((values) => {
+      return { ...values, [e.target.name as string]: e.target.value as string };
+    });
 
   return (
-    <Layout footer={true}>
+    <Layout
+      footer={true}
+      logo={true}
+      navbar={[
+        { href: "/", label: "Home" },
+        { href: "/auth/login", label: "Login" },
+        { href: "/leaderboard", label: "Leaderboard" },
+      ]}
+    >
       <div className="flex justify-center items-center h-full w-full px-4 py-8">
         <div className="w-full max-w-md h-auto flex w-100 flex-col justify-center items-center sm:bg-gray-800 p-0 sm:p-8 rounded-lg sm:shadow-xl">
-          <h1 className="w-full text-gray-400 text-3xl font-bold mb-6">Register</h1>
+          <h1 className="w-full text-gray-400 text-3xl font-bold mb-6">
+            Register
+          </h1>
           <form
             className="w-full"
             onSubmit={(e: React.SyntheticEvent) => {
@@ -111,27 +122,36 @@ const Register: React.FC = () => {
                 theme="dark"
                 size="normal"
                 onChange={(token: string | null) => {
-                  setData(values => { return {...values, recaptcha: token || "" }; });
+                  setData((values) => {
+                    return { ...values, recaptcha: token || "" };
+                  });
                 }}
                 onExpired={() => {
-                  setData(values => { return {...values, recaptcha: "" }; });
+                  setData((values) => {
+                    return { ...values, recaptcha: "" };
+                  });
                 }}
               />
-              {errors.recaptcha && <p className="text-red-500 text-sm">{errors.recaptcha}</p>}
+              {errors.recaptcha && (
+                <p className="text-red-500 text-sm">{errors.recaptcha}</p>
+              )}
             </div>
 
             <div className="my-5">
               <div className="text-sm text-center">
-              Already have an account?{" "}
-                <Link className="font-bold text-sudo focus:text-sudo-light" href="/auth/login">
-                Login
+                Already have an account?{" "}
+                <Link
+                  className="font-bold text-sudo focus:text-sudo-light"
+                  href="/auth/login"
+                >
+                  Login
                 </Link>
               </div>
             </div>
 
             <div className="flex justify-center mt-4">
               <button type="submit" className="button p-6" disabled={false}>
-              Register
+                Register
               </button>
             </div>
           </form>

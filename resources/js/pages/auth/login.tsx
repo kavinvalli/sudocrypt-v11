@@ -21,10 +21,20 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
   ) => setData(e.target.name as "email" | "password", e.target.value);
 
   return (
-    <Layout footer={true}>
+    <Layout
+      footer={true}
+      logo={true}
+      navbar={[
+        { href: "/", label: "Home" },
+        { href: "/auth/register", label: "Register" },
+        { href: "/leaderboard", label: "Leaderboard" },
+      ]}
+    >
       <div className="flex justify-center items-center h-full w-full px-4 py-8">
         <div className="w-full max-w-md h-auto flex w-100 flex-col justify-center items-center sm:bg-gray-800 p-0 sm:p-8 rounded-lg sm:shadow-2xl">
-          <h1 className="w-full text-gray-400 text-3xl font-bold mb-3">Login</h1>
+          <h1 className="w-full text-gray-400 text-3xl font-bold mb-3">
+            Login
+          </h1>
           <form
             className="w-full"
             onSubmit={(e: React.SyntheticEvent) => {
@@ -60,24 +70,46 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
 
             {error && (
               <div className="my-5">
-                <div className="text-red-500 text-center font-bold">{error}</div>
+                <div className="text-red-500 text-center font-bold">
+                  {error}
+                </div>
               </div>
             )}
 
             <div className="my-5">
               <div className="text-sm text-center">
-              Don&apos;t have an account?{" "}
-                <Link className="font-bold text-sudo focus:text-sudo-light" href="/auth/login">
-                Register
+                Don&apos;t have an account?{" "}
+                <Link
+                  className="font-bold text-sudo focus:text-sudo-light"
+                  href="/auth/register"
+                >
+                  Register
                 </Link>
               </div>
             </div>
-            
 
-            <div className="flex justify-center mt-4">
+            <div className="flex justify-center my-5">
               <button type="submit" className="button" disabled={processing}>
-              Login
+                Login
               </button>
+            </div>
+
+            <div className="my-5 text-center uppercase font-bold text-gray-600">
+              or
+            </div>
+
+            <div className="flex justify-center my-5">
+              <Link
+                className="button w-full !bg-[#5865F2] !flex items-center justify-center"
+                disabled={processing}
+                href="/connectdiscord/login"
+              >
+                <img
+                  src="/img/Discord-Logo-White.svg"
+                  className="h-4 w-auto mr-2"
+                />
+                Login with Discord
+              </Link>
             </div>
           </form>
         </div>
