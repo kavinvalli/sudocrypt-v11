@@ -28,6 +28,8 @@ use Illuminate\Support\Facades\Auth;
 
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
 Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
+Route::get('/notifications', [IndexController::class, 'notifications'])->middleware(['auth'])->name('notifications');
+
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
 Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
 

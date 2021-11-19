@@ -31,4 +31,16 @@ class IndexController extends Controller
     }
     return view('disqualified');
   }
+
+  public function notifications()
+  {
+    return Inertia::render('notifications', [
+      'notifications' => Notification::get()->map(function ($item) {
+        return [
+          'content' => $item->content,
+          'created_at' => $item->created_at->diffForHumans()
+        ];
+      })->toArray()
+    ]);
+  }
 }
