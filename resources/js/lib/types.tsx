@@ -19,6 +19,7 @@ export interface IUser {
   discord_username?: string;
   discord_discriminator?: string;
   discord_email?: string;
+  discord_image?: string;
 
   level?: ILevel;
   circle?: ICircle;
