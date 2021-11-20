@@ -3,6 +3,9 @@ import React, { useState } from "react";
 import TextInput from "../../components/TextInput";
 import Layout from "../../components/Layout";
 import useTitle from "../../lib/use-title";
+import { useToasts } from "react-toast-notifications";
+import { IPageProps } from "../../lib/types";
+import { usePage } from "@inertiajs/inertia-react";
 
 interface IProps {
   error?: string;
@@ -10,10 +13,22 @@ interface IProps {
 
 const Login: React.FC<IProps> = ({ error }: IProps) => {
   useTitle("Login");
+  const { addToast } = useToasts();
+  const {
+    props: {
+      flash: { error: flashError },
+    },
+  } = usePage<IPageProps>();
   const { setData, post, processing, errors } = useForm({
     email: "",
     password: "",
   });
+
+  React.useEffect(() => {
+    if (flashError) {
+      addToast(flashError, { appearance: "error" });
+    }
+  }, []);
 
   // type InputName = "email" | "password";
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -100,9 +115,9 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
 
             <div className="flex justify-center my-5">
               <Link
-                className="button w-full !bg-[#5865F2] !flex items-center justify-center"
+                className="w-full focus:ring-[#3e48b4] !bg-[#5865F2] !flex items-center justify-center button"
                 disabled={processing}
-                href="/connectdiscord/login"
+                href="/discord/login"
               >
                 <img
                   src="/img/Discord-Logo-White.svg"

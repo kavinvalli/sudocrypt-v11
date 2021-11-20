@@ -27,7 +27,6 @@ use Illuminate\Support\Facades\Auth;
 */
 
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
-Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
 Route::get('/notifications', [IndexController::class, 'notifications'])->middleware(['auth'])->name('notifications');
 
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
@@ -61,12 +60,20 @@ Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
   ->name('auth.logout');
 
-Route::prefix('/connectdiscord')
+Route::prefix('/discord')
   ->middleware(['auth'])
   ->name('discord.')
   ->group(function () {
     Route::get('/', [DiscordController::class, 'redirect'])->name('connect');
     Route::get('/callback', [DiscordController::class, 'callback'])->name('callback');
+    Route::get('/disconnect', [DiscordController::class, 'disconnect'])->name('connect');
+  });
+
+Route::prefix('/discord/login')
+  ->name('discord.login')
+  ->group(function () {
+    Route::get('/', [DiscordController::class, 'loginRedirect'])->name('redirect');
+    Route::get('/callback', [DiscordController::class, 'loginCallback'])->name('callback');
   });
 
 Route::prefix('/admin')
