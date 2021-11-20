@@ -6,12 +6,14 @@ export interface IUser {
   updated_at: string;
   email: string;
   name: string;
+  username: string;
   email_verified_at?: string;
   admin: boolean | number;
   points: number;
   institution: string;
   disqualified: boolean | number;
   last_solved: string;
+  last_active: string;
   level_id?: number;
   circle_id: number;
 

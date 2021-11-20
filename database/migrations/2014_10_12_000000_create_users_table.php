@@ -24,7 +24,8 @@ class CreateUsersTable extends Migration
       $table->boolean('admin')->default(false);
       $table->boolean('disqualified')->default(false);
       $table->integer('points')->default(0);
-      $table->timestamp('last_solved')->useCurrent();
+      $table->timestamp('last_solved')->nullable();
+      $table->timestamp('last_active')->useCurrent();
 
       // Discord
       $table->string('discord_id')->nullable()->unique();
