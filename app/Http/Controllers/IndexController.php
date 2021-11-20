@@ -12,12 +12,7 @@ class IndexController extends Controller
   {
     if (auth()->check()) {
       return Inertia::render('indexAuthenticated', [
-        'notifications' => Notification::take(2)->get()->map(function ($item) {
-          return [
-            'content' => $item->content,
-            'created_at' => $item->created_at->diffForHumans()
-          ];
-        })->toArray()
+        'notifications' => Notification::get()
       ]);
     } else {
       return Inertia::render('index');

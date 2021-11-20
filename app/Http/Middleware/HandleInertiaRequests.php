@@ -56,12 +56,15 @@ class HandleInertiaRequests extends Middleware
           'email',
           'name',
           'institution',
+          'discord_id',
           'discord_username',
           'discord_discriminator',
+          'discord_image',
           'admin',
           'disqualified',
           'points',
-          'level'
+          'level',
+          'last_active'
         )
         : null,
       /* 'auth.user.created' => fn () => Auth::check() */
@@ -69,7 +72,10 @@ class HandleInertiaRequests extends Middleware
       /*   : null, */
       /* 'user' => Auth::user(), */
       'circle' => Auth::check() ? Auth::user()->circle : null,
-      'authenticated' => Auth::check()
+      'authenticated' => Auth::check(),
+      'flash' => [
+        'error' => fn () => $request->session()->get('error')
+      ],
     ]);
   }
 }

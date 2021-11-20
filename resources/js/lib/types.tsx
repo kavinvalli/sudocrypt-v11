@@ -94,5 +94,8 @@ export interface IPageProps extends Page<PageProps> {
     auth: {
       user: IUser;
     };
+    flash: {
+      error: string;
+    };
   };
 }
