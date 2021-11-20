@@ -34,7 +34,7 @@
     "@tailwindcss/forms": "^0.3.3",
     "@types/react-recaptcha": "^2.3.4",
     "@types/react-toast-notifications": "^2.4.1",
-    "date-fns": "^2.23.0",
+    "date-fns": "^2.26.0",
     "laravel-echo": "^1.11.2",
     "pusher-js": "^7.0.3",
     "react": "^17.0.2",
