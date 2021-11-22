@@ -11,7 +11,7 @@ class ShortlinkController extends Controller
 {
   public function links()
   {
-    $links = Shortlink::get(['id', 'shortlink', 'url']);
+    $links = Shortlink::get();
     return $links;
   }
 
@@ -42,14 +42,17 @@ class ShortlinkController extends Controller
    */
   public function store(Request $request)
   {
-    Shortlink::create(
-      request()->validate([
-        'shortlink' => 'required|regex:/^[a-z0-9]+$/|unique:shortlinks,shortlink',
-        'url' => 'required|url'
-      ])
-    );
+    $r = request()->validate([
+      'shortlink' => 'required|regex:/^[a-z0-9]+$/|unique:shortlinks,shortlink',
+      'url' => 'required|url'
+    ]);
 
-    return Redirect::route('shortlinks.index');
+    $s = new Shortlink();
+    $s->shortlink = $r['shortlink'];
+    $s->url = $r['url'];
+    $s->save();
+
+    return Redirect::route('admin.shortlinks.index');
   }
 
   /**
@@ -95,7 +98,7 @@ class ShortlinkController extends Controller
   public function destroy(Shortlink $shortlink)
   {
     $shortlink->delete();
-    return Redirect::route('shortlinks.index');
+    return Redirect::route('admin.shortlinks.index');
   }
 
   /**
