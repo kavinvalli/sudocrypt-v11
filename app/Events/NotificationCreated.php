@@ -25,7 +25,7 @@ class NotificationCreated implements ShouldBroadcast
    */
   public function __construct()
   {
-    $this->notifications = NotificationController::format_notifications();
+    $this->notifications = Notification::orderBy('created_at', 'DESC')->get();
   }
 
   public function broadcastWith()

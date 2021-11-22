@@ -76,7 +76,7 @@ const Admin: React.FC<IAdminProps> = ({
         { href: "/", label: "Home" },
       ]}
     >
-      <div className="home-container sm:h-screen sm:overflow-y-auto flex justify-center sm:py-16 py-6 sm:px-6">
+      <div className="home-container flex justify-center sm:py-16 py-6 sm:px-6">
         <div className="max-w-2xl w-full px-5">
           <div className="text-center">
             <div className="text-4xl font-bold text-gray-300">
@@ -109,7 +109,7 @@ const Admin: React.FC<IAdminProps> = ({
               </div>
             ))}
           </div>
-          <div className="pb-10 flex flex-col items-stretch gap-y-4">
+          <div className="flex flex-col items-stretch gap-y-4">
             {links.map(({ label, sub, href }, i) => (
               <Link
                 className="bg-dark-lighter block shadow-md p-6 flex items-center justify-between cursor-pointer gap-x-3"
