@@ -12,7 +12,7 @@ class IndexController extends Controller
   {
     if (auth()->check()) {
       return Inertia::render('indexAuthenticated', [
-        'notifications' => Notification::get()
+        'notifications' => Notification::orderBy('created_at', 'DESC')->get()
       ]);
     } else {
       return Inertia::render('index');
