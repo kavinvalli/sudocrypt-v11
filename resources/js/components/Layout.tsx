@@ -26,7 +26,7 @@ const Layout: React.FC<IProps> = ({
       {logo && (
         <img
           src="/img/logo-blue.png"
-          className="h-12 w-12 hidden sm:block rounded-lg absolute top-5 right-5"
+          className="h-12 w-12 hidden sm:block rounded-lg fixed top-5 right-5"
         />
       )}
       {navbar?.length !== 0 && (
@@ -43,7 +43,7 @@ const Layout: React.FC<IProps> = ({
             ))}
           </div>
 
-          <div className="sm:flex hidden absolute bottom-5 right-10 translate-x-full origin-left transform -rotate-90">
+          <div className="sm:flex hidden fixed bottom-5 right-10 translate-x-full origin-left transform -rotate-90">
             {navbar?.map(({ href, label }, i) => (
               <Link
                 href={href}
