@@ -1,22 +1,26 @@
-import React from "react";
-import { Link, usePage } from "@inertiajs/inertia-react";
+import React, { useState } from "react";
+import { Link, useForm, usePage } from "@inertiajs/inertia-react";
 import IndexCard from "./IndexCard";
 import { IPageProps } from "../../lib/types";
 import { formatDistance } from "date-fns";
+import TextInput from "../TextInput";
 
 const UserCard: React.FC = () => {
+  const [editing, setEditing] = useState(false);
   const {
     props: {
       auth: { user },
     },
   } = usePage<IPageProps>();
-  console.log({ user });
-  console.log(
-    formatDistance(new Date(user.last_active), new Date(), {
-      addSuffix: true,
-      includeSeconds: true,
-    })
-  );
+
+  const { setData, data, post, processing, errors } = useForm({
+    name: user.name,
+    institution: user.institution,
+  });
+
+  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
+    e: React.ChangeEvent<HTMLInputElement>
+  ) => setData(e.target.name as never, e.target.value as never);
 
   const show = {
     Email: { value: user.email, html: false },
@@ -50,16 +54,18 @@ const UserCard: React.FC = () => {
       html: true,
     },
     "Last Active": {
-      value: formatDistance(new Date(user.last_active), new Date(), {
-        addSuffix: true,
-        includeSeconds: true,
-      }),
+      value:
+        formatDistance(new Date(user.last_active), new Date(), {
+          addSuffix: true,
+          includeSeconds: true,
+        }) + ` (${new Date(user.last_active).toLocaleString()})`,
       html: false,
     },
     "Last Solve": {
       value: user.last_solved
         ? formatDistance(new Date(user.last_solved), new Date(), {
           addSuffix: true,
+          includeSeconds: true,
         })
         : "-",
       html: false,
@@ -99,27 +105,82 @@ const UserCard: React.FC = () => {
           </div>
         </div>
 
-        <div>
-          {Object.entries(show).map(([label, { value }], i) => (
-            <div
-              className="my-6 w-full text-gray-600 focus-within:text-gray-300"
-              key={i}
-            >
-              <label className="uppercase text-sm font-bold mb-1 block transition">
-                {label}
-              </label>
-              <div className="text-gray-200">{value}</div>
+        {editing ? (
+          <form
+            className="w-full"
+            onSubmit={(e: React.SyntheticEvent) => {
+              e.preventDefault();
+              post("/me/edit", {
+                preserveState: true,
+                preserveScroll: true,
+                onSuccess: () => setEditing(false),
+              });
+            }}
+          >
+            <TextInput
+              name="name"
+              label="Name"
+              placeholder="John Doe"
+              className="bg-dark-lighter sm:bg-dark"
+              containerClassName="my-5"
+              type="text"
+              value={data.name}
+              disabled={processing}
+              error={errors.name}
+              onChange={handleChange}
+            />
+
+            <TextInput
+              name="institution"
+              label="Institution"
+              placeholder="Delhi Public School, R.K. Puram"
+              className="bg-dark-lighter sm:bg-dark"
+              containerClassName="my-5"
+              type="text"
+              value={data.institution}
+              disabled={false}
+              error={errors.institution}
+              onChange={handleChange}
+            />
+
+            <div className="mt-5 flex justify-end gap-x-3">
+              <button type="submit" className="button">
+                Submit
+              </button>
+              <button
+                onClick={() => {
+                  setEditing(false);
+                  setData({
+                    name: user.name,
+                    institution: user.institution,
+                  });
+                }}
+                className="button"
+              >
+                Reset
+              </button>
             </div>
-          ))}
-          <div className="mt-5 flex justify-end gap-x-3">
-            <Link href="/me/edit" className="button">
-              Edit Information
-            </Link>
-            <Link href="/me" className="button">
-              Profile
-            </Link>
+          </form>
+        ) : (
+          <div>
+            {Object.entries(show).map(([label, { value }], i) => (
+              <div
+                className="my-6 w-full text-gray-600 focus-within:text-gray-300"
+                key={i}
+              >
+                <label className="uppercase text-sm font-bold mb-1 block transition">
+                  {label}
+                </label>
+                <div className="text-gray-200">{value}</div>
+              </div>
+            ))}
+            <div className="mt-5 flex justify-end gap-x-3">
+              <button onClick={() => setEditing(true)} className="button">
+                Edit Information
+              </button>
+            </div>
           </div>
-        </div>
+        )}
       </div>
     </IndexCard>
   );

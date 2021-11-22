@@ -9,6 +9,7 @@ use App\Http\Controllers\IndexController;
 use App\Http\Controllers\PlayController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\UserController;
@@ -26,14 +27,20 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
-Route::get('/notifications', [IndexController::class, 'notifications'])->middleware(['auth'])->name('notifications');
-
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
 Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
 
+Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
+
+Route::prefix('/me')
+  ->middleware(['auth'])
+  ->name('me.')
+  ->group(function () {
+    Route::post('/edit', [MeController::class, 'edit'])->name('edit');
+  });
+
 Route::prefix('/play')
-  ->middleware(['auth', 'dq'])
+  ->middleware(['in-progress', 'auth', 'dq'])
   ->name('play.')
   ->group(function () {
     Route::get('/', [PlayController::class, 'show'])->name('show');
