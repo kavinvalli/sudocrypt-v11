@@ -72,8 +72,8 @@ const Admin: React.FC<IAdminProps> = ({
       logo={true}
       navbar={[
         { href: "/auth/logout", label: "Logout" },
-        { href: "/", label: "Home" },
         { href: "/leaderboard", label: "Leaderboard" },
+        { href: "/", label: "Home" },
       ]}
     >
       <div className="home-container sm:h-screen sm:overflow-y-auto flex justify-center sm:py-16 py-6 sm:px-6">

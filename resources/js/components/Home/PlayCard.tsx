@@ -70,7 +70,7 @@ const PlayCard: React.FC = () => {
             <div className="flex items-center justify-center p-2 flex-1">
               <Link
                 href="/play"
-                className="text-xl bg-sudo rounded-xl py-4 px-6 uppercase font-bold"
+                className="text-xl bg-sudo rounded-xl py-4 px-6 uppercase font-bold focus:outline-none focus:shadow-none ring-sudo-dark focus:ring-4"
               >
                 Play
               </Link>
