@@ -1,8 +1,18 @@
 import React from "react";
-import { Link } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import IndexCard from "./IndexCard";
+import { IPageProps } from "../../lib/types";
+import Countdown from "../Countdown";
 
 const PlayCard: React.FC = () => {
+  const {
+    props: {
+      started,
+      ended,
+      auth: { user },
+    },
+  } = usePage<IPageProps>();
+
   return (
     <IndexCard
       className="sm:h-[42.5vh] w-full"
@@ -30,36 +40,48 @@ const PlayCard: React.FC = () => {
       }
       title="Play"
     >
-      <div className="h-full flex flex-col">
-        <div className="flex-1 sm:grid grid-rows-2 grid-cols-2 sm:gap-10 sm:p-10 flex flex-col gap-y-3">
-          {[
-            ["5", "Level"],
-            ["Earth", "Circle"],
-            ["1000", "Points"],
-            ["153", "Position"],
-          ].map(([value, label], i) => (
-            <div
-              className="flex sm:flex-col-reverse sm:items-center sm:justify-center my-3 sm:m-0 flex-row-reverse justify-between"
-              key={i}
-            >
-              <div className="uppercase font-bold text-gray-600 text-lg">
-                {label}
+      {ended ? (
+        <div className="h-full flex flex-col justify-center items-center">
+          <div className="text-2xl font-bold text-gray-600">
+            Sudocrypt v11.0 has ended
+          </div>
+        </div>
+      ) : started ? (
+        <div className="h-full flex flex-col">
+          <div className="flex-1 sm:grid grid-rows-2 grid-cols-2 sm:gap-10 sm:p-10 flex flex-col gap-y-3">
+            {[
+              [user.level?.id, "Level"],
+              [user.circle?.name, "Circle"],
+              [user.points, "Points"],
+              // ["153", "Position"],
+            ].map(([value, label], i) => (
+              <div
+                className="flex sm:flex-col-reverse sm:items-center sm:justify-center my-3 sm:m-0 flex-row-reverse justify-between"
+                key={i}
+              >
+                <div className="uppercase font-bold text-gray-600 text-lg">
+                  {label}
+                </div>
+                <div className="uppercase font-bold text-gray-200 text-3xl">
+                  {value}
+                </div>
               </div>
-              <div className="uppercase font-bold text-gray-200 text-3xl">
-                {value}
-              </div>
+            ))}
+            <div className="flex items-center justify-center p-2 flex-1">
+              <Link
+                href="/play"
+                className="text-xl bg-sudo rounded-xl py-4 px-6 uppercase font-bold"
+              >
+                Play
+              </Link>
             </div>
-          ))}
+          </div>
         </div>
-        <div className="flex items-center justify-center p-2 flex-1">
-          <Link
-            href="/play"
-            className="text-xl bg-sudo rounded-xl py-4 px-6 uppercase font-bold"
-          >
-            Play
-          </Link>
+      ) : (
+        <div className="h-full flex flex-col justify-center items-center">
+          <Countdown />
         </div>
-      </div>
+      )}
     </IndexCard>
   );
 };

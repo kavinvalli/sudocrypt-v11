@@ -25,6 +25,7 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
   const {
     props: {
       flash: { error: flashError },
+      auth: { user },
     },
   } = usePage<IPageProps>();
 
@@ -52,6 +53,7 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
       navbar={[
         { href: "/auth/logout", label: "Logout" },
         { href: "/leaderboard", label: "Leaderboard" },
+        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
       ]}
     >
       <>

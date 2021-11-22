@@ -64,6 +64,7 @@ class HandleInertiaRequests extends Middleware
           'disqualified',
           'points',
           'level',
+          'circle',
           'last_active'
         )
         : null,
