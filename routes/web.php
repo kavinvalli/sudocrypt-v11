@@ -89,26 +89,36 @@ Route::prefix('/admin')
   ->group(function () {
     Route::get('/', [AdminController::class, 'show'])->name('index');
 
+    Route::prefix('/users')
+      ->name('users.')
+      ->group(function () {
+        Route::get('/', [UserController::class, 'index'])
+          ->name('index');
+        Route::get('/{user}', [UserController::class, 'showAdmin'])
+          ->name('show');
+        Route::post('/{user}/dq', [UserController::class, 'disqualify'])
+          ->name('disqualify');
+      });
+
     Route::resource('/shortlinks', ShortlinkController::class)
       ->only(['index', 'store', 'destroy']);
 
-    Route::get('/users', [UserController::class, 'index'])
-      ->name('users.index');
-
-    Route::get('/users/{user}', [UserController::class, 'showAdmin'])
-      ->name('users.show');
-
-    Route::post('/users/{user}/dq', [UserController::class, 'disqualify'])
-      ->name('users.disqualify');
-
-    Route::get('/circles', [CircleController::class, 'show'])
-      ->name('circles.index');
-
-    Route::resource('/levels', LevelController::class)
-      ->only(['index', 'store', 'destroy', 'edit', 'update']);
-
     Route::resource('/notifications', NotificationController::class)
       ->only(['index', 'store', 'show', 'destroy', 'edit', 'update']);
+
+    Route::prefix('/levels')
+      ->name('levels.')
+      ->group(function () {
+        Route::get('/', [LevelController::class, 'index'])->name('index');
+        Route::get('/{level}', [LevelController::class, 'show'])->name('show');
+        Route::put('/{level}', [LevelController::class, 'update'])->name('update');
+      });
+
+    Route::prefix('/circles')
+      ->name('circles.')
+      ->group(function () {
+        Route::put('/{circle}', [CircleController::class, 'update'])->name('update');
+      });
   });
 
 Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])

@@ -53,7 +53,7 @@ const Admin: React.FC<IAdminProps> = ({
     {
       label: "Levels",
       sub: "See circles and levels, edit level content/answers",
-      href: "/admin/levels",
+      href: "/admin/levels/1",
     },
     {
       label: "Notifications",

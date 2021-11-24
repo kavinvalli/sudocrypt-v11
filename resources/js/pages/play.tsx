@@ -4,8 +4,8 @@ import Layout from "../components/Layout";
 import { IPageProps } from "../lib/types";
 import useTitle from "../lib/use-title";
 import { useToasts } from "react-toast-notifications";
-import AttemptLevel from "../components/AttemptLevel";
-import ChooseLevel from "../components/ChooseLevel";
+import AttemptLevel from "../components/Play/AttemptLevel";
+import ChooseLevel from "../components/Play/ChooseLevel";
 
 interface IPlayProps {
   circles: { id: number; name: string; levels: number[] }[];
@@ -42,8 +42,8 @@ const Play: React.FC<IPlayProps> = ({
         ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
       ]}
     >
-      <div className="home-container sm:h-screen relative flex justify-center items-center gap-x-14">
-        <div className="fixed bottom-40 left-5 text-sudo uppercase font-extrabold text-4xl transform origin-bottom -rotate-90">
+      <div className="home-container sm:h-screen relative flex flex-col-reverse sm:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0">
+        <div className="fixed bottom-40 left-5 text-sudo uppercase font-extrabold text-4xl transform origin-bottom -rotate-90 hidden sm:block">
           {user.circle?.name}
         </div>
         <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">

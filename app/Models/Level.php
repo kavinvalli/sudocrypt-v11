@@ -21,4 +21,19 @@ class Level extends Model
   {
     return $this->hasOne(Circle::class);
   }
+
+  public function users()
+  {
+    return $this->hasMany(User::class);
+  }
+
+  public function attempts()
+  {
+    return $this->hasMany(UserAttempt::class);
+  }
+
+  public function solves()
+  {
+    return $this->hasMany(UserAttempt::class)->where('correct', true);
+  }
 }

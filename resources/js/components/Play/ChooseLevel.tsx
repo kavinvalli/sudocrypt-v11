@@ -1,7 +1,7 @@
 import { Inertia } from "@inertiajs/inertia";
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useEffect, useRef } from "react";
-import { IPageProps } from "../lib/types";
+import { IPageProps } from "../../lib/types";
 
 interface IChooseLevelProps {
   completed_levels: number[];

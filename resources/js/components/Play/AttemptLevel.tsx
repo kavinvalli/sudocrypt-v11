@@ -1,6 +1,7 @@
 import { useForm, usePage } from "@inertiajs/inertia-react";
 import React, { useEffect, useRef } from "react";
-import { IPageProps } from "../lib/types";
+import { IPageProps } from "../../lib/types";
+import TextInput from "../TextInput";
 
 const AttemptLevel: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -17,12 +18,23 @@ const AttemptLevel: React.FC = () => {
     inputRef.current?.focus();
   }, []);
 
+  const handleChange = (e) => {
+    e.preventDefault();
+    setData(
+      "attempt",
+      e.target.value
+        .split("")
+        .filter((x: string) => /[a-z0-9_]{1}/.test(x))
+        .join("")
+    );
+  };
+
   return (
     <div>
       <div className="text-sudo text-6xl font-extrabold">Play</div>
       <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg my-10">
         <div className="text-sudo-light text-sm uppercase font-bold">
-          Level {user.level?.id}
+          {user.circle?.name} &middot; Level {user.level?.id}
         </div>
         <div
           className="text-lg my-5"
@@ -44,7 +56,7 @@ const AttemptLevel: React.FC = () => {
             });
           }}
         >
-          <div className="mt-5 flex w-full focus-within:ring-4 ring-sudo rounded-lg transition">
+          <div className="mt-5 w-full focus-within:ring-4 ring-sudo rounded-lg transition hidden sm:flex">
             <input
               type="text"
               name="attempt"
@@ -55,16 +67,7 @@ const AttemptLevel: React.FC = () => {
               ref={inputRef}
               value={data.attempt}
               disabled={processing}
-              onChange={(e) => {
-                e.preventDefault();
-                setData(
-                  "attempt",
-                  e.target.value
-                    .split("")
-                    .filter((x) => /[a-z0-9_]{1}/.test(x))
-                    .join("")
-                );
-              }}
+              onChange={handleChange}
             />
             <button
               type="submit"
@@ -74,7 +77,28 @@ const AttemptLevel: React.FC = () => {
               submit
             </button>
           </div>
-          <div className="text-sm text-red-500 my-3">{errors.attempt}</div>
+
+          <div className="text-sm text-red-500 my-3 sm:hidden">
+            {errors.attempt}
+          </div>
+          <div className="block sm:hidden">
+            <TextInput
+              name="answer"
+              placeholder="Answer"
+              className="bg-dark"
+              containerClassName="my-5"
+              type="text"
+              disabled={processing}
+              error={errors.attempt}
+              value={data.attempt}
+              onChange={handleChange}
+            />
+            <div className="flex w-full justify-center">
+              <button type="submit" className="button">
+                Submit
+              </button>
+            </div>
+          </div>
         </form>
       </div>
     </div>

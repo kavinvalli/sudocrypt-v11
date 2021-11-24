@@ -11,28 +11,15 @@ use Inertia\Inertia;
 
 class LevelController extends Controller
 {
-  public function levels()
+  public function circlesWithLevelIds()
   {
-    $levels = Level::select('id', 'circle_id', 'question', 'answer', 'points', 'source_hint')
+    return Circle::with('levels')
       ->get()
-      ->map(function ($level, $key) {
-        return [
-          'id' => $level->id,
-          'circle' => Circle::find($level->circle_id),
-          'question' => $level->question,
-          'answer' => $level->answer,
-          'points' => $level->points,
-          'source_hint' => $level->source_hint,
-          'people_number' => User::where('level', $level->id)->count(),
-        ];
-      });
-    return $levels;
-  }
-
-  public function circles()
-  {
-    $circles = Circle::all();
-    return $circles;
+      ->map(fn ($circle) => [
+        'id' => $circle->id,
+        'name' => $circle->name,
+        'levels' => $circle->levels->map(fn ($lvl) => $lvl->id)
+      ]);
   }
 
   /**
@@ -42,7 +29,9 @@ class LevelController extends Controller
    */
   public function index()
   {
-    return Inertia::render('admin/levels', ['levels' => $this->levels(), 'circles' => $this->circles()]);
+    return Inertia::render('admin/levels', [
+      'circles' => $this->circlesWithLevelIds(),
+    ]);
   }
 
   /**
@@ -83,7 +72,12 @@ class LevelController extends Controller
    */
   public function show(Level $level)
   {
-    //
+    return Inertia::render('admin/level', [
+      'circles' => $this->circlesWithLevelIds(),
+      'level' => Level::where('id', $level->id)
+        ->withCount(['users', 'attempts', 'solves'])
+        ->first()
+    ]);
   }
 
   /**
@@ -111,16 +105,14 @@ class LevelController extends Controller
       'answer' => 'required',
       'points' => 'required',
       'source_hint' => 'nullable',
-      'circle_id' => 'required',
     ]);
     $level->question = $request->question;
     $level->answer = $request->answer;
-    $level->circle_id = $request->circle_id;
     $level->points = $request->points;
     $level->source_hint = $request->source_hint;
     $level->save();
 
-    return Redirect::route('levels.index');
+    return redirect()->back();
   }
 
   /**

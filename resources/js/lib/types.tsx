@@ -42,8 +42,8 @@ export interface ILevel {
 
 export interface ICircle {
   id: number;
-  created_at: string;
-  updated_at: string;
+  created_at?: string;
+  updated_at?: string;
   name: string;
 
   levels?: ILevel[];
