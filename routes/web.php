@@ -44,7 +44,7 @@ Route::prefix('/play')
   ->name('play.')
   ->group(function () {
     Route::get('/', [PlayController::class, 'show'])->name('show');
-    Route::post('/', [PlayController::class, 'play'])->name('play');
+    Route::post('/', [PlayController::class, 'attempt'])->name('attempt');
     Route::post('/choose-level', [PlayController::class, 'chooseLevel'])->name('chooseLevel');
   });
 

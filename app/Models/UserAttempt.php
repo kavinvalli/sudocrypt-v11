@@ -11,6 +11,9 @@ class UserAttempt extends Model
 
   protected $fillable = [
     'attempt',
+    'user_id',
+    'level_id',
+    'circle_id',
     'ip',
     'correct'
   ];

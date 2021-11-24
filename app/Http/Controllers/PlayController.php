@@ -14,15 +14,19 @@ class PlayController extends Controller
 {
   public function show()
   {
-    $user = User::find(auth()->id());
     return Inertia::render('play', [
-      'discord_authenticated' => $user->discord_id ? true : false,
-      'circles' => Circle::all(),
-      'available_levels' => Level::select('id')->where('circle_id', $user->circle)->get(),
-      'done_levels' => UserAttempt::select('level_id as id')->where('circle_id', $user->circle)->where('user_id', $user->id)->get()->modelKeys(),
-      'currentLevel' => Level::select('id', 'question', 'source_hint')->where('id', $user->level)->limit(1)->get(),
-      // TODO: refactor to a service or model
-      'notifications' => NotificationController::format_notifications(),
+      'circles' => Circle::with('levels')
+        ->get()
+        ->map(fn ($circle) => [
+          'id' => $circle->id,
+          'name' => $circle->name,
+          'levels' => $circle->levels->map(fn ($lvl) => $lvl->id)
+        ]),
+      'completed_levels' => UserAttempt::select('level_id as id')
+        ->where('correct', true)
+        ->where('user_id', auth()->id())
+        ->get()
+        ->map(fn ($lvl) => $lvl->id),
       'error' => null,
     ]);
   }
@@ -38,57 +42,56 @@ class PlayController extends Controller
     ]);
 
     $user = User::find(auth()->id());
+    $level = $user->level;
+    $completedLevels = collect($user->attempts()
+      ->where('correct', true)
+      ->select('level_id as id')
+      ->get()
+      ->map(fn ($l) => $l->id));
+    $allLevelsSolved = $user->circle->levels->every(fn ($lvl) => $completedLevels->contains($lvl->id));
 
-    // TODO: move to LevelCheck
-    $u = new UserAttempt;
-    $u->attempt = $request->attempt;
-    $u->user_id = $request->user_id;
-    $u->level_id = $user->level;
-    $u->circle_id = $user->circle;
-    $u->save();
+    // Answer is correct
+    // Update points
+    // Update last solved
+    // Set level_id = null
+    // Check if all levels in circle are solved
+    //   If yes, move to next circle
 
-    // TODO: reduce calls to Level::find
-    if ($request->attempt === Level::find($user->level)->answer) {
-      $user->points = $user->points + Level::find($user->level)->points;
-      $user->last_solved = now();
-      $allLevelsInCircle = Level::select('id')->where('circle_id', $user->circle)->get()->modelKeys();
-      $_allAttemptedLevelsInCircle = UserAttempt::select('level_id as id')->where('user_id', $user->id)->where('circle_id', $user->circle)->get()->modelKeys();
-      $allAttemptedLevelsInCircle = array_unique($_allAttemptedLevelsInCircle);
-      sort($allAttemptedLevelsInCircle);
-      /* return array_diff($allAttemptedLevelsInCircle, $allLevelsInCircle); */
-      if ($allLevelsInCircle === $allAttemptedLevelsInCircle) {
-        # IF ALL QUESTIONS OF CIRCLE COMPLETE - MOVE TO NEXT CIRCLE
-        $newCircleId = $user->circle + 1;
-        if ($newCircleId === 13) {
-          $user->circle = 42;
-          $user->level = null;
-        } else {
-          $user->circle = $newCircleId;
-          /* $nextCircle = Circle::find($newCircleId); */
-          /* if ($nextCircle->onlyOneLevel) { */
-          /*   $level = Level::firstWhere('circle_id', $newCircleId); */
-          /*   $user->level = $level->id; */
-          /* } else { */
-          /*   $user->level = null; */
-          /* } */
-          $user->level = null;
-        }
+    $user->points = $user->points + $level->points;
+    $user->last_solved = now();
+    $user->level_id = null;
+    if ($allLevelsSolved) {
+      $nextCircle = Circle::find($user->circle_id + 1);
+      if ($nextCircle) {
+        $user->circle_id = $nextCircle->id;
       } else {
-        $user->level = null;
+        $user->circle_id = null;
       }
-      $user->save();
-      return redirect()->to('/');
-    } else {
-      return redirect()->to('/')->with('error', 'Wrong Answer');
     }
+    $user->save();
+
+    return redirect()->route('play.show');
   }
 
   public function chooseLevel(Request $request)
   {
-    $user = User::find(auth()->id());
-    if (!$user->level_id) {
-      $user->level_id = $request->level_id;
-      $user->save();
+    if (!auth()->user()->level_id) {
+      $request->validate([
+        'level_id' => ['required', 'regex:/\d{1}/']
+      ]);
+
+      $user = User::find(auth()->id());
+
+      $levels = collect(
+        Level::where('circle_id', $user->circle_id)
+          ->select('id')
+          ->get()
+          ->map(fn ($l) => $l->id)
+      );
+      if ($levels->contains($request->level_id)) {
+        $user->level_id = $request->level_id;
+        $user->save();
+      }
     }
 
     return redirect()->to('/play');

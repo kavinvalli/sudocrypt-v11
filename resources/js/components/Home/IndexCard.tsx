@@ -19,7 +19,7 @@ const IndexCard: React.FC<IIndexCardProps> = ({
 }: IIndexCardProps) => {
   return (
     <div
-      className={`bg-dark-lighter shadow-2xl p-5 flex flex-col sm:flex-row gap-x-4 ${className}`}
+      className={`bg-dark-lighter shadow-2xl p-5 flex flex-col sm:flex-row gap-x-4 rounded-lg ${className}`}
     >
       <div
         className={`h-full w-12 hidden sm:flex flex-col-reverse justify-start items-center relative opacity-50 ${sidebarClassName}`}

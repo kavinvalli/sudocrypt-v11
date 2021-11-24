@@ -16,8 +16,8 @@ class UserCircleLevel extends Migration
   public function up()
   {
     Schema::table('users', function (Blueprint $table) {
-      $table->foreignIdFor(Circle::class)->default(1);
-      $table->foreignIdFor(Level::class)->default(1);
+      $table->foreignIdFor(Circle::class)->default(1)->nullable();
+      $table->foreignIdFor(Level::class)->default(1)->nullable();
     });
   }
 
