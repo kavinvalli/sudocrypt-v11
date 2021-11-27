@@ -2,6 +2,7 @@ import React, { ChangeEvent, useRef, useState } from "react";
 import { usePage } from "@inertiajs/inertia-react";
 import { IPageProps } from "../lib/types";
 import Layout from "../components/Layout";
+import useTitle from "../lib/use-title";
 
 interface ILeaderboardUser {
   rank?: number | string;
@@ -17,6 +18,7 @@ interface ILeaderboardProps {
 const Leaderboard: React.FC<ILeaderboardProps> = ({
   users,
 }: ILeaderboardProps) => {
+  useTitle("Leaderboard");
   const [displayUsers, setDisplayUsers] = useState<ILeaderboardUser[]>(users);
   const searchRef = useRef<HTMLInputElement>(null);
 
@@ -33,21 +35,10 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
     );
   };
 
-  const rowClassname = (rank: number) =>
-    rank === 1
-      ? "first"
-      : rank === 2
-        ? "second"
-        : rank === 3
-          ? "third"
-          : rank <= 15
-            ? "top15"
-            : "";
-
   return (
     <Layout footer={false} logo={true} navbar={[{ href: "/", label: "Home" }]}>
       <div className="home-container h-screen flex flex-col justify-start p-10">
-        <div className="px-10">
+        <div className="px-10 max-w-[1000px] w-full mx-auto">
           <input
             type="text"
             placeholder="Search"
@@ -57,7 +48,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
             style={{ boxShadow: "none" }}
           />
         </div>
-        <div className="flex-1 overflow-y-auto p-10">
+        <div className="flex-1 overflow-y-auto p-10 max-w-[1000px] w-full mx-auto">
           <table className="w-full border-collapse">
             <thead>
               <tr className="font-extrabold text-xl uppercase text-sudo">

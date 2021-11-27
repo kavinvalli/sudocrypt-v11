@@ -12,15 +12,10 @@ use Inertia\Inertia;
 
 class UserController extends Controller
 {
-  public static function format_users()
-  {
-    return User::get();
-  }
-
   public function index()
   {
     return Inertia::render('admin/users', [
-      'users' => $this->format_users()
+      'users' => User::with(['level', 'circle'])->get()
     ]);
   }
 

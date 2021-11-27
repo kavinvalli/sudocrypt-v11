@@ -80,25 +80,20 @@ const Links: React.FC<IAdminLinksProps> = ({ links }: IAdminLinksProps) => {
             </div>
           </form>
 
-          <table className="w-full">
+          <table className="max-w-[1000px] w-full mx-auto divide-sudo divide-y bg-dark-lighter shadow-md">
             <thead>
-              <tr className="text-white font-bold uppercase">
-                <th className="p-5 bg-sudo border-none rounded-tl-xl">
-                  Shortlink
-                </th>
-                <th className="p-5 bg-sudo border-none">URL</th>
-                <th className="p-5 bg-sudo border-none rounded-tr-xl"></th>
+              <tr className="bg-sudo text-white font-extrabold uppercase">
+                <th className="p-3">Shortlink</th>
+                <th className="p-3">URL</th>
+                <th className="p-3"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-sudo">
               {links.map(({ id, shortlink, url }) => (
-                <tr
-                  className="!bg-opacity-20 odd:bg-gray-300 even:bg-sudo-light"
-                  key={id}
-                >
-                  <td className="p-5 text-md text-center">{shortlink}</td>
-                  <td className="p-5 text-md text-center">{url}</td>
-                  <td className="p-5 text-md flex flex-col gap-y-2 items-center justify-center">
+                <tr key={id}>
+                  <td className="p-3 text-center">{shortlink}</td>
+                  <td className="p-3 text-center">{url}</td>
+                  <td className="p-3 flex flex-col gap-y-2 items-center justify-center">
                     <button
                       onClick={(e) => {
                         e.preventDefault();

@@ -90,7 +90,11 @@ const Play: React.FC<IPlayProps> = ({
             }
           />
         ) : (
-          <div>congratulations</div>
+          <div>
+            <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg my-10">
+              Sab khatam.... ab bahar ghoomle zara
+            </div>
+          </div>
         )}
       </div>
     </Layout>

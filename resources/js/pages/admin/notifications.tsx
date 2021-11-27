@@ -22,6 +22,7 @@ const Notifications: React.FC<INotificationProps> = ({
   return (
     <Layout
       logo={true}
+      circles={false}
       navbar={[
         { href: "/auth/logout", label: "Logout" },
         { href: "/leaderboard", label: "Leaderboard" },
@@ -98,25 +99,20 @@ const Notifications: React.FC<INotificationProps> = ({
             </div>
           </div>
 
-          <table>
+          <table className="max-w-[1000px] w-full mx-auto divide-sudo divide-y bg-dark-lighter shadow-md">
             <thead>
-              <tr className="text-white font-bold uppercase">
-                <th className="p-5 bg-sudo border-none rounded-tl-xl">
-                  Content
-                </th>
-                <th className="p-5 bg-sudo border-none">Created At</th>
-                <th className="p-5 bg-sudo border-none rounded-tr-xl"></th>
+              <tr className="bg-sudo text-white font-extrabold uppercase">
+                <th className="p-3">Content</th>
+                <th className="p-3">Created At</th>
+                <th className="p-3"></th>
               </tr>
             </thead>
-            <tbody>
+            <tbody className="divide-y divide-sudo">
               {notifications.map(({ id, content, created_at }) => (
-                <tr
-                  className="!bg-opacity-20 odd:bg-gray-300 even:bg-sudo-light"
-                  key={id}
-                >
-                  <td className="p-5 text-md">{content}</td>
-                  <td className="p-5 text-md">{created_at}</td>
-                  <td className="p-5 text-md flex flex-col gap-y-2 items-stretch justify-center">
+                <tr key={id}>
+                  <td className="p-3 text-center">{content}</td>
+                  <td className="p-3 text-center">{created_at}</td>
+                  <td className="p-3 flex flex-col gap-y-2 items-stretch justify-center">
                     <button
                       onClick={(e) => {
                         e.preventDefault();
