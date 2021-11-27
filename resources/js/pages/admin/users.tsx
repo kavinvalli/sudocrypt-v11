@@ -11,6 +11,7 @@ import {
 import Layout from "../../components/Layout";
 import { Pagination, Search } from "../../components/Table";
 import { IUser } from "../../lib/types";
+import useTitle from "../../lib/use-title";
 
 interface IUsersProps {
   users: IUser[];
@@ -55,7 +56,7 @@ const Table = ({ tbl }: { tbl: TableInstance<IUser> }) => (
             })}
             <td className="p-3 text-center">
               <Link
-                href={`/admin/users/${row.id}`}
+                href={`/admin/users/${row.original.id}`}
                 className="flex items-center justify-center w-6 h-6 font-mono text-xs font-extrabold rounded-lg bg-sudo"
               >
                 <svg
@@ -82,6 +83,7 @@ const Table = ({ tbl }: { tbl: TableInstance<IUser> }) => (
 );
 
 const Users: React.FC<IUsersProps> = ({ users }: IUsersProps) => {
+  useTitle("Users");
   const data = useMemo(() => users, []);
   const columns = useMemo(
     () => [

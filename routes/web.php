@@ -94,10 +94,16 @@ Route::prefix('/admin')
       ->group(function () {
         Route::get('/', [UserController::class, 'index'])
           ->name('index');
-        Route::get('/{user}', [UserController::class, 'showAdmin'])
+        Route::get('/{user}', [UserController::class, 'show'])
           ->name('show');
+        Route::get('/{user}/lvl/{level}', [UserController::class, 'level'])
+          ->name('level');
         Route::post('/{user}/dq', [UserController::class, 'disqualify'])
           ->name('disqualify');
+        Route::post('/{user}/admin', [UserController::class, 'admin'])
+          ->name('admin');
+        Route::post('/{user}/changepwd', [UserController::class, 'changePassword'])
+          ->name('changePassword');
       });
 
     Route::resource('/shortlinks', ShortlinkController::class)
