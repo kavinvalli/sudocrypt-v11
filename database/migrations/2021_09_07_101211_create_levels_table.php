@@ -21,6 +21,7 @@ class CreateLevelsTable extends Migration
       $table->string('question');
       $table->string('source_hint')->nullable();
       $table->string('answer');
+      $table->integer('points')->default(0);
     });
   }
 

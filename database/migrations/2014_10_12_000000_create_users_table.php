@@ -17,9 +17,23 @@ class CreateUsersTable extends Migration
       $table->id();
       $table->string('name');
       $table->string('username');
-      $table->string('email')->unique()->nullable();
+      $table->string('email')->unique();
       $table->timestamp('email_verified_at')->nullable();
-      $table->string('password')->nullable();
+      $table->string('password');
+      $table->string('institution');
+      $table->boolean('admin')->default(false);
+      $table->boolean('disqualified')->default(false);
+      $table->integer('points')->default(0);
+      $table->timestamp('last_solved')->nullable();
+      $table->timestamp('last_active')->useCurrent();
+
+      // Discord
+      $table->string('discord_id')->nullable()->unique();
+      $table->string('discord_username')->nullable()->unique();
+      $table->string('discord_discriminator')->nullable()->unique();
+      $table->string('discord_email')->nullable()->unique();
+      $table->string('discord_image')->nullable()->unique();
+
       $table->rememberToken();
       $table->timestamps();
     });

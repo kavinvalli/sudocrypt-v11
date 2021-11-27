@@ -30,6 +30,26 @@
   font-style: normal;
 }
 
+/* width */
+::-webkit-scrollbar {
+  width: 7px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ffffff30;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: transparent;
+}
+
 #nprogress .bar {
   box-shadow: none;
   height: 5px !important;
@@ -48,17 +68,35 @@ html,
   padding: 0;
 }
 
-@layer components {
-  .button {
-    @apply cursor-pointer bg-sudo block text-center
-           uppercase leading-none font-bold border-2 border-sudo
-           hover:border-white text-sm text-white transition
-           focus:outline-none focus:border-dark focus:shadow-none;
-  }
-  .button-outline {
-    @apply cursor-pointer block rounded-lg p-4 text-center
-           uppercase leading-none font-bold border-2 border-sudo
-           hover:bg-sudo text-sm text-white transition
-           focus:outline-none focus:border-dark focus:shadow-none;
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+.button {
+  @apply cursor-pointer bg-sudo block text-center p-3 px-4
+    text-sm uppercase font-bold rounded-lg focus:outline-none
+    focus:ring-4 focus:ring-sudo-dark;
+}
+
+.button-outline {
+  @apply cursor-pointer block rounded-lg p-4 text-center
+         uppercase leading-none font-bold border-2 border-sudo
+         hover:bg-sudo text-sm text-white transition
+         focus:outline-none focus:border-dark focus:shadow-none;
+}
+
+.debug {
+  @apply border-2 border-white;
+}
+
+.home-container {
+  width: calc(100vw - 80px);
+}
+
+@media screen and (max-width: 640px) {
+  .home-container {
+    width: 100%;
   }
 }

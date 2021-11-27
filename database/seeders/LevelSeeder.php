@@ -4,7 +4,9 @@ namespace Database\Seeders;
 
 use App\Models\Circle;
 use App\Models\Level;
+use Carbon\Carbon;
 use Illuminate\Database\Seeder;
+use Illuminate\Support\Facades\DB;
 
 class LevelSeeder extends Seeder
 {
@@ -15,236 +17,29 @@ class LevelSeeder extends Seeder
    */
   public function run()
   {
-    $circle1 = Circle::find(1);
-    $circle1->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this',
-        'answer' => 'verylonganswer',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE',
-      ]),
-    ]);
-    $circle2 = Circle::find(2);
-    $circle2->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle3 = Circle::find(3);
-    $circle3->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 3',
-        'answer' => 'verylonganswer3',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 3',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 3',
-        'answer' => 'verylonganswer3',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 3',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 3',
-        'answer' => 'verylonganswer3',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 3',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 3',
-        'answer' => 'verylonganswer3',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 3',
-      ]),
-    ]);
-    $circle4 = Circle::find(4);
-    $circle4->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle5 = Circle::find(5);
-    $circle5->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle6 = Circle::find(6);
-    $circle6->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle7 = Circle::find(7);
-    $circle7->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle8 = Circle::find(8);
-    $circle8->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle9 = Circle::find(9);
-    $circle9->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle10 = Circle::find(10);
-    $circle10->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-      new Level([
-        'question' => 'Level question should be longer than this 2',
-        'answer' => 'verylonganswer2',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE 2',
-      ]),
-    ]);
-    $circle11 = Circle::find(11);
-    $circle11->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this',
-        'answer' => 'verylonganswer',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE',
-      ]),
-    ]);
-    $circle12 = Circle::find(12);
-    $circle12->levels()->saveMany([
-      new Level([
-        'question' => 'Level question should be longer than this',
-        'answer' => 'verylonganswer',
-        'source_hint' => 'SOURCE HINT ON THE SOURCE',
-      ]),
-    ]);
+    $sheetURL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vQmfGiskAV-1ZmPTcgJPGgtlL-liYJwSgI9CRczJzrqR7w0AVE5_Ipe0aEsf5CTyCurLFs2Tvv7Xkxh/pub?gid=1778063979&single=true&output=tsv";
+    $sheetContent = explode("\r\n", file_get_contents($sheetURL));
+    $lines = array_slice($sheetContent, 1);
+    $rows = collect();
+    $now = Carbon::now('Asia/Kolkata');
+    foreach ($lines as $line) {
+      $row = str_getcsv($line, "\t");
+      $rows->push([
+        'id' => $row[0],
+        'circle_id' => $row[1],
+        'points' => $row[2],
+        'question' => $row[3],
+        'source_hint' => $row[4],
+        'answer' => $row[5],
+        'created_at' => $now,
+        'updated_at' => $now,
+      ]);
+    }
+
+    DB::table('levels')->upsert(
+      $rows->toArray(),
+      ['id'],
+      ['circle_id', 'points', 'question', 'source_hint', 'answer']
+    );
   }
 }

@@ -61,4 +61,19 @@ class User extends Authenticatable
   {
     return Hash::check($password, $this->password);
   }
+
+  public function circle()
+  {
+    return $this->belongsTo(Circle::class);
+  }
+
+  public function level()
+  {
+    return $this->belongsTo(Level::class);
+  }
+
+  public function attempts()
+  {
+    return $this->hasMany(UserAttempt::class);
+  }
 }

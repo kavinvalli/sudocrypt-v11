@@ -2,13 +2,14 @@
 
 use App\Http\Controllers\AdminController;
 use Illuminate\Support\Facades\Route;
-use Inertia\Inertia;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\CircleController;
 use App\Http\Controllers\DiscordController;
 use App\Http\Controllers\IndexController;
+use App\Http\Controllers\PlayController;
 use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LevelController;
+use App\Http\Controllers\MeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\UserController;
@@ -26,19 +27,26 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 
-/* Route::get('/', function () { */
-/*   return Inertia::render('index'); */
-/* })->name('home'); */
+Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
+Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
 
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
-Route::get('/me', [UserController::class, 'show'])->middleware(['auth', 'dq']);
-Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['auth', 'dq']);
 
-Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
+Route::prefix('/me')
+  ->middleware(['auth'])
+  ->name('me.')
+  ->group(function () {
+    Route::post('/edit', [MeController::class, 'edit'])->name('edit');
+  });
 
-Route::get('/play', [IndexController::class, 'showPlay'])->middleware(['auth', 'dq']);
-Route::post('/play', [IndexController::class, 'play'])->middleware(['auth', 'dq']);
-Route::post('/choose-level', [IndexController::class, 'chooseLevel'])->middleware(['auth', 'dq']);
+Route::prefix('/play')
+  ->middleware(['in-progress', 'auth', 'dq'])
+  ->name('play.')
+  ->group(function () {
+    Route::get('/', [PlayController::class, 'show'])->name('show');
+    Route::post('/', [PlayController::class, 'attempt'])->name('attempt');
+    Route::post('/choose-level', [PlayController::class, 'chooseLevel'])->name('chooseLevel');
+  });
 
 // ----- Authentication -----
 Route::prefix('/auth')
@@ -59,45 +67,62 @@ Route::get('/auth/logout', [AuthController::class, 'destroy'])
   ->middleware(['auth'])
   ->name('auth.logout');
 
-Route::get('/connectdiscord', [DiscordController::class, 'redirect'])
-  ->middleware(['auth']);
-Route::get('/connectdiscord/callback', [DiscordController::class, 'callback'])
-  ->middleware(['auth']);
+Route::prefix('/discord')
+  ->middleware(['auth'])
+  ->name('discord.')
+  ->group(function () {
+    Route::get('/', [DiscordController::class, 'redirect'])->name('connect');
+    Route::get('/callback', [DiscordController::class, 'callback'])->name('callback');
+    Route::get('/disconnect', [DiscordController::class, 'disconnect'])->name('connect');
+  });
 
-Route::get('/admin', [AdminController::class, 'show'])->middleware(['auth', 'admin']);
+Route::prefix('/discord/login')
+  ->name('discord.login')
+  ->group(function () {
+    Route::get('/', [DiscordController::class, 'loginRedirect'])->name('redirect');
+    Route::get('/callback', [DiscordController::class, 'loginCallback'])->name('callback');
+  });
 
-Route::resource('/admin/shortlinks', ShortlinkController::class)
-  ->only(['index', 'store', 'destroy'])
-  ->middleware(['web', 'auth', 'admin']);
-
-Route::get('/admin/users', [UserController::class, 'index'])
+Route::prefix('/admin')
   ->middleware(['auth', 'admin'])
-  ->name('users.index');
+  ->name('admin.')
+  ->group(function () {
+    Route::get('/', [AdminController::class, 'show'])->name('index');
 
+    Route::prefix('/users')
+      ->name('users.')
+      ->group(function () {
+        Route::get('/', [UserController::class, 'index'])
+          ->name('index');
+        Route::get('/{user}', [UserController::class, 'showAdmin'])
+          ->name('show');
+        Route::post('/{user}/dq', [UserController::class, 'disqualify'])
+          ->name('disqualify');
+      });
 
-Route::get('/admin/users/{user}', [UserController::class, 'showAdmin'])
-  ->middleware(['auth', 'admin'])
-  ->name('users.show');
+    Route::resource('/shortlinks', ShortlinkController::class)
+      ->only(['index', 'store', 'destroy']);
 
-Route::post('/admin/users/{user}/dq', [UserController::class, 'disqualify'])
-  ->middleware(['auth', 'admin'])
-  ->name('users.disqualify');
+    Route::resource('/notifications', NotificationController::class)
+      ->only(['index', 'store', 'show', 'destroy', 'edit', 'update']);
 
-/* Route::get('/admin/circles', [CircleController::class, 'show']) */
-/*   ->middleware(['auth, admin']); */
+    Route::prefix('/levels')
+      ->name('levels.')
+      ->group(function () {
+        Route::get('/', [LevelController::class, 'index'])->name('index');
+        Route::get('/{level}', [LevelController::class, 'show'])->name('show');
+        Route::put('/{level}', [LevelController::class, 'update'])->name('update');
+      });
 
-Route::get('/admin/circles', [CircleController::class, 'show'])
-  ->middleware(['auth', 'admin']);
+    Route::prefix('/circles')
+      ->name('circles.')
+      ->group(function () {
+        Route::put('/{circle}', [CircleController::class, 'update'])->name('update');
+      });
+  });
 
-Route::resource('/admin/levels', LevelController::class)
-  ->only(['index', 'store', 'destroy', 'edit', 'update'])
-  ->middleware(['web', 'auth', 'admin']);
-
-Route::resource('/admin/notifications', NotificationController::class)
-  ->only(['index', 'store', 'show', 'destroy', 'edit', 'update'])
-  ->middleware(['web', 'auth', 'admin']);
-
-Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])->where('shortlink', '.*');
+Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])
+  ->where('shortlink', '.*');
 
 if (App::environment('local')) {
   Route::get('/authn', function () {

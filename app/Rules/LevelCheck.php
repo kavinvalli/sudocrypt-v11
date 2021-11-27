@@ -3,6 +3,7 @@
 namespace App\Rules;
 
 use App\Models\Level;
+use App\Models\UserAttempt;
 use Illuminate\Contracts\Validation\Rule;
 
 class LevelCheck implements Rule
@@ -26,7 +27,17 @@ class LevelCheck implements Rule
    */
   public function passes($attribute, $value)
   {
-    $answer = Level::find(request()->user()->level)->answer;
+    $answer = request()->user()->level->answer;
+
+    (new UserAttempt([
+      'attempt' => $value,
+      'user_id' => auth()->id(),
+      'level_id' => auth()->user()->level->id,
+      'circle_id' => auth()->user()->circle->id,
+      'correct' => $answer === $value,
+      'ip' => request()->ip()
+    ]))->save();
+
     return $answer === $value;
   }
 

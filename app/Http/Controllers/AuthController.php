@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Level;
 use App\Models\User;
+use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
@@ -46,7 +47,8 @@ class AuthController extends Controller
       'name' => 'required',
       'username' => 'required|unique:users,username',
       'password' => 'required|min:8',
-      'institution' => 'required'
+      'institution' => 'required',
+      'recaptcha' => ['required', new Recaptcha($request->ip())]
     ]);
 
     $u = new User($r);

@@ -19,17 +19,26 @@ class LeaderboardController extends Controller
       ->map(function ($user, $key) {
         return [
           'rank' => $key + 1,
-          'team' => $user->team,
+          'institution' => $user->institution,
           'username' => $user->username,
           'points' => $user->points
         ];
-      });
+      })->toArray();
+    $dq = User::select('username', 'points')
+      ->where('admin', false)
+      ->where('disqualified', true)
+      ->get()
+      ->map(function ($user) {
+        return [
+          'rank' => 'DQ',
+          'institution' => $user->institution,
+          'username' => $user->username,
+          'points' => 'DQ'
+        ];
+      })->toArray();
+
     return Inertia::render('leaderboard', [
-      'users' => $users,
-      'dq' => User::select('username', 'points')
-        ->where('admin', false)
-        ->where('disqualified', true)
-        ->get()
+      'users' => array_merge($users, $dq),
     ]);
   }
 }

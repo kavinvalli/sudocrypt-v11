@@ -1,171 +1,109 @@
-import { useForm } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
-import Navbar from "../../components/Navbar";
-
-interface IFormProps {
-  url: string;
-  post: any;
-  processing: boolean;
-  buttonLabel: string;
-}
-
-export interface ILevel {
-  id: number;
-  question: string;
-  answer: string;
-  circle_id: number;
-  source_hint: string;
-  points: number;
-}
-
-interface ICircle {
-  id: number;
-  name: string;
-}
+import { Link, usePage } from "@inertiajs/inertia-react";
+import React, { useEffect } from "react";
+import { useToasts } from "react-toast-notifications";
+import Circle from "../../components/Admin/Circle";
+import EditLevel from "../../components/Admin/Level";
+import Layout from "../../components/Layout";
+import { ILevel, IPageProps } from "../../lib/types";
+import useTitle from "../../lib/use-title";
 
 interface IAdminLevelProps {
-  level: ILevel;
-  circles: ICircle[];
+  circles: { id: number; name: string; levels: number[] }[];
+  level?: ILevel & {
+    attempts_count: number;
+    users_count: number;
+    solves_count: number;
+  };
+  error?: string;
 }
 
 const Level: React.FC<IAdminLevelProps> = ({
-  level,
   circles,
+  level,
+  error,
 }: IAdminLevelProps) => {
-  const { data, put, setData, processing, reset, errors } = useForm({
-    question: level.question,
-    answer: level.answer,
-    source_hint: level.source_hint,
-    points: level.points,
-    circle_id: level.circle_id,
-  });
+  useTitle(`Level ${level?.id}`);
+  const { addToast } = useToasts();
+  const {
+    props: {
+      auth: { user },
+    },
+  } = usePage<IPageProps>();
 
-  const handleChange = (e: any): void => setData(e.target.name, e.target.value);
+  useEffect(() => {
+    if (error) {
+      addToast(error, { appearance: "error" });
+    }
+  }, []);
 
   return (
-    <>
-      <Navbar authenticated admin />
-      <div>
-        <h3 className="text-xl">Create Form</h3>
-        <form
-          onSubmit={(e: any) => {
-            e.preventDefault();
-            // post(`/admin/levels/${level.id}`, {
-            //   _method: "put",
-            //   preserveState: true,
-            //   onSuccess: () => {
-            //     reset();
-            //   },
-            // });
-            put(`/admin/levels/${level.id}`, {
-              preserveState: true,
-              onSuccess: () => reset(),
-            });
-          }}
-          style={{
-            maxWidth: "640px",
-            width: "100%",
-            margin: "50px auto",
-            marginTop: "0",
-          }}
-        >
-          <div className="input-group">
-            <label htmlFor="question">Question</label>
-            <input
-              className="text-black"
-              type="text"
-              name="question"
-              disabled={processing}
-              placeholder="Long Question text here..."
-              value={data.question}
-              onChange={handleChange}
-            />
-            {errors.question && <div className="error">{errors.question}</div>}
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="answer">Answer</label>
-            <input
-              className="text-black"
-              type="text"
-              name="answer"
-              disabled={processing}
-              placeholder="answerhere"
-              value={data.answer}
-              onChange={handleChange}
-            />
-            {errors.answer && <div className="error">{errors.answer}</div>}
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="points">Points</label>
-            <input
-              className="text-black"
-              type="number"
-              name="points"
-              disabled={processing}
-              placeholder="250"
-              value={data.points}
-              onChange={handleChange}
-            />
-            {errors.points && <div className="error">{errors.points}</div>}
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="source_hint">Source Hint</label>
-            <input
-              className="text-black"
-              type="text"
-              name="source_hint"
-              disabled={processing}
-              placeholder="This is a hint"
-              value={data.source_hint}
-              onChange={handleChange}
-            />
-            {errors.source_hint && (
-              <div className="error">{errors.source_hint}</div>
-            )}
-          </div>
-
-          <div className="input-group">
-            <label htmlFor="url">Circle</label>
-            <select
-              className="text-black"
-              name="circle_id"
-              id="circle_id"
-              disabled={processing}
-              value={data.circle_id}
-              onChange={handleChange}
+    <Layout
+      logo={true}
+      navbar={[
+        { href: "/auth/logout", label: "Logout" },
+        { href: "/leaderboard", label: "Leaderboard" },
+        { href: "/", label: "Home" },
+        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
+      ]}
+    >
+      <div className="home-container relative flex flex-col sm:flex-row justify-center items-center gap-y-10 sm:gap-y-0 sm:gap-x-14">
+        <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
+          {circles.map(({ name, levels }, i) => (
+            <div
+              className={`border-gray-600 ${
+                i === circles.length - 1 ? "" : "border-b"
+              } py-3 flex items-center justify-between`}
+              key={i}
             >
-              <option value="">Circle</option>
-              {circles.map(({ name, id }) => (
-                <option value={id} key={id}>
-                  {name}
-                </option>
+              <div className="uppercase text-gray-600 font-bold">{name}</div>
+              <div className="flex justify-center items-center gap-x-2">
+                {levels.map((id, i) => (
+                  <Link
+                    key={i}
+                    className={`${
+                      level?.id === id
+                        ? "bg-yellow-400 border-yellow-400"
+                        : "bg-dark border-gray-600 text-gray-600"
+                    } bg-opacity-30 border-2 rounded-lg font-bold text-sm h-8 w-8 flex justify-center items-center cursor-pointer transition`}
+                    href={`/admin/levels/${id}`}
+                  >
+                    {id}
+                  </Link>
+                ))}
+              </div>
+            </div>
+          ))}
+        </div>
+        <div>
+          <div className="bg-dark-lighter px-6 py-2 rounded-lg max-w-sm sm:max-h-screen sm:overflow-y-auto w-full">
+            <div className="my-5 border-b border-gray-600">
+              {[
+                ["Attempts", level?.attempts_count],
+                ["Users on level", level?.users_count],
+                ["Solves", level?.solves_count],
+              ].map(([label, value], i) => (
+                <div className="flex justify-between items-center my-3" key={i}>
+                  <div className="uppercase font-bold text-md text-gray-600">
+                    {label}
+                  </div>
+                  <div className="font-mono font-extrabold text-xl">
+                    {value}
+                  </div>
+                </div>
               ))}
-            </select>
-            {errors.circle_id && (
-              <div className="error">{errors.circle_id}</div>
-            )}
+            </div>
+            <div className="my-5 pb-5 border-b border-gray-600">
+              <EditLevel level={level} />
+            </div>
+            <div className="my-5">
+              <Circle
+                circle={circles.find((x) => x.levels.includes(level?.id || 0))}
+              />
+            </div>
           </div>
-
-          <div className="input-group">
-            <button
-              type="submit"
-              disabled={processing}
-              style={{
-                fontWeight: "bold",
-                fontSize: "0.9rem",
-                padding: "10px 15px",
-                textTransform: "uppercase",
-              }}
-            >
-              Create
-            </button>
-          </div>
-        </form>
+        </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

@@ -1,260 +1,99 @@
-import { useForm, usePage } from "@inertiajs/inertia-react";
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import CircleList from "../components/CircleList";
-import Countdown from "../components/Countdown";
-import LevelList from "../components/LevelList";
-import Navbar from "../components/Navbar";
-import TextInput from "../components/TextInput";
+import { usePage } from "@inertiajs/inertia-react";
+import React, { useEffect } from "react";
+import Layout from "../components/Layout";
 import { IPageProps } from "../lib/types";
 import useTitle from "../lib/use-title";
 import { useToasts } from "react-toast-notifications";
-import echo from "../lib/echo";
-
-type INotification = {
-  id: number;
-  content: string;
-  created_at: string;
-};
+import AttemptLevel from "../components/Play/AttemptLevel";
+import ChooseLevel from "../components/Play/ChooseLevel";
 
 interface IPlayProps {
-  discord_authenticated: boolean;
-  circles: {
-    id: number;
-    name: string;
-    onlyOneLevel: boolean;
-  }[];
-  available_levels: { id: number }[];
-  done_levels: number[];
-  currentLevel: {
-    id: number;
-    question: string;
-    source_hint?: string;
-  }[];
-  notifications: INotification[];
+  circles: { id: number; name: string; levels: number[] }[];
+  completed_levels: number[];
   error?: string;
 }
 
-const NumberCard = styled.div`
-  width: 100%;
-  background: #292929;
-  margin: 10px 0;
-  padding: 20px;
-  font-weight: bold;
-  color: #888;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-direction: row-reverse;
-  & > span {
-    font-size: 2rem;
-    font-family: monospace;
-    color: white;
-  }
-  @media screen and (max-width: 900px) {
-    display: none;
-    &:first-child {
-      margin-top: 60px;
-    }
-  }
-`;
-
 const Play: React.FC<IPlayProps> = ({
-  discord_authenticated,
   circles,
-  available_levels,
-  done_levels,
-  currentLevel,
+  completed_levels,
   error,
-  notifications: _notifications,
 }: IPlayProps) => {
-  useTitle("Home");
+  useTitle("Play");
   const { addToast } = useToasts();
-  const [notifications, setNotifications] =
-    useState<INotification[]>(_notifications);
-  const [attempt, setAttempt] = useState("");
+  const {
+    props: {
+      auth: { user },
+    },
+  } = usePage<IPageProps>();
 
   useEffect(() => {
     if (error) {
       addToast(error, { appearance: "error" });
     }
-    echo
-      .channel("notifications")
-      .listen(
-        "NotificationCreated",
-        (e: { notifications: INotification[] }) => {
-          setNotifications(e.notifications);
-        }
-      );
   }, []);
 
-  const {
-    started,
-    ended,
-    authenticated,
-    circle,
-    auth: { user },
-  } = usePage<IPageProps>().props;
-
-  const { setData, post, processing, errors } = useForm({
-    attempt: "",
-    level_id: currentLevel.length > 0 ? currentLevel[0].id : "",
-    circle_id: circle !== null ? circle.id : null,
-    user_id: user.id,
-  });
-
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
-    e: React.ChangeEvent<HTMLInputElement>
-  ) => {
-    const sanitizedValue = e.target.value.replace(" ", "").toLowerCase();
-    setData(e.target.name as "attempt", sanitizedValue);
-    setAttempt(sanitizedValue);
-  };
-
-  console.log("ADMIN");
-  console.log(user.admin);
-  console.log("ADMIN");
-
   return (
-    <div>
-      <Navbar
-        authenticated={authenticated}
-        name={user.name}
-        admin={user.admin === 0 ? false : true}
-      />
-      {/*
-      {!discord_authenticated && <a href="/connectdiscord">Discord</a>}
-      <div className="notifications">
-        {notifications.map(({ id, content, created_at }) => (
-          <div
-            key={id}
-            className="notification p-6 border border-sudo flex justify-between items-center"
-          >
-            <p dangerouslySetInnerHTML={{ __html: content }}></p>
-            <p>{created_at}</p>
-          </div>
-        ))}
-      </div>
-        */}
-      {started ? (
-        !ended ? (
-          !circle ? (
-            <>You&apos;ve finished everything... gg</>
-          ) : (
-            <>
-              {/*
-                <Countdown large={true} />
-                <Navbar
-                  authenticated={authenticated}
-                  name={user.name}
-                  admin={user.admin}
-                />
-                {!discord_authenticated && <a href="/connectdiscord">Discord</a>}
-                <div className="notifications">
-                  {notifications.map(({ id, content, created_at }) => (
-                    <div
-                      key={id}
-                      className="notification p-6 border border-sudo flex justify-between items-center"
-                    >
-                      <p dangerouslySetInnerHTML={{ __html: content }}></p>
-                      <p>{created_at}</p>
-                    </div>
-                  ))}
-                </div>
-              */}
-              <div className="w-100 h-screen flex justify-center items-center">
-                <div className="absolute bottom-5 left-10 p-6 transform -rotate-90 origin-left font-bold text-sudo text-2xl uppercase">
-                  {circle.name}
-                </div>
-                <CircleList circles={circles} currentCircle={circle} />
-                <div>
-                  <h1 className="text-sudo text-6xl font-bold uppercase mb-3">
-                    Play
-                  </h1>
-                  {user.level === null ? (
-                    <LevelList
-                      availableLevels={available_levels}
-                      doneLevels={done_levels}
-                    />
-                  ) : (
-                    <div className="bg-gray-800 p-6 rounded-3xl shadow-2xl max-w-lg">
-                      <form
-                        onSubmit={(e: React.SyntheticEvent) => {
-                          e.preventDefault();
-                          post("/play");
-                        }}
-                      >
-                        <h3 className="text-3xl text-sudo font-bold">
-                          Level {currentLevel[0].id - 1}
-                        </h3>
-                        <p
-                          dangerouslySetInnerHTML={{
-                            __html: currentLevel[0].question,
-                          }}
-                        ></p>
-                        <div className="flex">
-                          <TextInput
-                            name="attempt"
-                            placeholder="Answer"
-                            type="text"
-                            disabled={processing}
-                            error={errors.attempt}
-                            value={attempt}
-                            onChange={handleChange}
-                          />
-                          <button className="button my-3 px-6" type="submit">
-                            Submit
-                          </button>
-                        </div>
-                        <p className="text-xs">
-                          {currentLevel[0].source_hint &&
-                            currentLevel[0].source_hint}
-                        </p>
-                      </form>
-                    </div>
-                  )}
-                </div>
+    <Layout
+      logo={true}
+      navbar={[
+        { href: "/auth/logout", label: "Logout" },
+        { href: "/leaderboard", label: "Leaderboard" },
+        { href: "/", label: "Home" },
+        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
+      ]}
+    >
+      <div className="home-container sm:h-screen relative flex flex-col-reverse sm:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0">
+        <div className="fixed bottom-40 left-5 text-sudo uppercase font-extrabold text-4xl transform origin-bottom -rotate-90 hidden sm:block">
+          {user.circle?.name}
+        </div>
+        <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
+          {circles.map(({ id, name, levels }, i) => (
+            <div
+              className={`border-gray-600 ${
+                i === circles.length - 1 ? "" : "border-b"
+              } py-3 flex items-center justify-between`}
+              key={i}
+            >
+              <div
+                className={`uppercase ${
+                  id === user.circle?.id ? "text-sudo" : "text-gray-600"
+                } font-bold`}
+              >
+                {name}
               </div>
-            </>
-          )
-        ) : (
-          <div
-            className="flex flex-col justify-center items-center"
-            style={{ height: "calc(100vh - 98px)" }}
-          >
-            <h2 className="text-5xl font-bold">Sudocrypt v11.0 has ended</h2>
-            <p className="mt-3">Thank you for attending!</p>
-          </div>
-        )
-      ) : (
-        <div
-          className="flex flex-col justify-center items-center"
-          style={{ height: "calc(100vh - 98px)" }}
-        >
-          <h2 className="text-4xl mb-3 font-bold text-center">
-            Sudocrypt v11.0 will start in
-          </h2>
-
-          <Countdown large={true} />
-          {!discord_authenticated && (
-            <div className="mt-6">
-              <p className="mb-2">
-                Meanwhile, connect your discord and join our server!
-              </p>
-              <div className="flex justify-center">
-                <a href="/connectdiscord" className="flex justify-center mr-2">
-                  <button className="button">Connect Discord</button>
-                </a>
-                <a href="" className="flex justify-center ml-2">
-                  <button className="button-outline">Join Server</button>
-                </a>
+              <div className="flex justify-center items-center gap-x-2">
+                {levels.map((lvl, i) => (
+                  <div
+                    key={i}
+                    className={`${
+                      completed_levels.includes(lvl)
+                        ? "bg-sudo border-sudo"
+                        : user.level?.id === lvl
+                          ? "bg-yellow-400 border-yellow-400"
+                          : "bg-dark border-gray-600 text-gray-600"
+                    } bg-opacity-30 border-2 rounded-lg font-bold text-sm h-8 w-8 flex justify-center items-center`}
+                  >
+                    {lvl}
+                  </div>
+                ))}
               </div>
             </div>
-          )}
+          ))}
         </div>
-      )}
-    </div>
+        {user.circle_id && user.level_id ? (
+          <AttemptLevel />
+        ) : user.circle_id && !user.level_id ? (
+          <ChooseLevel
+            completed_levels={completed_levels}
+            levels={
+              circles.find(({ id }) => id === user.circle_id)?.levels || []
+            }
+          />
+        ) : (
+          <div>congratulations</div>
+        )}
+      </div>
+    </Layout>
   );
 };
 

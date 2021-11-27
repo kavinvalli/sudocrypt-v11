@@ -1,39 +1,8 @@
+import { Inertia } from "@inertiajs/inertia";
 import { Link, useForm } from "@inertiajs/inertia-react";
 import React from "react";
-import styled from "styled-components";
-import Navbar from "../../components/Navbar";
-
-const Table = styled.table`
-  width: 100%;
-  border-collapse: collapse;
-  tr td {
-    text-align: center;
-  }
-  th,
-  td {
-    padding: 15px 10px;
-  }
-  tbody tr:nth-child(even) {
-    background: #ffffff10;
-  }
-  thead tr {
-    background: white;
-    color: #333;
-  }
-`;
-
-interface IFormProps {
-  url: string;
-  post: any;
-  processing: boolean;
-  buttonLabel: string;
-}
-
-export interface INotification {
-  id: number;
-  content: string;
-  created_at: string;
-}
+import Layout from "../../components/Layout";
+import { INotification } from "../../lib/types";
 
 interface INotificationProps {
   notifications: INotification[];
@@ -46,104 +15,133 @@ const Notifications: React.FC<INotificationProps> = ({
     content: "",
   });
 
-  const sbf = useForm({});
-  const handleChange = (e: any): void => setData(e.target.name, e.target.value);
+  const handleChange: React.ChangeEventHandler<HTMLTextAreaElement> = (
+    e: React.ChangeEvent<HTMLTextAreaElement>
+  ) => setData(e.target.name as never, e.target.value as never);
 
   return (
-    <>
-      <Navbar authenticated={true} admin={true} />
-      <div style={{ maxWidth: "1000px", paddingBottom: "100px" }}>
-        <h3 className="text-xl">Create Form</h3>
-        <form
-          onSubmit={(e: any) => {
-            e.preventDefault();
-            post("/admin/notifications", {
-              preserveState: true,
-              onSuccess: () => {
-                reset();
-              },
-            });
-          }}
-          style={{
-            maxWidth: "640px",
-            width: "100%",
-            margin: "50px auto",
-            marginTop: "0",
-          }}
-        >
-          <div className="input-group">
-            <label htmlFor="content">Content</label>
-            <input
-              className="text-black"
-              type="text"
-              name="content"
-              disabled={processing}
-              placeholder="Notification Content"
-              value={data.content}
-              onChange={handleChange}
-            />
-            {errors.content && <div className="error">{errors.content}</div>}
-            <button
-              type="submit"
-              disabled={processing}
-              style={{
-                fontWeight: "bold",
-                fontSize: "0.9rem",
-                padding: "10px 15px",
-                textTransform: "uppercase",
+    <Layout
+      logo={true}
+      navbar={[
+        { href: "/auth/logout", label: "Logout" },
+        { href: "/leaderboard", label: "Leaderboard" },
+        { href: "/admin", label: "Admin" },
+      ]}
+    >
+      <div className="home-container pb-32">
+        <div className="mx-auto max-w-[1000px] w-full">
+          <div className="w-full flex justify-between">
+            <form
+              onSubmit={(e) => {
+                e.preventDefault();
+                post("/admin/notifications", {
+                  preserveState: true,
+                  preserveScroll: true,
+                  onSuccess: () => {
+                    reset();
+                  },
+                });
               }}
+              className="my-10 flex flex-col items-center mx-auto gap-y-5 w-[48%]"
             >
-              Create
-            </button>
+              <div className="w-full text-gray-600 focus-within:text-gray-300">
+                <div className="text-center text-2xl font-bold text-gray-300">
+                  New Notification
+                </div>
+              </div>
+              <div className="w-full text-gray-600 focus-within:text-gray-300">
+                <label
+                  htmlFor="content"
+                  className="uppercase text-sm font-bold mb-1 block transition"
+                >
+                  Content
+                </label>
+                <textarea
+                  className="bg-dark-lighter text-gray-200 block w-full border-0 rounded-lg !ring-sudo !border-sudo !outline-sudo focus:ring-2 transition py-4 px-4"
+                  placeholder="Content"
+                  name="content"
+                  value={data.content}
+                  onChange={handleChange}
+                />
+                {errors.content && (
+                  <div className="text-sm text-red-500 pt-2">
+                    {errors.content}
+                  </div>
+                )}
+              </div>
+
+              <div className="">
+                <button type="submit" disabled={processing} className="button">
+                  Create
+                </button>
+              </div>
+            </form>
+
+            <div className="my-10 bg-dark-lighter shadow-lg p-10 w-[48%]">
+              <div className="text-gray-600 text-sm uppercase font-bold">
+                Preview
+              </div>
+
+              <div>
+                <div className="my-5">
+                  <div dangerouslySetInnerHTML={{ __html: data.content }} />
+                  <div className="text-right font-bold text-gray-600 text-sm uppercase mt-2">
+                    a few seconds ago
+                  </div>
+                </div>
+                <div className="flex items-center justify-center gap-x-4 my-8">
+                  <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
+                  <div className="w-[10px] h-[10px] border-2 border-sudo border-opacity-30 rounded-full"></div>
+                  <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
+                </div>
+              </div>
+            </div>
           </div>
-        </form>
-        <Table>
-          <thead>
-            <tr>
-              <th>Content</th>
-              <th>Created At</th>
-              <th></th>
-            </tr>
-          </thead>
-          <tbody>
-            {notifications.map(({ id, content, created_at }) => (
-              <tr key={id}>
-                <td>{content}</td>
-                <td>{created_at}</td>
-                <td>
-                  <button
-                    disabled={sbf.processing}
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                      padding: "8px 13px",
-                      textTransform: "uppercase",
-                    }}
-                    onClick={(e: any) => {
-                      e.preventDefault();
-                      sbf.delete(`/admin/notifications/${id}`);
-                    }}
-                  >
-                    delete
-                  </button>
-                  <Link
-                    style={{
-                      fontWeight: "bold",
-                      fontSize: "0.9rem",
-                      padding: "8px 13px",
-                      textTransform: "uppercase",
-                    }}
-                    href={`/admin/notifications/${id}/edit`}
-                  >
-                    create
-                  </Link>
-                </td>
+
+          <table>
+            <thead>
+              <tr className="text-white font-bold uppercase">
+                <th className="p-5 bg-sudo border-none rounded-tl-xl">
+                  Content
+                </th>
+                <th className="p-5 bg-sudo border-none">Created At</th>
+                <th className="p-5 bg-sudo border-none rounded-tr-xl"></th>
               </tr>
-            ))}
-          </tbody>
-        </Table>
+            </thead>
+            <tbody>
+              {notifications.map(({ id, content, created_at }) => (
+                <tr
+                  className="!bg-opacity-20 odd:bg-gray-300 even:bg-sudo-light"
+                  key={id}
+                >
+                  <td className="p-5 text-md">{content}</td>
+                  <td className="p-5 text-md">{created_at}</td>
+                  <td className="p-5 text-md flex flex-col gap-y-2 items-stretch justify-center">
+                    <button
+                      onClick={(e) => {
+                        e.preventDefault();
+                        Inertia.delete(`/admin/notifications/${id}`, {
+                          preserveScroll: true,
+                        });
+                      }}
+                      className="!bg-red-600 !p-2 !text-xs button"
+                    >
+                      delete
+                    </button>
+                    <Link
+                      href={`/admin/notifications/${id}/edit`}
+                      className="!p-2 !text-xs button"
+                    >
+                      edit
+                    </Link>
+                  </td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </>
+    </Layout>
   );
 };
 

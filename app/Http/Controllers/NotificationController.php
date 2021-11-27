@@ -57,16 +57,16 @@ class NotificationController extends Controller
    */
   public function store(Request $request)
   {
-    request()->validate([
+    $r = request()->validate([
       'content' => 'required'
     ]);
 
     $notif = new Notification();
-    $notif->content = $request->content;
+    $notif->content = $r['content'];
     $notif->save();
 
     broadcast(new NotificationCreated());
-    return Redirect::route('notifications.index');
+    return Redirect::route('admin.notifications.index');
   }
 
   /**
@@ -88,11 +88,7 @@ class NotificationController extends Controller
   public function edit(Notification $notification)
   {
     return Inertia::render('admin/notification', [
-      'notification' => [
-        'id' => $notification->id,
-        'content' => $notification->content,
-        'created_at' => $notification->created_at->diffForHumans(),
-      ],
+      'notification' => $notification,
     ]);
   }
 
@@ -111,7 +107,8 @@ class NotificationController extends Controller
     $notification->content = $request->content;
     $notification->save();
 
-    return Redirect::route('notifications.index');
+    broadcast(new NotificationCreated());
+    return Redirect::route('admin.notifications.edit', ['notification' => $notification]);
   }
 
   /**
@@ -123,6 +120,7 @@ class NotificationController extends Controller
   public function destroy(Notification $notification)
   {
     $notification->delete();
-    return Redirect::route('notifications.index');
+    broadcast(new NotificationCreated());
+    return Redirect::route('admin.notifications.index');
   }
 }
