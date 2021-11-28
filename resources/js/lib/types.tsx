@@ -96,6 +96,7 @@ export interface IPageProps extends Page<PageProps> {
     };
     flash: {
       error: string;
+      message: string;
     };
   };
 }

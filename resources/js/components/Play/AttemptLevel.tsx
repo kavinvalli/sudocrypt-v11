@@ -18,7 +18,7 @@ const AttemptLevel: React.FC = () => {
     inputRef.current?.focus();
   }, []);
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     e.preventDefault();
     setData(
       "attempt",
@@ -78,9 +78,10 @@ const AttemptLevel: React.FC = () => {
             </button>
           </div>
 
-          <div className="text-sm text-red-500 my-3 sm:hidden">
+          <div className="text-sm text-red-500 my-3 hidden sm:block">
             {errors.attempt}
           </div>
+
           <div className="block sm:hidden">
             <TextInput
               name="answer"

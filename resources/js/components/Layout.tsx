@@ -6,6 +6,7 @@ interface IProps {
   footer?: boolean;
   navbar?: { href: string; label: string }[];
   logo?: boolean;
+  circles?: boolean;
 }
 
 const Layout: React.FC<IProps> = ({
@@ -13,15 +14,20 @@ const Layout: React.FC<IProps> = ({
   footer,
   navbar,
   logo,
+  circles,
 }: IProps) => {
   return (
     <div
       className="bg-dark w-full min-h-screen text-white flex flex-col"
-      style={{
-        background:
-          "repeating-radial-gradient(circle farthest-corner at 0% 100%, #7b2b23, #7b2b23 1px, #161a1d 1px, #161a1d 100px)",
-        backgroundPositionX: "150%",
-      }}
+      style={
+        circles === false
+          ? {}
+          : {
+            background:
+                "repeating-radial-gradient(circle farthest-corner at 0% 100%, #7b2b23, #7b2b23 1px, #161a1d 1px, #161a1d 100px)",
+            backgroundPositionX: "150%",
+          }
+      }
     >
       {logo && (
         <img

@@ -77,7 +77,8 @@ class HandleInertiaRequests extends Middleware
       'circle' => Auth::check() ? Auth::user()->circle : null,
       'authenticated' => Auth::check(),
       'flash' => [
-        'error' => fn () => $request->session()->get('error')
+        'error' => fn () => $request->session()->get('error'),
+        'message' => fn () => $request->session()->get('message'),
       ],
     ]);
   }
