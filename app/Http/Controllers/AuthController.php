@@ -54,7 +54,8 @@ class AuthController extends Controller
     $u = new User($r);
     $u->hashPassword();
 
-    $u->level = 1;
+    $u->level_id = 1;
+    $u->circle_id = 1;
     $u->save();
 
     Auth::login($u, true);
