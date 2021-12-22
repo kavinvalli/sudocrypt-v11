@@ -41,13 +41,15 @@ const ChooseLevel: React.FC<IChooseLevelProps> = ({
                     ? "bg-yellow-400 border-yellow-400"
                     : "bg-dark border-gray-600 text-gray-600 cursor-pointer"
               } bg-opacity-30 border-2 rounded-lg font-bold text-lg h-12 w-12 flex justify-center items-center`}
-              onClick={() =>
-                Inertia.post(
-                  "/play/choose-level",
-                  { level_id: lvl },
-                  { preserveScroll: true }
-                )
-              }
+              onClick={() => {
+                if (!completed_levels.includes(lvl)) {
+                  Inertia.post(
+                    "/play/choose-level",
+                    { level_id: lvl },
+                    { preserveScroll: true }
+                  );
+                }
+              }}
             >
               {lvl}
             </div>
