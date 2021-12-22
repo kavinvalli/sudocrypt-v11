@@ -141,6 +141,33 @@ class DiscordBot extends Command
     }
   }
 
+  private function udq($message)
+  {
+    $roles = $message->author->roles->filter(function ($role) {
+      return $role->name === "admin";
+    });
+    if (count($roles) > 0) {
+      $splitUp = explode(" ", $message->content);
+      array_shift($splitUp);
+      $username = $splitUp[0];
+
+      $user = User::where('username', $username)
+        ->first();
+
+      if (!$user) {
+        $message->channel->sendMessage("User with username `" . $username . "` not found");
+        return;
+      }
+
+      $user->disqualified = false;
+      $user->save();
+
+      $message->channel->sendMessage("User with username `" . $username . "` has been disqualified");
+    } else {
+      $message->channel->sendMessage("You do not have the \"admin\" role");
+    }
+  }
+
   /**
    * Execute the console command.
    *
@@ -171,6 +198,10 @@ class DiscordBot extends Command
 
         if (str_starts_with($message->content, "!dq")) {
           $this->dq($message);
+        }
+
+        if (str_starts_with($message->content, "!udq")) {
+          $this->udq($message);
         }
       });
     });
