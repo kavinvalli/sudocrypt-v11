@@ -7,6 +7,7 @@ use App\Models\User;
 use App\Rules\Recaptcha;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
@@ -29,6 +30,17 @@ class AuthController extends Controller
       'email' => 'required|email',
       'password' => 'required|min:8'
     ]);
+
+    $u = User::where('email', $r['email'])->first();
+
+    if (!$u) return Inertia::render(
+      'auth/login',
+      ['error' => 'An account with this email does not exist']
+    );
+
+    if (!Hash::check($r['password'], $u->password)) {
+      return Inertia::render('auth/login', ['error' => 'Incorrect password']);
+    }
 
     $attempt = Auth::attempt($r, true);
 
