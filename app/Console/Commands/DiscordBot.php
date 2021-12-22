@@ -81,7 +81,7 @@ class DiscordBot extends Command
 
     echo $username . " " . $discriminator;
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator', 'disqualified')
       ->where('discord_username', $username)
       ->where('discord_discriminator', $discriminator)
       ->first();
@@ -102,7 +102,7 @@ class DiscordBot extends Command
     array_shift($splitUp);
     $username = $splitUp[0];
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator', 'disqualified')
       ->where('username', $username)
       ->first();
 
