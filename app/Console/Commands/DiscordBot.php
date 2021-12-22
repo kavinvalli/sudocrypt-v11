@@ -64,8 +64,7 @@ class DiscordBot extends Command
     $embed->addFieldValues('Email', $user->email, false);
     $embed->addFieldValues('Discord', $user->discord_username . "#" . $user->discord_discriminator, false);
     $embed->addFieldValues('Institution', $user->institution, false);
-    $embed->addFieldValues('Circle', $user->circle, false);
-    $embed->addFieldValues('Level', $user->level, false);
+    $embed->addFieldValues('Level', $user->level_id, false);
     $embed->addFieldValues('Points', $user->points, false);
 
     $message->channel->sendEmbed($embed);
@@ -79,7 +78,7 @@ class DiscordBot extends Command
 
     echo $username . " " . $discriminator;
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator')
       ->where('discord_username', $username)
       ->where('discord_discriminator', $discriminator)
       ->get()[0];
@@ -98,7 +97,7 @@ class DiscordBot extends Command
     array_shift($splitUp);
     $username = $splitUp[0];
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator')
       ->where('username', $username)
       ->get()[0];
 
