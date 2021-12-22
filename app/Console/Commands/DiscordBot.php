@@ -68,6 +68,7 @@ class DiscordBot extends Command
     $level = $user->level_id ? $user->level_id : "-";
     $embed->addFieldValues('Level', $level, false);
     $embed->addFieldValues('Points', $user->points, false);
+    $embed->addFieldValues('Disqualified', $user->disqualified ? "Yes" : "No", false);
 
     $message->channel->sendEmbed($embed);
   }
