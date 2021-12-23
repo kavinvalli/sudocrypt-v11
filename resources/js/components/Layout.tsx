@@ -30,10 +30,12 @@ const Layout: React.FC<IProps> = ({
       }
     >
       {logo && (
-        <img
-          src="/img/logo-blue.png"
-          className="h-12 w-12 hidden sm:block rounded-lg fixed top-5 right-5"
-        />
+        <Link href="/">
+          <img
+            src="/img/logo-blue.png"
+            className="h-12 w-12 hidden sm:block rounded-lg fixed top-5 right-5"
+          />
+        </Link>
       )}
       {navbar?.length !== 0 && (
         <>

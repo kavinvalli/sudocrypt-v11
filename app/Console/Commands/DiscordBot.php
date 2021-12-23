@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Events\NotificationCreated;
+use App\Models\Circle;
 use App\Models\Notification;
 use App\Models\User;
 use Discord\Discord;
@@ -43,14 +44,13 @@ class DiscordBot extends Command
     $a = explode("#", $splitUp[count($splitUp) - 1]);
     $discriminator = array_pop($a);
     $username = $a[0];
-    echo var_dump([$username, $discriminator]);
     return [$username, $discriminator];
   }
 
   private function createNotification($content, $image)
   {
     $notif = new Notification();
-    $notif->content = $content . $image ? " <img class=\"w-80\" src=\"{$image}\"></img>" : "";
+    $notif->content = $content . ($image ? " <img class=\"w-80\" src=\"{$image}\"></img>" : "");
     $notif->save();
 
     broadcast(new NotificationCreated());
@@ -64,9 +64,11 @@ class DiscordBot extends Command
     $embed->addFieldValues('Email', $user->email, false);
     $embed->addFieldValues('Discord', $user->discord_username . "#" . $user->discord_discriminator, false);
     $embed->addFieldValues('Institution', $user->institution, false);
-    $embed->addFieldValues('Circle', $user->circle, false);
-    $embed->addFieldValues('Level', $user->level, false);
+    $embed->addFieldValues('Circle', Circle::find($user->circle_id)->name, false);
+    $level = $user->level_id ? $user->level_id : "-";
+    $embed->addFieldValues('Level', $level, false);
     $embed->addFieldValues('Points', $user->points, false);
+    $embed->addFieldValues('Disqualified', $user->disqualified ? "Yes" : "No", false);
 
     $message->channel->sendEmbed($embed);
   }
@@ -79,10 +81,12 @@ class DiscordBot extends Command
 
     echo $username . " " . $discriminator;
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator', 'disqualified')
       ->where('discord_username', $username)
       ->where('discord_discriminator', $discriminator)
-      ->get()[0];
+      ->first();
+
+    echo var_dump($user);
 
     if (!$user) {
       $message->channel->sendMessage("User with username " . $username . "and discriminator " . $discriminator . " not found");
@@ -98,9 +102,9 @@ class DiscordBot extends Command
     array_shift($splitUp);
     $username = $splitUp[0];
 
-    $user = User::select('name', 'username', 'email', 'institution', 'circle', 'level', 'points', 'discord_username', 'discord_discriminator')
+    $user = User::select('name', 'username', 'email', 'institution', 'circle_id', 'level_id', 'points', 'discord_username', 'discord_discriminator', 'disqualified')
       ->where('username', $username)
-      ->get()[0];
+      ->first();
 
     if (!$user) {
       $message->channel->sendMessage("User with username " . $username . " not found");
@@ -129,6 +133,33 @@ class DiscordBot extends Command
       }
 
       $user->disqualified = true;
+      $user->save();
+
+      $message->channel->sendMessage("User with username `" . $username . "` has been disqualified");
+    } else {
+      $message->channel->sendMessage("You do not have the \"admin\" role");
+    }
+  }
+
+  private function udq($message)
+  {
+    $roles = $message->author->roles->filter(function ($role) {
+      return $role->name === "admin";
+    });
+    if (count($roles) > 0) {
+      $splitUp = explode(" ", $message->content);
+      array_shift($splitUp);
+      $username = $splitUp[0];
+
+      $user = User::where('username', $username)
+        ->first();
+
+      if (!$user) {
+        $message->channel->sendMessage("User with username `" . $username . "` not found");
+        return;
+      }
+
+      $user->disqualified = false;
       $user->save();
 
       $message->channel->sendMessage("User with username `" . $username . "` has been disqualified");
@@ -167,6 +198,10 @@ class DiscordBot extends Command
 
         if (str_starts_with($message->content, "!dq")) {
           $this->dq($message);
+        }
+
+        if (str_starts_with($message->content, "!udq")) {
+          $this->udq($message);
         }
       });
     });

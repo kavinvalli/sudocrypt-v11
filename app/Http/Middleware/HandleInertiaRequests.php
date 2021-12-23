@@ -67,7 +67,8 @@ class HandleInertiaRequests extends Middleware
           'circle',
           'level_id',
           'circle_id',
-          'last_active'
+          'last_active',
+          'last_solved'
         )
         : null,
       /* 'auth.user.created' => fn () => Auth::check() */
