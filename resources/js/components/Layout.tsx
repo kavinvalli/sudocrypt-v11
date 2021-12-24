@@ -23,10 +23,10 @@ const Layout: React.FC<IProps> = ({
         circles === false
           ? {}
           : {
-            background:
+              background:
                 "repeating-radial-gradient(circle farthest-corner at 0% 100%, #7b2b23, #7b2b23 1px, #161a1d 1px, #161a1d 100px)",
-            backgroundPositionX: "150%",
-          }
+              backgroundPositionX: "150%",
+            }
       }
     >
       {logo && (
@@ -66,16 +66,31 @@ const Layout: React.FC<IProps> = ({
       )}
       <div className="flex-1 flex items-center">{children}</div>
       {footer && (
-        <div className="flex flex-col justify-center items-center py-5">
-          <div className="w-full flex justify-center items-center mb-3 gap-x-2">
-            <div className="w-2 h-2 rounded-full bg-[#535353]"></div>
-            <div className="w-2 h-2 rounded-full bg-[#535353]"></div>
-            <div className="w-2 h-2 rounded-full bg-[#535353]"></div>
+        <footer className="flex items-center justify-center py-4 text-gray-500 flex-col text-sm sm:text-xs text-center px-2">
+          <div className="text-lg font-bold text-gray-500">
+            &bull;&bull;&bull;
           </div>
-          <div className="text-gray-400 font-bold text-sm">
-            &copy; Exun Clan 2021
+          <div>
+            &copy; 2021{" "}
+            <a
+              href="https://exunclan.com"
+              className="font-semibold"
+              target="_blank"
+              rel="noreferrer"
+            >
+              Exun Clan
+            </a>{" "}
+            and{" "}
+            <a
+              href="https://dpsrkp.net"
+              className="font-semibold"
+              target="_blank"
+              rel="noreferrer"
+            >
+              DPS RK Puram
+            </a>
           </div>
-        </div>
+        </footer>
       )}
     </div>
   );
