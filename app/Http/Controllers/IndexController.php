@@ -19,6 +19,11 @@ class IndexController extends Controller
     }
   }
 
+  public function about()
+  {
+    return Inertia::render('about');
+  }
+
   public function dq()
   {
     if (auth()->check() && !auth()->user()->disqualified) {

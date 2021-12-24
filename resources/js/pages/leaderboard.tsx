@@ -36,7 +36,14 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
   };
 
   return (
-    <Layout footer={false} logo={true} navbar={[{ href: "/", label: "Home" }]}>
+    <Layout
+      footer={false}
+      logo={true}
+      navbar={[
+        { href: "/", label: "Home" },
+        { href: "/about", label: "About" },
+      ]}
+    >
       <div className="home-container h-screen flex flex-col justify-start p-10">
         <div className="px-10 max-w-[1000px] w-full mx-auto">
           <input

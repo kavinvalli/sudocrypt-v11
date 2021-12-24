@@ -100,3 +100,8 @@ html,
     width: 100%;
   }
 }
+.about-list li {
+  margin: 10px 0;
+  text-align: justify;
+  font-size: 1.1rem;
+}

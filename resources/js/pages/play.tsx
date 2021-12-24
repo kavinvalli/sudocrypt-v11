@@ -38,6 +38,7 @@ const Play: React.FC<IPlayProps> = ({
       navbar={[
         { href: "/auth/logout", label: "Logout" },
         { href: "/leaderboard", label: "Leaderboard" },
+        { href: "/about", label: "About" },
         { href: "/", label: "Home" },
         ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
       ]}

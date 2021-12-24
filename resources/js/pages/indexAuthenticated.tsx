@@ -52,6 +52,7 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
       logo={true}
       navbar={[
         { href: "/auth/logout", label: "Logout" },
+        { href: "/about", label: "About" },
         { href: "/leaderboard", label: "Leaderboard" },
         ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
       ]}
