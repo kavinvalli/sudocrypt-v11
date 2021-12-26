@@ -73,7 +73,7 @@ const About: React.FC = () => {
               compete in the hunt to the best of your ability.
             </li>
           </ul>
-          <Prizes />
+          {/* <Prizes /> */}
         </div>
       </div>
     </Layout>

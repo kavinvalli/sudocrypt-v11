@@ -17,7 +17,7 @@ const Index: React.FC = () => {
       ]}
     >
       <div className="flex justify-center items-center h-full w-full px-4 py-8">
-        <div className="w-full max-w-lg h-auto flex w-100 flex-col justify-center items-center p-0 sm:p-8">
+        <div className="w-full max-w-2xl h-auto flex flex-col justify-center items-center p-0 sm:p-8">
           <img
             src="/img/logo-blue.png"
             alt="Sudocrypt 2021"
@@ -26,6 +26,21 @@ const Index: React.FC = () => {
           <h1 className="w-full text-red-500 text-3xl sm:text-6xl font-bold mb-3 text-center">
             Sudocrypt 2021
           </h1>
+          <p className="w-full text-white text-lg sm:text-xl font-bold text-center mb-3">
+            12:01AM 10th January 2022 - 11:59PM 11th January 2022
+          </p>
+          <div className="flex mb-3">
+            <a href="https://exun.co/sudocrypt" className="button mr-2">
+              Discord
+            </a>
+            <a href="/auth/register" className="button mr-2">
+              Register
+            </a>
+            <a href="https://exun.co/resources/cryptic" className="button">
+              Resources
+            </a>
+          </div>
+          <p className="text-base">More details will be released soon</p>
         </div>
       </div>
     </Layout>
