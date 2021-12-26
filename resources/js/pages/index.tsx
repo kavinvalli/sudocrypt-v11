@@ -27,7 +27,8 @@ const Index: React.FC = () => {
             Sudocrypt 2021
           </h1>
           <p className="w-full text-white text-lg sm:text-xl font-bold text-center mb-3">
-            00:01 10th January 2022 to 23:59 11th January 2022
+            00:00:01 on Monday, 10th January 2022 to 23:59:59 on Tuesday, 11th
+            January 2022.
           </p>
           <div className="flex mb-3">
             <a href="https://exun.co/sudocrypt" className="button mr-2">

@@ -21,6 +21,7 @@ class UserSeeder extends Seeder
     $admin->email = "sudocrypt@exun.co";
     $admin->username = "admin";
     $admin->institution = "Exun Clan";
+    $admin->password = Hash::make('sud0crypt@dm1np@ssw0rd');
     $admin->save();
 
     User::factory(1999)->create();
