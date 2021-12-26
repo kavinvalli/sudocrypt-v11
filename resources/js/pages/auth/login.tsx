@@ -42,7 +42,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
       navbar={[
         { href: "/", label: "Home" },
         { href: "/auth/register", label: "Register" },
-        { href: "/about", label: "About" },
+        // { href: "/about", label: "About" },
         { href: "/leaderboard", label: "Leaderboard" },
       ]}
     >

@@ -8,14 +8,15 @@ interface INavbarProps {
   admin?: boolean;
 }
 
-const Navbar: React.FC<INavbarProps> = ({
-  // authenticated,
-  // name,
-  // admin,
-}: INavbarProps) => {
+const Navbar: React.FC<INavbarProps> = ({}: // authenticated,
+// name,
+// admin,
+INavbarProps) => {
   const {
     authenticated,
-    auth: { user: { admin } },
+    auth: {
+      user: { admin },
+    },
   } = usePage<IPageProps>().props;
 
   // const [avatar, setAvatar] = useState("");
@@ -30,7 +31,7 @@ const Navbar: React.FC<INavbarProps> = ({
   //       setAvatar(imageObjectURL);
   //     });
   // }, []);
-  
+
   return (
     <nav className="absolute bottom-5 right-10 p-6 transform -rotate-90 translate-x-full origin-left font-bold text-sudo text-2xl uppercase">
       {authenticated && (
@@ -46,9 +47,9 @@ const Navbar: React.FC<INavbarProps> = ({
           <Link href="/leaderboard" className="mx-5">
             Leaderboard
           </Link>
-          <Link href="/about" className="mx-5">
-            About
-          </Link>
+          {/* <Link href="/about" className="mx-5"> */}
+          {/*   About */}
+          {/* </Link> */}
           <Link href="/auth/logout" className="mx-5">
             Logout
           </Link>

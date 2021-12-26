@@ -33,7 +33,7 @@ const Register: React.FC = () => {
       navbar={[
         { href: "/", label: "Home" },
         { href: "/auth/login", label: "Login" },
-        { href: "/about", label: "About" },
+        // { href: "/about", label: "About" },
         { href: "/leaderboard", label: "Leaderboard" },
       ]}
     >

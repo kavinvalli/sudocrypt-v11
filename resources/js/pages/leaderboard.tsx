@@ -41,7 +41,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
       logo={true}
       navbar={[
         { href: "/", label: "Home" },
-        { href: "/about", label: "About" },
+        // { href: "/about", label: "About" },
       ]}
     >
       <div className="home-container h-screen flex flex-col justify-start p-10">

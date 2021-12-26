@@ -12,7 +12,7 @@ const Index: React.FC = () => {
       navbar={[
         { href: "/auth/login", label: "Login" },
         { href: "/auth/register", label: "Register" },
-        { href: "/about", label: "About" },
+        // { href: "/about", label: "About" },
         { href: "/leaderboard", label: "Leaderboard" },
       ]}
     >
