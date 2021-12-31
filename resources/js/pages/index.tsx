@@ -42,6 +42,16 @@ const Index: React.FC = () => {
             </a>
           </div>
           <p className="text-base">More details will be released soon</p>
+          <p className="text-base">
+            View the trailer{" "}
+            <a
+              href="https://exun.co/sudotrailer"
+              target="_blank"
+              rel="noreferrer"
+            >
+              here
+            </a>
+          </p>
         </div>
       </div>
     </Layout>
