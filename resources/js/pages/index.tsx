@@ -48,6 +48,7 @@ const Index: React.FC = () => {
               href="https://exun.co/sudotrailer"
               target="_blank"
               rel="noreferrer"
+              className="text-sudo"
             >
               here
             </a>
