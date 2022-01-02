@@ -60,7 +60,16 @@ class PlayController extends Controller
     // Check if all levels in circle are solved
     //   If yes, move to next circle
 
-    $user->points = $user->points + $level->points;
+    if ($user->circle_id === 3) { // Circle is Desire, therefore dynamic pointing
+      $numberOfUsersDoneWithLevel = UserAttempt::where('level_id', $user->level_id)->where('correct', true)->count();
+      if ($numberOfUsersDoneWithLevel >= 6) { // 6 because we've already created a UserAttempt for this guy
+        $user->points = $user->points + ((5 / 6) * $level->points * M_E ** (-0.008 * ($numberOfUsersDoneWithLevel - 5)) + ($level->points / 6));
+      } else {
+        $user->points = $user->points + $level->points;
+      }
+    } else {
+      $user->points = $user->points + $level->points;
+    }
     $user->last_solved = now();
     $user->level_id = null;
     if ($allLevelsSolved) {
