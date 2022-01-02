@@ -37,15 +37,7 @@ const Level: React.FC<IAdminLevelProps> = ({
   }, []);
 
   return (
-    <Layout
-      logo={true}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        { href: "/", label: "Home" },
-        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
-      ]}
-    >
+    <Layout logo={true}>
       <div className="home-container relative flex flex-col sm:flex-row justify-center items-center gap-y-10 sm:gap-y-0 sm:gap-x-14">
         <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
           {circles.map(({ name, levels }, i) => (

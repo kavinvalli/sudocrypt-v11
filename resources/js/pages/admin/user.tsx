@@ -74,15 +74,7 @@ const User: React.FC<IUserProps> = ({
   };
 
   return (
-    <Layout
-      logo={true}
-      circles={false}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        { href: "/admin", label: "Admin" },
-      ]}
-    >
+    <Layout logo={true} circles={false}>
       <div className="home-container sm:min-h-screen flex items-center justify-center p-20 gap-x-20">
         <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
           {circles.map(({ id, name, levels }, i) => (

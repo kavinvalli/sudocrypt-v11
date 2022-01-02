@@ -110,15 +110,7 @@ const Users: React.FC<IUsersProps> = ({ users }: IUsersProps) => {
   );
 
   return (
-    <Layout
-      logo={true}
-      circles={false}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        { href: "/admin", label: "Admin" },
-      ]}
-    >
+    <Layout logo={true} circles={false}>
       <div className="px-5 py-20 home-container">
         <div className="max-w-[1000px] w-full sm:min-h-screen mx-auto">
           <Pagination tbl={tbl} />

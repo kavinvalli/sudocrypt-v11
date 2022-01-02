@@ -20,14 +20,7 @@ const Links: React.FC<IAdminLinksProps> = ({ links }: IAdminLinksProps) => {
   ) => setData(e.target.name as never, e.target.value as never);
 
   return (
-    <Layout
-      logo={true}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        { href: "/admin", label: "Admin" },
-      ]}
-    >
+    <Layout logo={true}>
       <div className="home-container pb-32">
         <div className="mx-auto max-w-[1000px] w-full">
           <form

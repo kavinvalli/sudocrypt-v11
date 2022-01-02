@@ -92,7 +92,9 @@ const Layout: React.FC<IProps> = ({
     setShowNotifications(!showNotifications);
     window.localStorage.setItem(
       "SUDOCRYPT_LAST_SEEN_NOTIFICATION",
-      notifications.map(({ id }) => id).sort((a, b) => b - a)[0] + ""
+      notifications
+        ? notifications.map(({ id }) => id).sort((a, b) => b - a)[0] + ""
+        : ""
     );
     setUnreadNotification(false);
   };
@@ -150,24 +152,25 @@ const Layout: React.FC<IProps> = ({
         {showNotifications && (
           <>
             <div className="absolute top-20 right-20 sm:w-1/2 md:w-1/4 h-[300px] overflow-y-auto bg-dark-lighter z-[1010] p-5 rounded">
-              {notifications.map(({ created_at, content }, i) => (
-                <div key={i}>
-                  <div className="my-5">
-                    <div dangerouslySetInnerHTML={{ __html: content }} />
-                    <div className="text-right font-bold text-gray-600 text-sm uppercase mt-2">
-                      {formatDistanceToNow(new Date(created_at), {
-                        addSuffix: true,
-                        includeSeconds: true,
-                      })}
+              {notifications &&
+                notifications.map(({ created_at, content }, i) => (
+                  <div key={i}>
+                    <div className="my-5">
+                      <div dangerouslySetInnerHTML={{ __html: content }} />
+                      <div className="text-right font-bold text-gray-600 text-sm uppercase mt-2">
+                        {formatDistanceToNow(new Date(created_at), {
+                          addSuffix: true,
+                          includeSeconds: true,
+                        })}
+                      </div>
+                    </div>
+                    <div className="flex items-center justify-center gap-x-4 my-8">
+                      <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
+                      <div className="w-[10px] h-[10px] border-2 border-sudo border-opacity-30 rounded-full"></div>
+                      <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
                     </div>
                   </div>
-                  <div className="flex items-center justify-center gap-x-4 my-8">
-                    <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
-                    <div className="w-[10px] h-[10px] border-2 border-sudo border-opacity-30 rounded-full"></div>
-                    <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
-                  </div>
-                </div>
-              ))}
+                ))}
             </div>
             <div
               className="w-screen h-screen fixed top-0 left-0 z-[1000]"
