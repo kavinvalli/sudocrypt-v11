@@ -49,10 +49,6 @@ const unauthenticatedLinks = [
     href: "/auth/login",
     label: "Login",
   },
-  {
-    href: "/leaderboard",
-    label: "Leaderboard",
-  },
   // {
   //   href: "/about",
   //   label: "About",
