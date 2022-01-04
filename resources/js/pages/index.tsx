@@ -1,14 +1,11 @@
-import { Link, usePage } from "@inertiajs/inertia-react";
+import { Link } from "@inertiajs/inertia-react";
 import React from "react";
 import Layout from "../components/Layout";
-import { IPageProps } from "../lib/types";
 
 const Index: React.FC = () => {
-  const { authenticated, started, ended } = usePage<IPageProps>().props;
-
   return (
     <Layout footer={true}>
-      <div className="flex justify-center items-center h-[calc(100vh-104px-120px)] w-full px-4 py-8">
+      <div className="flex justify-center items-center h-full sm:h-[calc(100vh-104px-120px)] w-full px-4 py-8">
         <div className="w-full max-w-2xl h-auto flex flex-col justify-center items-center p-0 sm:p-8">
           <img
             src="/img/logo-red.png"

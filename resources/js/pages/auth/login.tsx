@@ -1,5 +1,5 @@
 import { Link, useForm } from "@inertiajs/inertia-react";
-import React, { useState } from "react";
+import React from "react";
 import TextInput from "../../components/TextInput";
 import Layout from "../../components/Layout";
 import useTitle from "../../lib/use-title";
@@ -38,7 +38,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
 
   return (
     <Layout>
-      <div className="flex justify-center items-center h-[calc(100vh-104px-120px)] w-full px-4 py-8">
+      <div className="flex justify-center items-center h-full sm:h-[calc(100vh-104px-120px)] w-full px-4 py-8">
         <IndexCard
           title="Login"
           className="sm:h-[60vh] w-full sm:w-3/4 md:w-1/2"
