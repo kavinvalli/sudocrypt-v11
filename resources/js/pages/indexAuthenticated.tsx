@@ -50,11 +50,11 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
   return (
     <Layout authenticated admin={Boolean(user.admin)}>
       <>
-        <div className="home-container sm:h-screen flex flex-col sm:flex-row items-start sm:px-6">
-          <div className="w-full sm:w-1/2 sm:h-[90vh] px-6 flex items-center my-6 sm:my-0">
+        <div className="home-container md:h-screen flex flex-col md:flex-row items-start md:px-6">
+          <div className="w-full md:w-1/2 md:h-[90vh] px-6 flex items-center my-6 md:my-0">
             <UserCard />
           </div>
-          <div className="sm:w-1/2 sm:h-[90vh] px-6 flex flex-col-reverse sm:flex-col justify-between gap-y-6 mb-6 sm:gap-y-0 sm:my-0">
+          <div className="md:w-1/2 md:h-[90vh] px-6 flex flex-col-reverse md:flex-col justify-between gap-y-6 mb-6 md:gap-y-0 md:my-0">
             <NotificationsCard notifications={notifications} />
             <PlayCard />
           </div>
