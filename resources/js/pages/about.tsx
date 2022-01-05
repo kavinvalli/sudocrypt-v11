@@ -29,15 +29,15 @@ const About: React.FC = () => {
             <li className="mt-2">
               Participants are required to join our{" "}
               <a
-                href="https://sudocrypt.com/discord"
+                href="https://sudocrypt.com/disc"
                 target="_blank"
                 rel="noreferrer"
-                className="text-sudo font-bold"
+                className="font-bold text-sudo"
               >
                 official Discord server
               </a>{" "}
               for all event related updates, including hints. Click{" "}
-              <Link href="/auth/register" className="text-sudo font-bold">
+              <Link href="/auth/register" className="font-bold text-sudo">
                 here
               </Link>{" "}
               to register!
@@ -46,7 +46,7 @@ const About: React.FC = () => {
               To get yourself acquainted with cryptic hunts, visit our{" "}
               <a
                 href="https://exun.co/resources/cryptic"
-                className="text-sudo font-bold"
+                className="font-bold text-sudo"
                 target="_blank"
                 rel="noreferrer"
               >
@@ -54,7 +54,7 @@ const About: React.FC = () => {
               </a>
               .
             </li>
-            <h2 className="text-2xl font-bold text-gray-500 mt-4">FAQ</h2>
+            <h2 className="mt-4 text-2xl font-bold text-gray-500">FAQ</h2>
             <FAQAccordion
               title={<li className="font-bold">1. What is a cryptic hunt?</li>}
               content="Cryptic hunts are virtual scavenger hunts where the participants are required to hunt the internet for clues, crack ciphers, and reach the final answer for each level. Sudocrypt, in particular, contains hints and answers in the domain of technology and related fields."
@@ -95,7 +95,7 @@ const About: React.FC = () => {
                   hunts at our{" "}
                   <a
                     href="https://exun.co/resources/cryptic"
-                    className="text-sudo font-bold"
+                    className="font-bold text-sudo"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -104,7 +104,7 @@ const About: React.FC = () => {
                   and view some of the past questions{" "}
                   <a
                     href="https://docs.google.com/document/d/1JoBXkgSwaUxRGLoQ9zC-zR-KGU0XaCU53fBkLq6AoVo/edit?usp=sharing"
-                    className="text-sudo font-bold"
+                    className="font-bold text-sudo"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -145,7 +145,7 @@ const About: React.FC = () => {
                   or aren’t participating in other{" "}
                   <a
                     href="https://exunclan.com"
-                    className="text-sudo font-bold"
+                    className="font-bold text-sudo"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -174,8 +174,16 @@ const About: React.FC = () => {
               title={<li className="font-bold">7. Will we get hints?</li>}
               content={
                 <li>
-                  Hints will be posted in hints on the Sudocrypt Discord server.
-                  To know if you’re on the right track, you can DM one of the
+                  Hints will be posted in hints on the{" "}
+                  <a
+                    href="https://sudocrypt.com/disc"
+                    target="_blank"
+                    rel="noreferrer"
+                    className="font-bold text-sudo"
+                  >
+                    Sudocrypt Discord server
+                  </a>
+                  . To know if you’re on the right track, you can DM one of the
                   official Sudocrypt Leads accounts which will be joining this
                   server shortly to confirm your leads. No lead confirmations
                   will be taking place on the personal accounts of the admins.
@@ -191,7 +199,7 @@ const About: React.FC = () => {
                   Registrations are open at{" "}
                   <a
                     href="https://sudocrypt.com/register"
-                    className="text-sudo font-bold"
+                    className="font-bold text-sudo"
                     target="_blank"
                     rel="noreferrer"
                   >
@@ -200,19 +208,19 @@ const About: React.FC = () => {
                 </li>
               }
             />
-            <div className="flex justify-center mt-10 items-center">
+            <div className="flex items-center justify-center mt-10">
               <a href="https://plaksha.edu.in" target="_blank" rel="noreferrer">
                 <img
                   src="/img/Plaksha.png"
                   alt="Plaksha Logo"
-                  className="h-32 w-auto mr-2"
+                  className="w-auto h-32 mr-2"
                 />
               </a>
               <a href="https://exunclan.com" target="_blank" rel="noreferrer">
                 <img
                   src="/img/exun-logo.png"
                   alt="Plaksha Logo"
-                  className="h-16 w-auto ml-2"
+                  className="w-auto h-16 ml-2"
                 />
               </a>
             </div>
