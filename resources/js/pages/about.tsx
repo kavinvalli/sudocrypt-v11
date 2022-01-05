@@ -35,27 +35,19 @@ const About: React.FC = () => {
               >
                 official Discord server
               </a>{" "}
-              for all event related updates, including hints.
-            </li>
-            <li className="mt-3">
-              Click{" "}
+              for all event related updates, including hints. Click{" "}
               <Link href="/auth/register" className="text-sudo font-bold">
                 here
               </Link>{" "}
-              to register and join the{" "}
-              <a
-                href="https://sudocrypt.com/discord"
-                className="text-sudo font-bold"
-              >
-                Discord Server
-              </a>{" "}
-              now!
+              to register!
             </li>
             <li className="mt-3">
               To get yourself acquainted with cryptic hunts, visit our{" "}
               <a
                 href="https://exun.co/resources/cryptic"
                 className="text-sudo font-bold"
+                target="_blank"
+                rel="noreferrer"
               >
                 resources
               </a>
@@ -90,17 +82,21 @@ const About: React.FC = () => {
                 knowing the "basics", such as different types of ciphers,
                 steganography tools, common CTF (capture the flag) utilities,
                 etc. always helps. To start learning and exploring, you can
-                refer to Exun Clan’s learning resources on cryptic hunts at
+                refer to Exun Clan’s learning resources on cryptic hunts at{" "}
                 <a
                   href="https://exunclan.com/resources/cryptic"
                   className="text-sudo font-bold"
+                  target="_blank"
+                  rel="noreferrer"
                 >
-                  https://exunclan.com/resources/cryptic
+                  our Learning Resources
                 </a>{" "}
                 and view some of the past questions{" "}
                 <a
                   href="https://docs.google.com/document/d/1JoBXkgSwaUxRGLoQ9zC-zR-KGU0XaCU53fBkLq6AoVo/edit?usp=sharing"
                   className="text-sudo font-bold"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   here
                 </a>
@@ -158,6 +154,8 @@ const About: React.FC = () => {
                 <a
                   href="https://sudocrypt.com/register"
                   className="text-sudo font-bold"
+                  target="_blank"
+                  rel="noreferrer"
                 >
                   https://sudocrypt.com/register
                 </a>
