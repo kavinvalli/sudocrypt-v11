@@ -47,7 +47,7 @@ const Play: React.FC<IPlayProps> = ({
 
   return (
     <Layout authenticated notifications={notifications}>
-      <div className="home-container h-full min-h-[calc(100vh-104px-120px)] relative flex flex-col-reverse md:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0 mt-6">
+      <div className="home-container h-full min-h-[calc(100vh-104px-120px)] relative flex flex-col-reverse md:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0 my-6">
         <div className="fixed bottom-40 left-5 text-sudo uppercase font-extrabold text-4xl transform origin-bottom -rotate-90 hidden sm:block">
           {user.circle?.name}
         </div>

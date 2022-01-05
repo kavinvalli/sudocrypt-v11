@@ -98,7 +98,7 @@ const UserCard: React.FC = () => {
       <div className="w-full">
         <div className="flex flex-col items-center my-8">
           <img
-            src={user.discord_image ? user.discord_image : "/img/logo-blue.png"}
+            src={user.discord_image ? user.discord_image : "/img/logo-red.png"}
             className="h-44 w-44 rounded-lg"
           />
           <div className="font-bold text-center text-2xl text-sudo mt-5">

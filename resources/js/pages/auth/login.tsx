@@ -44,7 +44,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
           className="sm:h-[60vh] w-full sm:w-3/4 md:w-1/2"
         >
           <form
-            className="w-full"
+            className="w-full h-full overflow-y-auto"
             onSubmit={(e: React.SyntheticEvent) => {
               e.preventDefault();
               post("/auth/login", {

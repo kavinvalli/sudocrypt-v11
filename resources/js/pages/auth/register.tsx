@@ -29,12 +29,12 @@ const Register: React.FC = () => {
 
   return (
     <Layout>
-      <div className="flex justify-center h-full w-full px-4 my-4">
+      <div className="flex justify-center w-full h-full px-4 my-4">
         <IndexCard
           title="Register"
           className="sm:h-[85vh] w-full sm:w-3/4 md:w-1/2"
         >
-          <>
+          <div className="h-full overflow-y-auto">
             <form
               className="w-full"
               onSubmit={(e: React.SyntheticEvent) => {
@@ -105,7 +105,7 @@ const Register: React.FC = () => {
                 onChange={handleChange}
               />
 
-              <div className="flex flex-col justify-center items-center">
+              <div className="flex flex-col items-center justify-center">
                 <Recaptcha
                   sitekey="6Ld3iU0cAAAAAH_pvjPNK_fUs695Tn4Dnq33Q4zI"
                   theme="dark"
@@ -144,7 +144,7 @@ const Register: React.FC = () => {
                 </div>
               </div>
             </form>
-          </>
+          </div>
         </IndexCard>
       </div>
     </Layout>

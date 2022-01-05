@@ -96,20 +96,28 @@ const Navbar: React.FC<INotificationProps> = ({
   return (
     <>
       <Link href="/">
-        <img
-          src="/img/logo-red.png"
-          className="h-12 w-12 fixed top-5 left-5 block sm:hidden z-[1020]"
-        />
+        <div className="fixed top-5 left-5 flex sm:hidden z-[1020]">
+          <img src="/img/exun-logo.png" className="w-auto h-12 mr-2" />
+          <img
+            src="/img/logo-red.png"
+            alt="Exun 2021-22"
+            className="w-12 h-12"
+          />
+        </div>
       </Link>
       <Link href="/">
-        <img
-          src="/img/logo-red.png"
-          className="h-12 w-12 fixed top-5 right-5 hidden sm:block"
-        />
+        <div className="fixed top-5 right-5 hidden sm:flex z-[1020]">
+          <img src="/img/exun-logo.png" className="w-auto h-12 mr-2" />
+          <img
+            src="/img/logo-red.png"
+            alt="Exun 2021-22"
+            className="h-12 h-12"
+          />
+        </div>
       </Link>
       {notifications && notifications.length > 0 && (
         <div
-          className="hidden sm:flex fixed top-6 right-20 h-10 w-10 border-4 border-gray-600 rounded-lg items-center justify-center cursor-pointer"
+          className="fixed items-center justify-center hidden w-10 h-10 border-4 border-gray-600 rounded-lg cursor-pointer sm:flex top-6 right-20"
           onClick={showNotificationPanel}
         >
           {unreadNotification && (
@@ -117,7 +125,7 @@ const Navbar: React.FC<INotificationProps> = ({
           )}
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="h-6 w-6 text-gray-600"
+            className="w-6 h-6 text-gray-600"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -139,14 +147,14 @@ const Navbar: React.FC<INotificationProps> = ({
                 <div key={i}>
                   <div className="my-5">
                     <div dangerouslySetInnerHTML={{ __html: content }} />
-                    <div className="text-right font-bold text-gray-600 text-sm uppercase mt-2">
+                    <div className="mt-2 text-sm font-bold text-right text-gray-600 uppercase">
                       {formatDistanceToNow(new Date(created_at), {
                         addSuffix: true,
                         includeSeconds: true,
                       })}
                     </div>
                   </div>
-                  <div className="flex items-center justify-center gap-x-4 my-8">
+                  <div className="flex items-center justify-center my-8 gap-x-4">
                     <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>
                     <div className="w-[10px] h-[10px] border-2 border-sudo border-opacity-30 rounded-full"></div>
                     <div className="w-[30%] h-[2px] bg-sudo opacity-30"></div>

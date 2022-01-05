@@ -9,11 +9,11 @@ const Index: React.FC = () => {
         <div className="w-full max-w-2xl h-auto flex flex-col justify-center items-center p-0 sm:p-8">
           <img
             src="/img/logo-red.png"
-            alt="Sudocrypt 2021"
-            className="h-32 w-32 sm:h-44 sm:w-44 mb-6"
+            alt="Sudocrypt 2021-22"
+            className="h-32 w-32 sm:h-44 sm:w-44 mb-6 mr-3"
           />
           <h1 className="w-full text-red-500 text-4xl sm:text-6xl font-bold mb-6 text-center">
-            Sudocrypt 2021
+            Sudocrypt 2021-22
           </h1>
 <<<<<<< HEAD
           <p className="w-full text-white text-lg sm:text-xl font-bold text-center mb-3">

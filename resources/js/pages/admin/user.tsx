@@ -127,7 +127,7 @@ const User: React.FC<IUserProps> = ({
             <div className="h-full flex flex-col justify-between">
               <div>
                 <img
-                  src={user.discord_image || "/img/logo-blue.png"}
+                  src={user.discord_image || "/img/logo-red.png"}
                   className="h-48 w-48 rounded-lg"
                 />
                 <div className="flex mt-3 gap-x-2">
