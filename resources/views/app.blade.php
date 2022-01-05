@@ -7,7 +7,7 @@
   <script src="https://www.google.com/recaptcha/api.js" async defer></script>
   <link href="{{ mix('/css/app.css') }}" rel="stylesheet" />
   <script src="{{ mix('/js/app.js') }}" defer></script>
-  <link rel="shortcut icon" href="/img/logo-blue.png" type="image/x-icon">
+  <link rel="shortcut icon" href="/img/logo-red.png" type="image/x-icon">
   <title>Sudocrypt v11.0</title>
 </head>
 
