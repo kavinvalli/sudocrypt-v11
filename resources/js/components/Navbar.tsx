@@ -15,6 +15,10 @@ const authenticatedLinks = [
     label: "Home",
   },
   {
+    href: "/about",
+    label: "About",
+  },
+  {
     href: "/play",
     label: "Play",
   },
@@ -32,6 +36,10 @@ const unauthenticatedLinks = [
   {
     href: "/",
     label: "Home",
+  },
+  {
+    href: "/about",
+    label: "About",
   },
   {
     href: "/auth/register",
