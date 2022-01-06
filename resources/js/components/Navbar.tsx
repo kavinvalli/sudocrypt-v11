@@ -19,10 +19,6 @@ const authenticatedLinks = [
     label: "About",
   },
   {
-    href: "/play",
-    label: "Play",
-  },
-  {
     href: "/leaderboard",
     label: "Leaderboard",
   },
