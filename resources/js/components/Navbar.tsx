@@ -121,7 +121,7 @@ const Navbar: React.FC<INotificationProps> = ({
       </Link>
       {notifications && notifications.length > 0 && (
         <div
-          className="fixed items-center justify-center hidden w-10 h-10 border-4 border-gray-600 rounded-lg cursor-pointer sm:flex top-6 right-20"
+          className="fixed items-center justify-center hidden w-10 h-10 border-4 border-gray-600 rounded-lg cursor-pointer sm:flex top-6 right-52"
           onClick={showNotificationPanel}
         >
           {unreadNotification && (
@@ -145,7 +145,7 @@ const Navbar: React.FC<INotificationProps> = ({
       )}
       {showNotifications && (
         <>
-          <div className="absolute top-20 right-20 sm:w-1/2 md:w-1/4 h-[300px] overflow-y-auto bg-dark-lighter z-[1010] p-5 rounded">
+          <div className="absolute top-20 right-52 sm:w-1/2 md:w-1/4 h-[300px] overflow-y-auto bg-dark-lighter z-[1010] p-5 rounded">
             {notifications &&
               notifications.map(({ created_at, content }, i) => (
                 <div key={i}>
