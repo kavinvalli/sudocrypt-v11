@@ -24,7 +24,7 @@ const AttemptLevel: React.FC = () => {
       "attempt",
       e.target.value
         .split("")
-        .filter((x: string) => /[a-z0-9_]{1}/.test(x))
+        .filter((x: string) => /[a-z0-9-_{}:()|&;]{1}/.test(x))
         .join("")
     );
   };
