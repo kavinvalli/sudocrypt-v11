@@ -99,26 +99,30 @@ const Navbar: React.FC<INotificationProps> = ({
 
   return (
     <>
-      <Link href="/">
-        <div className="fixed top-5 left-5 flex sm:hidden z-[1020]">
+      <div className="fixed top-5 left-5 flex sm:hidden z-[1020]">
+        <a href="//exunclan.com" target="_blank" rel="noreferrer">
           <img src="/img/exun-logo.png" className="w-auto h-12 mr-2" />
+        </a>
+        <Link href="/">
           <img
             src="/img/logo-red.png"
             alt="Exun 2021-22"
             className="w-12 h-12"
           />
-        </div>
-      </Link>
-      <Link href="/">
-        <div className="fixed top-5 right-5 hidden sm:flex z-[1020]">
+        </Link>
+      </div>
+      <div className="fixed top-5 right-5 hidden sm:flex z-[1020]">
+        <a href="//exunclan.com" target="_blank" rel="noreferrer">
           <img src="/img/exun-logo.png" className="w-auto h-12 mr-2" />
+        </a>
+        <Link href="/">
           <img
             src="/img/logo-red.png"
             alt="Exun 2021-22"
             className="h-12 h-12"
           />
-        </div>
-      </Link>
+        </Link>
+      </div>
       {notifications && notifications.length > 0 && (
         <div
           className="fixed items-center justify-center hidden w-10 h-10 border-4 border-gray-600 rounded-lg cursor-pointer sm:flex top-6 right-52"
