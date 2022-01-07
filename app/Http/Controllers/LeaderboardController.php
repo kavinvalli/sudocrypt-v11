@@ -26,7 +26,7 @@ class LeaderboardController extends Controller
           'referred_by' => $user->referred_by,
         ];
       });
-    $dq = User::select('username', 'points')
+    $dq = User::select('id', 'referred_by', 'username', 'points')
       ->where('admin', false)
       ->where('disqualified', true)
       ->get()
