@@ -37,6 +37,7 @@ class LeaderboardController extends Controller
           'institution' => $user->institution,
           'username' => $user->username,
           'points' => 'DQ',
+          'referred_by' => $user->referred_by,
         ];
       });
 
