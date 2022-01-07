@@ -19,7 +19,8 @@ class AdminController extends Controller
       'attempts' => UserAttempt::count(),
       'levels_solved' => UserAttempt::where('correct', true)->count(),
       'notifications' => Notification::count(),
-      'shortlinks' => Shortlink::count()
+      'shortlinks' => Shortlink::count(),
+      'referrals' => User::whereNotNull('referred_by')->count(),
     ]);
   }
 }

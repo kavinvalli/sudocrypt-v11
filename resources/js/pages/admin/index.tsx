@@ -16,6 +16,7 @@ interface IAdminProps {
   levels_solved: number;
   notifications: number;
   shortlinks: number;
+  referrals: number;
 }
 
 const Admin: React.FC<IAdminProps> = ({
@@ -26,6 +27,7 @@ const Admin: React.FC<IAdminProps> = ({
   levels_solved,
   notifications,
   shortlinks,
+  referrals,
 }: IAdminProps) => {
   useTitle("Admin");
   const { addToast } = useToasts();
@@ -86,7 +88,8 @@ const Admin: React.FC<IAdminProps> = ({
               [discord_accounts, "Discord Accounts"],
               [attempts, "Attempts"],
               [levels_solved, "Levels Solved"],
-              // [notifications, "Notifications"],
+              [notifications, "Notifications"],
+              [referrals, "Referrals"],
               // [shortlinks, "Shortlinks"],
             ].map(([value, label], i) => (
               <div

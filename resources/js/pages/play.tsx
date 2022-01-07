@@ -13,6 +13,7 @@ interface IPlayProps {
   completed_levels: number[];
   error?: string;
   notifications: INotification[];
+  hint: string;
 }
 
 const Play: React.FC<IPlayProps> = ({
@@ -20,6 +21,7 @@ const Play: React.FC<IPlayProps> = ({
   completed_levels,
   error,
   notifications: _notifications,
+  hint,
 }: IPlayProps) => {
   useTitle("Play");
   const { addToast } = useToasts();
@@ -74,8 +76,8 @@ const Play: React.FC<IPlayProps> = ({
                       completed_levels.includes(lvl)
                         ? "bg-sudo border-sudo bg-opacity-30 "
                         : user.level?.id === lvl
-                          ? "bg-sudo border-sudo"
-                          : "bg-dark border-gray-600 text-gray-600 bg-opacity-30"
+                        ? "bg-sudo border-sudo"
+                        : "bg-dark border-gray-600 text-gray-600 bg-opacity-30"
                     } border-2 rounded font-bold text-sm h-8 w-8 flex justify-center items-center`}
                   >
                     {lvl}
@@ -102,6 +104,7 @@ const Play: React.FC<IPlayProps> = ({
           </div>
         )}
       </div>
+      <p dangerouslySetInnerHTML={{ __html: `<!-- ${hint} -->` }}></p>
     </Layout>
   );
 };

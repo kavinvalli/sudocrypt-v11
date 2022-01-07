@@ -17,6 +17,7 @@ class PlayController extends Controller
   public function show()
   {
     return Inertia::render('play', [
+      'hint' => auth()->user()->level->source_hint,
       'circles' => Circle::with('levels')
         ->get()
         ->map(fn ($circle) => [
