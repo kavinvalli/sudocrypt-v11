@@ -20,7 +20,7 @@ const authenticatedLinks = [
   },
   {
     href: "/leaderboard",
-    label: "Leaderboard",
+    label: "Referral Leaderboard",
   },
   {
     href: "/auth/logout",
@@ -65,8 +65,8 @@ const Navbar: React.FC<INotificationProps> = ({
       "SUDOCRYPT_LAST_SEEN_NOTIFICATION"
     )
       ? parseInt(
-        window.localStorage.getItem("SUDOCRYPT_LAST_SEEN_NOTIFICATION") ?? ""
-      )
+          window.localStorage.getItem("SUDOCRYPT_LAST_SEEN_NOTIFICATION") ?? ""
+        )
       : 0;
     if (!showNotifications) {
       if (

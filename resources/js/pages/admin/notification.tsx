@@ -20,7 +20,7 @@ const Notification: React.FC<IAdminNotificationProps> = ({
   ) => setData(e.target.name as never, e.target.value as never);
 
   return (
-    <Layout logo={true}>
+    <Layout authenticated admin>
       <div className="home-container pb-32">
         <div className="mx-auto max-w-[1000px] w-full">
           <form

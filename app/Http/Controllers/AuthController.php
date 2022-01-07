@@ -60,15 +60,15 @@ class AuthController extends Controller
       'username' => 'required|unique:users,username',
       'password' => 'required|min:8',
       'institution' => 'required',
-      'referral_code' => 'nullable|regex:/^[A-Z0-9]+$/|exists:users,referral_code',
+      'referred_by' => 'nullable|exists:users,username',
       'recaptcha' => ['required', new Recaptcha($request->ip())]
     ]);
 
     $body = $request->all();
 
     $referred_by = null;
-    if ($body['referral_code']) {
-      $ref_user = User::where('referral_code', $body['referral_code'])->get();
+    if ($body['referred_by']) {
+      $ref_user = User::where('username', $body['referred_by'])->get();
       if ($ref_user->count() > 0) {
         $referred_by = $ref_user->first()->id;
       }

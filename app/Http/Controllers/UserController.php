@@ -24,8 +24,15 @@ class UserController extends Controller
   {
     $user->circle;
     $user->level;
+
+    $referred_by = null;
+    if ($user->referred_by) {
+      $referred_by = User::where('id', $user->referred_by)->first()->username;
+    }
     return Inertia::render('admin/user', [
       'user' => $user,
+      'referral_number' => User::where('referred_by', $user->id)->count(),
+      'referred_by' => $referred_by,
       'circles' => Circle::with('levels')
         ->get()
         ->map(fn ($circle) => [

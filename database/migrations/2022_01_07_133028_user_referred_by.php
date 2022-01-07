@@ -14,7 +14,7 @@ class UserReferredBy extends Migration
     public function up()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->foreignId('referral_by')->nullable()->constrained('users', 'id')->onDelete('set null')->default(null);
+            $table->foreignId('referred_by')->nullable()->constrained('users', 'id')->onDelete('set null')->default(null);
         });
     }
 
@@ -26,7 +26,7 @@ class UserReferredBy extends Migration
     public function down()
     {
         Schema::table('users', function (Blueprint $table) {
-            $table->dropColumn('referral_by');
+            $table->dropColumn('referred_by');
         });
     }
 }

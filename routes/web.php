@@ -11,6 +11,7 @@ use App\Http\Controllers\LeaderboardController;
 use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NotificationController;
+use App\Http\Controllers\ReferralController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;

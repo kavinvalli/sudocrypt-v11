@@ -5,7 +5,10 @@ import { IPageProps } from "../../lib/types";
 import { formatDistance } from "date-fns";
 import TextInput from "../TextInput";
 
-const UserCard: React.FC = () => {
+const UserCard: React.FC<{ referral_number: number; referred_by: string }> = ({
+  referral_number,
+  referred_by,
+}) => {
   const [editing, setEditing] = useState(false);
   const {
     props: {
@@ -64,11 +67,18 @@ const UserCard: React.FC = () => {
     "Last Solve": {
       value: user.last_solved
         ? formatDistance(new Date(user.last_solved), new Date(), {
-          addSuffix: true,
-          includeSeconds: true,
-        })
+            addSuffix: true,
+            includeSeconds: true,
+          })
         : "-",
       html: false,
+    },
+    "Referred By": {
+      value: referred_by ? referred_by : "-",
+      html: false,
+    },
+    "Number of Referrals": {
+      value: referral_number,
     },
   };
 

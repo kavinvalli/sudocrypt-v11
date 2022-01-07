@@ -18,6 +18,7 @@ const Register: React.FC = () => {
     institution: "",
     password: "",
     recaptcha: "",
+    referred_by: "",
   });
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (
@@ -102,6 +103,18 @@ const Register: React.FC = () => {
                 value={data.password}
                 disabled={false}
                 error={errors.password}
+                onChange={handleChange}
+              />
+
+              <TextInput
+                name="referred_by"
+                label="Referred By (username)"
+                placeholder="janedoe"
+                containerClassName="my-5"
+                type="text"
+                value={data.referred_by}
+                disabled={false}
+                error={errors.referred_by}
                 onChange={handleChange}
               />
 

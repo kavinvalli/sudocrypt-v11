@@ -12,6 +12,8 @@ interface IUserProps {
   user: IUser;
   circles: { id: number; name: string; levels: number[] }[];
   completed_levels: number[];
+  referral_number: number;
+  referred_by: string;
   error?: string;
   message?: string;
 }
@@ -20,6 +22,8 @@ const User: React.FC<IUserProps> = ({
   user,
   circles,
   completed_levels,
+  referral_number,
+  referred_by,
 }: IUserProps) => {
   useTitle(user.name);
   const { addToast } = useToasts();
@@ -65,16 +69,24 @@ const User: React.FC<IUserProps> = ({
     "Last Solve": {
       value: user.last_solved
         ? formatDistance(new Date(user.last_solved), new Date(), {
-          addSuffix: true,
-          includeSeconds: true,
-        })
+            addSuffix: true,
+            includeSeconds: true,
+          })
         : "-",
+      html: false,
+    },
+    "Referred By": {
+      value: referred_by ? referred_by : "-",
+      html: false,
+    },
+    "Number of referrals": {
+      value: referral_number,
       html: false,
     },
   };
 
   return (
-    <Layout logo={true} circles={false}>
+    <Layout authenticated={true} admin={true}>
       <div className="home-container sm:min-h-screen flex items-center justify-center p-20 gap-x-20">
         <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
           {circles.map(({ id, name, levels }, i) => (
@@ -100,8 +112,8 @@ const User: React.FC<IUserProps> = ({
                         completed_levels.includes(lvl)
                           ? "bg-sudo border-sudo"
                           : user.level?.id === lvl
-                            ? "bg-yellow-400 border-yellow-400"
-                            : "bg-dark border-gray-600 text-gray-600"
+                          ? "bg-yellow-400 border-yellow-400"
+                          : "bg-dark border-gray-600 text-gray-600"
                       } bg-opacity-30 border-2 rounded-lg font-bold text-sm h-8 w-8 flex justify-center items-center`}
                       href={`/admin/users/${user.id}/lvl/${lvl}`}
                     >

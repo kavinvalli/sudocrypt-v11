@@ -25,6 +25,8 @@ export interface IUser {
 
   level?: ILevel;
   circle?: ICircle;
+
+  referred_by?: string;
 }
 
 export interface ILevel {

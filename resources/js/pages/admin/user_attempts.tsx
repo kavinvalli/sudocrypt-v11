@@ -129,7 +129,7 @@ const UserAttempts: React.FC<IUserAttemptsProps> = ({
   );
 
   return (
-    <Layout logo={true} circles={false}>
+    <Layout authenticated admin>
       <div className="px-5 py-20 home-container">
         <div className="max-w-[1000px] w-full sm:min-h-screen mx-auto">
           <div className="my-10 flex justify-between">

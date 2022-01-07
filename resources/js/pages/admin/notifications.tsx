@@ -20,7 +20,7 @@ const Notifications: React.FC<INotificationProps> = ({
   ) => setData(e.target.name as never, e.target.value as never);
 
   return (
-    <Layout logo={true} circles={false}>
+    <Layout authenticated admin>
       <div className="home-container pb-32">
         <div className="mx-auto max-w-[1000px] w-full">
           <div className="w-full flex justify-between">

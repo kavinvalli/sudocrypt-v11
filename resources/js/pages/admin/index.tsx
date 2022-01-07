@@ -68,7 +68,7 @@ const Admin: React.FC<IAdminProps> = ({
   ];
 
   return (
-    <Layout logo={true}>
+    <Layout logo={true} authenticated={true} admin={true}>
       <div className="home-container flex justify-center sm:py-16 py-6 sm:px-6">
         <div className="max-w-2xl w-full px-5">
           <div className="text-center">

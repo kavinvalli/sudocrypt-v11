@@ -110,7 +110,7 @@ const Users: React.FC<IUsersProps> = ({ users }: IUsersProps) => {
   );
 
   return (
-    <Layout logo={true} circles={false}>
+    <Layout authenticated admin>
       <div className="px-5 py-20 home-container">
         <div className="max-w-[1000px] w-full sm:min-h-screen mx-auto">
           <Pagination tbl={tbl} />

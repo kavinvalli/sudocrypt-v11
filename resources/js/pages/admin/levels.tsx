@@ -27,7 +27,7 @@ const Levels: React.FC<IAdminLevelsProps> = ({
   }, []);
 
   return (
-    <Layout logo={true}>
+    <Layout authenticated admin>
       <div className="home-container sm:h-screen relative flex justify-center items-center gap-x-14">
         <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
           {circles.map(({ name, levels }, i) => (
