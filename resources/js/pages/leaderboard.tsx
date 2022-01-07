@@ -43,7 +43,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
   };
 
   return (
-    <Layout authenticated={authenticated}>
+    <Layout authenticated={authenticated} admin={Boolean(user?.admin)}>
       <div className="home-container h-screen flex flex-col justify-start items-center p-10">
         <div className="px-10 max-w-[1000px] w-full mx-auto">
           <input

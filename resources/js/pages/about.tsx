@@ -8,10 +8,13 @@ import { IPageProps } from "../lib/types";
 
 const About: React.FC = () => {
   const {
-    props: { authenticated },
+    props: {
+      authenticated,
+      auth: { user },
+    },
   } = usePage<IPageProps>();
   return (
-    <Layout authenticated={authenticated}>
+    <Layout authenticated={authenticated} admin={Boolean(user?.admin)}>
       <div className="w-full h-screen flex justify-center">
         <IndexCard
           title="About"
