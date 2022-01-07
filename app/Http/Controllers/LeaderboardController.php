@@ -38,8 +38,9 @@ class LeaderboardController extends Controller
           'username' => $user->username,
           'points' => 'DQ',
           'referred_by' => $user->referred_by,
+          'number_of_referrals' => 0,
         ];
-      });
+      })->toArray();
 
     $users = $users
       ->map(function ($user) use ($users) {
@@ -55,19 +56,19 @@ class LeaderboardController extends Controller
         ];
       })->toArray();
 
-    $dq = $dq
-      ->map(function ($user) use ($users) {
-        return [
-          'rank' => $user['rank'],
-          'username' => $user['username'],
-          'points' => $user['points'],
-          'number_of_referrals' => $users
-            ->filter(function ($u) use ($user) {
-              return $u['referred_by'] == $user['id'];
-            })
-            ->count()
-        ];
-      })->toArray();
+    /* $dq = $dq */
+    /*   ->map(function ($user) use ($dq) { */
+    /*     return [ */
+    /*       'rank' => $user['rank'], */
+    /*       'username' => $user['username'], */
+    /*       'points' => $user['points'], */
+    /*       'number_of_referrals' => $users */
+    /*         ->filter(function ($u) use ($user) { */
+    /*           return $u['referred_by'] == $user['id']; */
+    /*         }) */
+    /*         ->count() */
+    /*     ]; */
+    /*   })->toArray(); */
 
     return Inertia::render('leaderboard', [
       'users' => array_merge($users, $dq),
