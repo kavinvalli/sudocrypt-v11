@@ -16,6 +16,9 @@ use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
+use Inertia\Inertia;
+use Symfony\Component\HttpFoundation\Request;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,6 +30,10 @@ use Illuminate\Support\Facades\Auth;
 | contains the "web" middleware group. Now create something great!
 |
 */
+
+Route::get('/404', function (Request $request) {
+  return Inertia::render('404')->toResponse($request)->setStatusCode(404);
+});
 
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
 Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
@@ -130,7 +137,10 @@ Route::prefix('/admin')
   });
 
 Route::get('/{shortlink:shortlink}', [ShortlinkController::class, 'redirect'])
-  ->where('shortlink', '.*');
+  ->where('shortlink', '.*')
+  ->missing(function (Request $request) {
+    return Redirect::to('/404');
+  });
 
 if (App::environment('local')) {
   Route::get('/authn', function () {
