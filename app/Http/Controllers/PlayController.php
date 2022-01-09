@@ -40,7 +40,7 @@ class PlayController extends Controller
     $request->validate([
       'attempt' => [
         'required',
-        'regex:/^[a-z0-9-_{}:()|&;]+$/',
+        'regex:/^[a-z0-9-_{}:()|&;@#]+$/',
         new LevelCheck
       ]
     ]);
