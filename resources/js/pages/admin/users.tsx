@@ -89,6 +89,7 @@ const Users: React.FC<IUsersProps> = ({ users }: IUsersProps) => {
     () => [
       { accessor: "id", Header: "ID" },
       { accessor: "name", Header: "Name" },
+      { accessor: "username", Header: "Username" },
       { accessor: "email", Header: "Email" },
       { accessor: "points", Header: "Points" },
       {
