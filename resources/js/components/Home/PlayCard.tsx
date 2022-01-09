@@ -52,7 +52,7 @@ const PlayCard: React.FC = () => {
         <div className="h-full flex flex-col">
           <div className="flex-1 sm:grid grid-rows-2 grid-cols-2 sm:gap-10 sm:p-10 flex flex-col gap-y-3">
             {[
-              [user.level?.id, "Level"],
+              [user.level?.id ?? "-", "Level"],
               [user.circle?.name, "Circle"],
               [user.points, "Points"],
               // ["153", "Position"],
