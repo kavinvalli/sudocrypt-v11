@@ -63,7 +63,6 @@ class HandleInertiaRequests extends Middleware
           'admin',
           'disqualified',
           'points',
-          'level',
           'circle',
           'level_id',
           'circle_id',
@@ -71,6 +70,15 @@ class HandleInertiaRequests extends Middleware
           'last_solved'
         )
         : null,
+      'auth.user.level' => fn () => (Auth::check() && $request->user()->level_id !== null) ? $request->user()->level->only(
+        'question',
+        'source_hint',
+        'points',
+        'id',
+        'created_at',
+        'updated_at',
+        'circle_id'
+      ) : null,
       /* 'auth.user.created' => fn () => Auth::check() */
       /*   ? $request->user()->only('created_at')['created_at']->diffForHumans() */
       /*   : null, */

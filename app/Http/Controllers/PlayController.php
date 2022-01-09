@@ -17,8 +17,8 @@ class PlayController extends Controller
   public function show()
   {
     $hint = null;
-    if (auth()->user()->level) {
-      $hint = auth()->user()->level;
+    if (auth()->user()->level && auth()->user()->level->hint) {
+      $hint = auth()->user()->level->hint;
     }
     return Inertia::render('play', [
       'hint' => $hint,
