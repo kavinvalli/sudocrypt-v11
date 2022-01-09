@@ -25,11 +25,14 @@ interface ICountdown {
   seconds: string;
 }
 
-type ICountdownProps = React.HTMLProps<HTMLDivElement>;
+interface ICountdownProps extends React.HTMLProps<HTMLDivElement> {
+  onZero: () => void;
+}
 
 const Countdown: React.FC<ICountdownProps> = ({
   className,
   style,
+  onZero,
 }: ICountdownProps) => {
   const { dates, started, ended } = usePage<IPageProps>().props;
   if (ended) {
@@ -45,6 +48,14 @@ const Countdown: React.FC<ICountdownProps> = ({
 
   useEffect(() => {
     const interval = setInterval(() => {
+      if (
+        countdownTo(date).days == "00" &&
+        countdownTo(date).hours == "00" &&
+        countdownTo(date).minutes == "00" &&
+        countdownTo(date).seconds == "00"
+      ) {
+        onZero();
+      }
       setCountdown(countdownTo(date));
     }, 1000);
 

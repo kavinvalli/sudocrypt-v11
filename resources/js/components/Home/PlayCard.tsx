@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, usePage } from "@inertiajs/inertia-react";
 import IndexCard from "./IndexCard";
 import { IPageProps } from "../../lib/types";
@@ -7,11 +7,12 @@ import Countdown from "../Countdown";
 const PlayCard: React.FC = () => {
   const {
     props: {
-      started,
+      started: _started,
       ended,
       auth: { user },
     },
   } = usePage<IPageProps>();
+  const [started, setStarted] = useState(_started);
 
   return (
     <IndexCard
@@ -80,7 +81,11 @@ const PlayCard: React.FC = () => {
         </div>
       ) : (
         <div className="h-full flex flex-col justify-center items-center">
-          <Countdown />
+          <Countdown
+            onZero={() => {
+              setStarted(true);
+            }}
+          />
         </div>
       )}
     </IndexCard>
