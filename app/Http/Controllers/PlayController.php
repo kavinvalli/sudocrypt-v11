@@ -16,8 +16,12 @@ class PlayController extends Controller
 {
   public function show()
   {
+    $hint = null;
+    if (auth()->user()->level) {
+      $hint = auth()->user()->level;
+    }
     return Inertia::render('play', [
-      'hint' => auth()->user()->level->source_hint,
+      'hint' => $hint,
       'circles' => Circle::with('levels')
         ->get()
         ->map(fn ($circle) => [
