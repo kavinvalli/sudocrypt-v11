@@ -34,7 +34,8 @@ const AttemptLevel: React.FC = () => {
       <div className="text-sudo text-6xl font-extrabold">Play</div>
       <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded my-10">
         <div className="text-sudo-light text-sm uppercase font-bold">
-          {user.circle?.name} &middot; Level {user.level?.id}
+          {user.circle?.name} &middot; Level {user.level?.id} &middot;{" "}
+          {user.level?.points} Points
         </div>
         <div
           className="text-lg my-5"
