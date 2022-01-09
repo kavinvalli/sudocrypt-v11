@@ -10,7 +10,6 @@ interface ILeaderboardUser {
   username: string;
   institution: string;
   points?: number;
-  number_of_referrals: number;
 }
 
 interface ILeaderboardProps {
@@ -21,11 +20,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
   users,
 }: ILeaderboardProps) => {
   useTitle("Leaderboard");
-  const [displayUsers, setDisplayUsers] = useState<ILeaderboardUser[]>(
-    users.sort(
-      (a, b) => Number(b.number_of_referrals) - Number(a.number_of_referrals)
-    )
-  );
+  const [displayUsers, setDisplayUsers] = useState<ILeaderboardUser[]>(users);
   const searchRef = useRef<HTMLInputElement>(null);
 
   const {
@@ -43,7 +38,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
   };
 
   return (
-    <Layout authenticated={authenticated} admin={Boolean(user?.admin)}>
+    <Layout authenticated={authenticated}>
       <div className="home-container h-screen flex flex-col justify-start items-center p-10">
         <div className="px-10 max-w-[1000px] w-full mx-auto">
           <input
@@ -67,44 +62,39 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
                 <tr className="font-extrabold text-xl uppercase text-sudo">
                   <th className="p-5">Rank</th>
                   <th className="p-5">Username</th>
-                  {/* <th className="p-5">Points</th> */}
-                  <th className="p-5">Referrals</th>
+                  <th className="p-5">Points</th>
                 </tr>
               </thead>
               <tbody>
-                {/* {displayUsers.map(({ rank, username, points }, i) => ( */}
-                {displayUsers.map(
-                  ({ rank, username, number_of_referrals }, i) => (
-                    <tr
-                      key={i}
-                      className={
-                        rank === "DQ"
-                          ? "text-sudo-dark font-extrabold"
-                          : "font-bold"
-                      }
+                {displayUsers.map(({ rank, username, points }, i) => (
+                  <tr
+                    key={i}
+                    className={
+                      rank === "DQ"
+                        ? "text-sudo-dark font-extrabold"
+                        : "font-bold"
+                    }
+                  >
+                    <td
+                      className="text-lg text-center p-5 bg-none"
+                      style={{ color: "inerit" }}
                     >
-                      <td
-                        className="text-lg text-center p-5 bg-none"
-                        style={{ color: "inerit" }}
-                      >
-                        {i + 1}
-                      </td>
-                      <td
-                        className="text-lg text-center p-5 bg-none"
-                        style={{ color: "inerit" }}
-                      >
-                        {username}
-                      </td>
-                      <td
-                        className="text-lg text-center p-5 bg-none"
-                        style={{ color: "inerit" }}
-                      >
-                        {/* {points} */}
-                        {number_of_referrals}
-                      </td>
-                    </tr>
-                  )
-                )}
+                      {rank}
+                    </td>
+                    <td
+                      className="text-lg text-center p-5 bg-none"
+                      style={{ color: "inerit" }}
+                    >
+                      {username}
+                    </td>
+                    <td
+                      className="text-lg text-center p-5 bg-none"
+                      style={{ color: "inerit" }}
+                    >
+                      {points}
+                    </td>
+                  </tr>
+                ))}
               </tbody>
             </table>
           </div>
