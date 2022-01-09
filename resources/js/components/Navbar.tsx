@@ -18,10 +18,10 @@ const authenticatedLinks = [
     href: "/about",
     label: "About",
   },
-  {
-    href: "/leaderboard",
-    label: "Leaderboard",
-  },
+  // {
+  //   href: "/leaderboard",
+  //   label: "Leaderboard",
+  // },
   {
     href: "/auth/logout",
     label: "Logout",
