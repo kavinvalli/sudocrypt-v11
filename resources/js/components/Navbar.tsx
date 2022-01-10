@@ -19,6 +19,10 @@ const authenticatedLinks = [
     label: "About",
   },
   // {
+  //   href: "/rlleaderboard",
+  //   label: "Referral Leaderboard",
+  // },
+  // {
   //   href: "/leaderboard",
   //   label: "Leaderboard",
   // },

@@ -12,6 +12,7 @@ use App\Http\Controllers\LevelController;
 use App\Http\Controllers\MeController;
 use App\Http\Controllers\NotificationController;
 use App\Http\Controllers\ReferralController;
+use App\Http\Controllers\RlLeaderboardController;
 use App\Http\Controllers\ShortlinkController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\App;
@@ -37,6 +38,7 @@ Route::get('/404', function (Request $request) {
 
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
 Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['admin'])->name('leaderboard');
+/* Route::get('/rlleaderboard', [RlLeaderboardController::class, 'show'])->name('rlleaderboard'); */
 
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
 Route::get('/about', [IndexController::class, 'about'])->middleware(['dq'])->name('about');
