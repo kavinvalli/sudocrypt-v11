@@ -97,6 +97,11 @@ class PlayController extends Controller
         'level_id' => ['required', 'regex:/\d{1}/']
       ]);
 
+      $userAttemptDone = UserAttempt::where('user_id', auth()->id())->where('level_id', $request->level_id)->where('correct', true)->first();
+      if ($userAttemptDone) {
+        return redirect()->route('play.show');
+      }
+
       $user = User::find(auth()->id());
 
       $levels = collect(
