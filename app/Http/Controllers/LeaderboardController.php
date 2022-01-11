@@ -10,7 +10,7 @@ class LeaderboardController extends Controller
 {
   public function show()
   {
-    $users = User::select('username', 'points')
+    $users = User::select('id', 'institution', 'username', 'points')
       ->where('admin', false)
       ->where('disqualified', false)
       ->orderBy('points', 'DESC')
@@ -18,18 +18,20 @@ class LeaderboardController extends Controller
       ->get()
       ->map(function ($user, $key) {
         return [
+          'id' => $user->id,
           'rank' => $key + 1,
           'institution' => $user->institution,
           'username' => $user->username,
           'points' => $user->points
         ];
       })->toArray();
-    $dq = User::select('username', 'points')
+    $dq = User::select('id', 'institution', 'username', 'points')
       ->where('admin', false)
       ->where('disqualified', true)
       ->get()
       ->map(function ($user) {
         return [
+          'id' => $user->id,
           'rank' => 'DQ',
           'institution' => $user->institution,
           'username' => $user->username,

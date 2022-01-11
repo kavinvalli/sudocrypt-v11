@@ -1,11 +1,12 @@
 import React, { ChangeEvent, useRef, useState } from "react";
-import { usePage } from "@inertiajs/inertia-react";
+import { Link, usePage } from "@inertiajs/inertia-react";
 import { IPageProps } from "../lib/types";
 import Layout from "../components/Layout";
 import useTitle from "../lib/use-title";
 import IndexCard from "../components/Home/IndexCard";
 
 interface ILeaderboardUser {
+  id: number;
   rank?: number | string;
   username: string;
   institution: string;
@@ -66,7 +67,7 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
                 </tr>
               </thead>
               <tbody>
-                {displayUsers.map(({ rank, username, points }, i) => (
+                {displayUsers.map(({ id, rank, username, points }, i) => (
                   <tr
                     key={i}
                     className={
@@ -85,7 +86,16 @@ const Leaderboard: React.FC<ILeaderboardProps> = ({
                       className="text-lg text-center p-5 bg-none"
                       style={{ color: "inerit" }}
                     >
-                      {username}
+                      {user.admin ? (
+                        <Link
+                          href={`/admin/users/${id}`}
+                          className="text-sudo underline"
+                        >
+                          {username}
+                        </Link>
+                      ) : (
+                        username
+                      )}
                     </td>
                     <td
                       className="text-lg text-center p-5 bg-none"
