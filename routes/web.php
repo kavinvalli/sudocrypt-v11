@@ -37,7 +37,7 @@ Route::get('/404', function (Request $request) {
 });
 
 Route::get('/dq', [IndexController::class, 'dq'])->name('dq');
-Route::get('/leaderboard', [LeaderboardController::class, 'show'])->middleware(['admin'])->name('leaderboard');
+Route::get('/leaderboard', [LeaderboardController::class, 'show'])->name('leaderboard');
 /* Route::get('/rlleaderboard', [RlLeaderboardController::class, 'show'])->name('rlleaderboard'); */
 
 Route::get('/', [IndexController::class, 'show'])->middleware(['dq'])->name('index');
