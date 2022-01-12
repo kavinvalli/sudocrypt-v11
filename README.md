@@ -24,6 +24,14 @@ cp .env.example .env
   ```
   - Using Laravel Valet
     - Follow [the docs](https://laravel.com/docs/8.x/valet)
+    - Run Websockets
+    ```sh
+    php artisan websockets:serve
+    ```
+    - Run Discord Bot code (you will have to setup the discord api creds for this in .env)
+    ```sh
+    php artisan discord:run
+    ```
 - Watch for frontend changes
 ```sh
 npm run watch
