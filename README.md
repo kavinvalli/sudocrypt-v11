@@ -9,7 +9,7 @@ git clone https://github.com/kavinvalli/sudocrypt-v11.git
 ```
 - Install dependencies
 ```sh
-composer && npm i
+composer install && npm i
 ```
 - Fill out .env
 ```sh
