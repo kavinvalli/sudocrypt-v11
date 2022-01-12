@@ -74,6 +74,7 @@ const UserCard: React.FC = () => {
 
   return (
     <IndexCard
+      authenticated
       className="sm:h-[90vh] w-full"
       icon={
         <svg

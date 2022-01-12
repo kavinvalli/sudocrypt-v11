@@ -48,17 +48,9 @@ const IndexAuthenticated: React.FC<IIndexAuthenticatedProps> = ({
   }, []);
 
   return (
-    <Layout
-      logo={true}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        // { href: "/about", label: "About" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
-      ]}
-    >
+    <Layout authenticated admin={Boolean(user.admin)}>
       <>
-        <div className="home-container sm:h-screen flex flex-col sm:flex-row items-center sm:px-6">
+        <div className="home-container sm:h-screen flex flex-col sm:flex-row items-start sm:px-6">
           <div className="w-full sm:w-1/2 sm:h-[90vh] px-6 flex items-center my-6 sm:my-0">
             <UserCard />
           </div>

@@ -15,7 +15,8 @@ const PlayCard: React.FC = () => {
 
   return (
     <IndexCard
-      className="sm:h-[42.5vh] w-full"
+      authenticated
+      className="sm:h-[35vh] w-full"
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"

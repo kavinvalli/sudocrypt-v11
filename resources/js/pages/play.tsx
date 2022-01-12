@@ -1,25 +1,30 @@
 import { usePage } from "@inertiajs/inertia-react";
 import React, { useEffect } from "react";
 import Layout from "../components/Layout";
-import { IPageProps } from "../lib/types";
+import { INotification, IPageProps } from "../lib/types";
 import useTitle from "../lib/use-title";
 import { useToasts } from "react-toast-notifications";
 import AttemptLevel from "../components/Play/AttemptLevel";
 import ChooseLevel from "../components/Play/ChooseLevel";
+import echo from "../lib/echo";
 
 interface IPlayProps {
   circles: { id: number; name: string; levels: number[] }[];
   completed_levels: number[];
   error?: string;
+  notifications: INotification[];
 }
 
 const Play: React.FC<IPlayProps> = ({
   circles,
   completed_levels,
   error,
+  notifications: _notifications,
 }: IPlayProps) => {
   useTitle("Play");
   const { addToast } = useToasts();
+  const [notifications, setNotifications] =
+    React.useState<INotification[]>(_notifications);
   const {
     props: {
       auth: { user },
@@ -30,24 +35,23 @@ const Play: React.FC<IPlayProps> = ({
     if (error) {
       addToast(error, { appearance: "error" });
     }
+    echo
+      .channel("notifications")
+      .listen(
+        "NotificationCreated",
+        (e: { notifications: INotification[] }) => {
+          setNotifications(e.notifications);
+        }
+      );
   }, []);
 
   return (
-    <Layout
-      logo={true}
-      navbar={[
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-        // { href: "/about", label: "About" },
-        { href: "/", label: "Home" },
-        ...(user.admin ? [{ href: "/admin", label: "Admin" }] : []),
-      ]}
-    >
-      <div className="home-container sm:h-screen relative flex flex-col-reverse sm:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0">
+    <Layout authenticated notifications={notifications}>
+      <div className="home-container h-full min-h-[calc(100vh-104px-120px)] relative flex flex-col-reverse md:flex-row justify-center items-center sm:gap-x-14 gap-y-10 sm:gap-y-0 p-5 sm:p-0 mt-6">
         <div className="fixed bottom-40 left-5 text-sudo uppercase font-extrabold text-4xl transform origin-bottom -rotate-90 hidden sm:block">
           {user.circle?.name}
         </div>
-        <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg">
+        <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded">
           {circles.map(({ id, name, levels }, i) => (
             <div
               className={`border-gray-600 ${
@@ -68,11 +72,11 @@ const Play: React.FC<IPlayProps> = ({
                     key={i}
                     className={`${
                       completed_levels.includes(lvl)
-                        ? "bg-sudo border-sudo"
+                        ? "bg-sudo border-sudo bg-opacity-30 "
                         : user.level?.id === lvl
-                          ? "bg-yellow-400 border-yellow-400"
-                          : "bg-dark border-gray-600 text-gray-600"
-                    } bg-opacity-30 border-2 rounded-lg font-bold text-sm h-8 w-8 flex justify-center items-center`}
+                          ? "bg-sudo border-sudo"
+                          : "bg-dark border-gray-600 text-gray-600 bg-opacity-30"
+                    } border-2 rounded font-bold text-sm h-8 w-8 flex justify-center items-center`}
                   >
                     {lvl}
                   </div>

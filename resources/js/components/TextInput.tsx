@@ -22,13 +22,13 @@ const TextInput: React.FC<IProps> = ({
       {label && (
         <label
           htmlFor={name}
-          className="uppercase text-sm font-bold mb-1 block transition"
+          className="block mb-1 text-sm font-bold uppercase transition"
         >
           {label}
         </label>
       )}
       <input
-        className={`bg-dark text-gray-200 block w-full border-0 rounded-lg !ring-sudo !border-sudo !outline-sudo focus:ring-2 transition py-4 px-4 ${className}`}
+        className={`bg-transparent text-gray-200 block w-full border-0 border-b-2 border-gray-600 transition focus:ring-0 focus:!outline-none focus:!shadow-none focus:border-sudo py-4 px-1 ${className}`}
         type={props.type}
         placeholder={props.placeholder}
         name={name}

@@ -4,7 +4,7 @@ import Prizes from "../components/Prizes";
 
 const About: React.FC = () => {
   return (
-    <Layout footer={true} navbar={[{ href: "/", label: "Home" }]}>
+    <Layout>
       <div className="min-h-screen w-full flex flex-col justify-center items-center p-6">
         <div className="max-w-[650px] flex flex-col items-center">
           <h2 className="text-3xl font-bold text-sudo text-center">About</h2>

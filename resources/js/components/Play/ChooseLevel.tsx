@@ -26,7 +26,7 @@ const ChooseLevel: React.FC<IChooseLevelProps> = ({
   return (
     <div>
       <div className="text-sudo text-6xl font-extrabold">Choose Level</div>
-      <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg my-10">
+      <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded my-10">
         <div className="text-sudo-light text-md uppercase font-bold">
           {user.circle?.name}
         </div>
@@ -40,7 +40,7 @@ const ChooseLevel: React.FC<IChooseLevelProps> = ({
                   : user.level?.id === lvl
                     ? "bg-yellow-400 border-yellow-400"
                     : "bg-dark border-gray-600 text-gray-600 cursor-pointer"
-              } bg-opacity-30 border-2 rounded-lg font-bold text-lg h-12 w-12 flex justify-center items-center`}
+              } bg-opacity-30 border-2 rounded font-bold text-lg h-12 w-12 flex justify-center items-center`}
               onClick={() => {
                 if (!completed_levels.includes(lvl)) {
                   Inertia.post(

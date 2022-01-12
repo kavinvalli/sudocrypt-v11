@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Link } from "@inertiajs/inertia-react";
 import IndexCard from "./IndexCard";
 import { INotification } from "../../lib/types";
@@ -7,9 +7,16 @@ import { formatDistanceToNow } from "date-fns";
 const NotificationsCard: React.FC<{
   notifications: INotification[];
 }> = ({ notifications }: { notifications: INotification[] }) => {
+  useEffect(() => {
+    window.localStorage.setItem(
+      "SUDOCRYPT_LAST_SEEN_NOTIFICATION",
+      notifications.map(({ id }) => id).sort((a, b) => b - a)[0] + ""
+    );
+  }, [notifications]);
   return (
     <IndexCard
-      className="sm:h-[42.5vh] w-full"
+      authenticated
+      className="sm:h-[50vh] w-full"
       icon={
         <svg
           xmlns="http://www.w3.org/2000/svg"

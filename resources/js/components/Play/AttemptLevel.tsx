@@ -32,7 +32,7 @@ const AttemptLevel: React.FC = () => {
   return (
     <div>
       <div className="text-sudo text-6xl font-extrabold">Play</div>
-      <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded-lg my-10">
+      <div className="bg-dark-lighter p-6 shadow-md max-w-sm w-full rounded my-10">
         <div className="text-sudo-light text-sm uppercase font-bold">
           {user.circle?.name} &middot; Level {user.level?.id}
         </div>
@@ -56,12 +56,12 @@ const AttemptLevel: React.FC = () => {
             });
           }}
         >
-          <div className="mt-5 w-full focus-within:ring-4 ring-sudo rounded-lg transition hidden sm:flex">
+          <div className="mt-5 w-full focus-within:ring-4 ring-sudo rounded transition hidden sm:flex">
             <input
               type="text"
               name="attempt"
               placeholder="Answer"
-              className="flex-1 min-w-0 w-auto border-none rounded-tl-lg rounded-bl-lg p-5 bg-dark text-white h-full focus:border-none focus:outline-none focus:ring-0 focus:shadow-none"
+              className="flex-1 min-w-0 w-auto border-none rounded-tl rounded-bl p-5 bg-dark text-white h-full focus:border-none focus:outline-none focus:ring-0 focus:shadow-none"
               style={{ boxShadow: "none" }}
               autoComplete="off"
               ref={inputRef}
@@ -72,7 +72,7 @@ const AttemptLevel: React.FC = () => {
             <button
               type="submit"
               disabled={processing}
-              className="bg-sudo focus:bg-sudo-dark text-sm font-bold p-5 uppercase rounded-tr-lg rounded-br-lg h-full flex items-center justify-center transition focus:outline-none"
+              className="bg-sudo focus:bg-sudo-dark text-sm font-bold p-5 uppercase rounded-tr rounded-br h-full flex items-center justify-center transition focus:outline-none"
             >
               submit
             </button>

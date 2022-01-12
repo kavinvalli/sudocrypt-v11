@@ -6,8 +6,10 @@ use Illuminate\Http\Request;
 use App\Models\User;
 use App\Models\Circle;
 use App\Models\Level;
+use App\Models\Notification;
 use App\Models\UserAttempt;
 use App\Rules\LevelCheck;
+use Illuminate\Support\Facades\Log;
 use Inertia\Inertia;
 
 class PlayController extends Controller
@@ -27,6 +29,7 @@ class PlayController extends Controller
         ->where('user_id', auth()->id())
         ->get()
         ->map(fn ($lvl) => $lvl->id),
+      'notifications' => Notification::orderBy('created_at', 'DESC')->get(),
       'error' => null,
     ]);
   }

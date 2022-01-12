@@ -75,8 +75,8 @@ html,
 }
 
 .button {
-  @apply cursor-pointer bg-sudo block text-center p-3 px-4
-    text-sm uppercase font-bold rounded-lg focus:outline-none
+  @apply cursor-pointer rounded bg-sudo block text-center py-4 px-20
+    text-sm uppercase font-bold focus:outline-none
     focus:ring-4 focus:ring-sudo-dark;
 }
 
@@ -104,4 +104,13 @@ html,
   margin: 10px 0;
   text-align: justify;
   font-size: 1.1rem;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: red;
 }

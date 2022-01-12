@@ -9,14 +9,7 @@ const Notifications: React.FC<INotificationsProps> = ({
   notifications,
 }: INotificationsProps) => {
   return (
-    <Layout
-      logo={true}
-      navbar={[
-        { href: "/", label: "Home" },
-        { href: "/auth/logout", label: "Logout" },
-        { href: "/leaderboard", label: "Leaderboard" },
-      ]}
-    >
+    <Layout>
       <div className="home-container">
         <div className="bg-dark-lighter shadow-xl max-w-lg w-full mx-auto h-[95vh] overflow-y-auto relative">
           <div className="text-xl uppercase font-bold text-sudo-light sm:fixed h-24 max-w-lg w-full bg-dark-lighter flex items-center px-5 z-50">

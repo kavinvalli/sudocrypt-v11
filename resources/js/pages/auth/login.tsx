@@ -6,6 +6,7 @@ import useTitle from "../../lib/use-title";
 import { useToasts } from "react-toast-notifications";
 import { IPageProps } from "../../lib/types";
 import { usePage } from "@inertiajs/inertia-react";
+import IndexCard from "../../components/Home/IndexCard";
 
 interface IProps {
   error?: string;
@@ -36,21 +37,12 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
   ) => setData(e.target.name as "email" | "password", e.target.value);
 
   return (
-    <Layout
-      footer={true}
-      logo={true}
-      navbar={[
-        { href: "/", label: "Home" },
-        { href: "/auth/register", label: "Register" },
-        // { href: "/about", label: "About" },
-        { href: "/leaderboard", label: "Leaderboard" },
-      ]}
-    >
-      <div className="flex justify-center items-center h-full w-full px-4 py-8">
-        <div className="w-full max-w-md h-auto flex w-100 flex-col justify-center items-center sm:bg-gray-800 p-0 sm:p-8 rounded-lg sm:shadow-2xl">
-          <h1 className="w-full text-gray-400 text-3xl font-bold mb-3">
-            Login
-          </h1>
+    <Layout>
+      <div className="flex justify-center items-center h-[calc(100vh-104px-120px)] w-full px-4 py-8">
+        <IndexCard
+          title="Login"
+          className="sm:h-[60vh] w-full sm:w-3/4 md:w-1/2"
+        >
           <form
             className="w-full"
             onSubmit={(e: React.SyntheticEvent) => {
@@ -64,7 +56,6 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
               name="email"
               label="Email"
               placeholder="john@example.com"
-              className="bg-dark-lighter sm:bg-dark"
               containerClassName="my-5"
               type="email"
               disabled={processing}
@@ -76,7 +67,6 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
               name="password"
               label="Password"
               placeholder="sup3rs3cr3tp4ssw0rd"
-              className="bg-dark-lighter sm:bg-dark"
               containerClassName="my-5"
               type="password"
               disabled={processing}
@@ -92,19 +82,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
               </div>
             )}
 
-            <div className="my-5">
-              <div className="text-sm text-center">
-                Don&apos;t have an account?{" "}
-                <Link
-                  className="font-bold text-sudo focus:text-sudo-light"
-                  href="/auth/register"
-                >
-                  Register
-                </Link>
-              </div>
-            </div>
-
-            <div className="flex justify-center my-5">
+            <div className="flex justify-center mt-20 mb-5">
               <button type="submit" className="button" disabled={processing}>
                 Login
               </button>
@@ -116,7 +94,7 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
 
             <div className="flex justify-center my-5">
               <Link
-                className="w-full focus:ring-[#3e48b4] !bg-[#5865F2] !flex items-center justify-center button"
+                className="focus:ring-[#3e48b4] !bg-[#5865F2] !flex items-center justify-center button"
                 disabled={processing}
                 href="/discord/login"
               >
@@ -127,8 +105,20 @@ const Login: React.FC<IProps> = ({ error }: IProps) => {
                 Login with Discord
               </Link>
             </div>
+
+            <div className="my-5">
+              <div className="text-base text-center">
+                Don&apos;t have an account?{" "}
+                <Link
+                  className="font-bold text-sudo focus:text-sudo-light"
+                  href="/auth/register"
+                >
+                  Register
+                </Link>
+              </div>
+            </div>
           </form>
-        </div>
+        </IndexCard>
       </div>
     </Layout>
   );
