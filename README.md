@@ -1,5 +1,7 @@
 # Sudocrypt v11.0
 
+hi v0
+
 Using [_Laravel Inertia REact TypeScript_](https://github.com/dotangad/liret) made by @dotangad
 
 ## Setup
